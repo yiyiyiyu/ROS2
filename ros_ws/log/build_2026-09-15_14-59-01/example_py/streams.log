@@ -1,0 +1,33 @@
+[0.740s] Invoking command in '/home/yunzhou/node/ROS2/ros_ws/src/example_py': PYTHONPATH=/home/yunzhou/node/ROS2/ros_ws/build/example_py/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/yunzhou/node/ROS2/ros_ws/install/example_py/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/example_py build --build-base /home/yunzhou/node/ROS2/ros_ws/build/example_py/build install --record /home/yunzhou/node/ROS2/ros_ws/build/example_py/install.log --install-scripts $base/lib/example_py --single-version-externally-managed install_data
+[0.971s] running egg_info
+[0.972s] creating ../../build/example_py/example_py.egg-info
+[0.972s] writing ../../build/example_py/example_py.egg-info/PKG-INFO
+[0.972s] writing dependency_links to ../../build/example_py/example_py.egg-info/dependency_links.txt
+[0.972s] writing entry points to ../../build/example_py/example_py.egg-info/entry_points.txt
+[0.972s] writing requirements to ../../build/example_py/example_py.egg-info/requires.txt
+[0.972s] writing top-level names to ../../build/example_py/example_py.egg-info/top_level.txt
+[0.973s] writing manifest file '../../build/example_py/example_py.egg-info/SOURCES.txt'
+[1.012s] reading manifest file '../../build/example_py/example_py.egg-info/SOURCES.txt'
+[1.013s] writing manifest file '../../build/example_py/example_py.egg-info/SOURCES.txt'
+[1.013s] running build
+[1.013s] running build_py
+[1.013s] creating /home/yunzhou/node/ROS2/ros_ws/build/example_py/build
+[1.013s] creating /home/yunzhou/node/ROS2/ros_ws/build/example_py/build/lib
+[1.013s] creating /home/yunzhou/node/ROS2/ros_ws/build/example_py/build/lib/example_py
+[1.013s] copying example_py/__init__.py -> /home/yunzhou/node/ROS2/ros_ws/build/example_py/build/lib/example_py
+[1.014s] running install
+[1.014s] running install_lib
+[1.015s] creating /home/yunzhou/node/ROS2/ros_ws/install/example_py/lib/python3.8/site-packages/example_py
+[1.015s] copying /home/yunzhou/node/ROS2/ros_ws/build/example_py/build/lib/example_py/__init__.py -> /home/yunzhou/node/ROS2/ros_ws/install/example_py/lib/python3.8/site-packages/example_py
+[1.016s] byte-compiling /home/yunzhou/node/ROS2/ros_ws/install/example_py/lib/python3.8/site-packages/example_py/__init__.py to __init__.cpython-38.pyc
+[1.017s] running install_data
+[1.018s] creating /home/yunzhou/node/ROS2/ros_ws/install/example_py/share/ament_index
+[1.018s] creating /home/yunzhou/node/ROS2/ros_ws/install/example_py/share/ament_index/resource_index
+[1.018s] creating /home/yunzhou/node/ROS2/ros_ws/install/example_py/share/ament_index/resource_index/packages
+[1.018s] copying resource/example_py -> /home/yunzhou/node/ROS2/ros_ws/install/example_py/share/ament_index/resource_index/packages
+[1.018s] copying package.xml -> /home/yunzhou/node/ROS2/ros_ws/install/example_py/share/example_py
+[1.018s] running install_egg_info
+[1.019s] Copying ../../build/example_py/example_py.egg-info to /home/yunzhou/node/ROS2/ros_ws/install/example_py/lib/python3.8/site-packages/example_py-0.0.0-py3.8.egg-info
+[1.019s] running install_scripts
+[1.042s] writing list of installed files to '/home/yunzhou/node/ROS2/ros_ws/build/example_py/install.log'
+[1.063s] Invoked command in '/home/yunzhou/node/ROS2/ros_ws/src/example_py' returned '0': PYTHONPATH=/home/yunzhou/node/ROS2/ros_ws/build/example_py/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/yunzhou/node/ROS2/ros_ws/install/example_py/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/example_py build --build-base /home/yunzhou/node/ROS2/ros_ws/build/example_py/build install --record /home/yunzhou/node/ROS2/ros_ws/build/example_py/install.log --install-scripts $base/lib/example_py --single-version-externally-managed install_data

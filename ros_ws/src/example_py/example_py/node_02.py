@@ -13,6 +13,6 @@ def main(args=None):
     """
     rclpy.init(args=args) # 初始化rclpy
     node = Node("node_02")  # 新建一个节点
-    node.get_logger().info("大家好,我是node_02.")
+    node.get_logger().info("大家好，我是node_02.")
     rclpy.spin(node) # 保持节点运行，检测是否收到退出指令（Ctrl+C）
     rclpy.shutdown() # 关闭rclpy

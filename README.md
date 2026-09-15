@@ -1000,7 +1000,7 @@ mkdir src && cd src
 ```
 (2) 创建功能包
 ```bash
-ros2 pkg create examples_cpp --build-type ament_cmake --dependencies rclcpp
+ros2 pkg create example_cpp --build-type ament_cmake --dependencies rclcpp
 ``` 
 - `pkg create` 是创建包的意思
 - --build-type 用来指定该包的编译类型，一共有三个可选项`ament_python`、`ament_cmake`、`cmake` (foxy不支持,默认为ament_cmake)
@@ -1100,3 +1100,85 @@ def main(args=None):
         ],
     },
 ```
+
+# 4 面对对象方式编写ROS2节点
+1. c++
+```C++
+
+#include "rclcpp/rclcpp.hpp"
+
+/*
+    创建一个类节点，名字叫做Node03,继承自Node.
+*/
+class Node03 : public rclcpp::Node
+{
+
+public:
+    // 构造函数,有一个参数为节点名称
+    Node03(std::string name) : Node(name)
+    {
+        // 打印一句
+        RCLCPP_INFO(this->get_logger(), "大家好，我是%s.",name.c_str());
+    }
+
+private:
+   
+};
+
+int main(int argc, char **argv)
+{
+    rclcpp::init(argc, argv);
+    /*产生一个node_03的节点*/
+    auto node = std::make_shared<Node03>("node_03");
+    /* 运行节点，并检测退出信号*/
+    rclcpp::spin(node);
+    rclcpp::shutdown();
+    return 0;
+}
+```
+
+```Cmake
+add_executable(node_03 src/node_03.cpp)
+ament_target_dependencies(node_03 rclcpp)
+
+install(TARGETS
+  node_03
+  DESTINATION lib/${PROJECT_NAME}
+)
+```
+
+2. Python 
+```python
+#!/usr/bin/env python3
+import rclpy
+from rclpy.node import Node
+
+
+class Node04(Node):
+    """
+    创建一个Node04节点，并在初始化时输出一个话
+    """
+    def __init__(self,name):
+        super().__init__(name)
+        self.get_logger().info("大家好，我是%s!" % name)
+
+
+def main(args=None):
+    rclpy.init(args=args) # 初始化rclpy
+    node = Node04("node_04")  # 新建一个节点
+    rclpy.spin(node) # 保持节点运行，检测是否收到退出指令（Ctrl+C）
+    rclpy.shutdown() # 关闭rclpy
+
+```
+`setup.bash`
+```
+    entry_points={
+        'console_scripts': [
+            "node_02 = example_py.node_02:main",
+            "node_04 = example_py.node_04:main"
+        ],
+    },
+
+```
+
+

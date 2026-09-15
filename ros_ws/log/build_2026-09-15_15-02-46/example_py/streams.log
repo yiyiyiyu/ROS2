@@ -1,0 +1,28 @@
+[0.634s] Invoking command in '/home/yunzhou/node/ROS2/ros_ws/src/example_py': PYTHONPATH=/home/yunzhou/node/ROS2/ros_ws/build/example_py/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/yunzhou/node/ROS2/ros_ws/install/example_py/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/example_py build --build-base /home/yunzhou/node/ROS2/ros_ws/build/example_py/build install --record /home/yunzhou/node/ROS2/ros_ws/build/example_py/install.log --install-scripts $base/lib/example_py --single-version-externally-managed install_data
+[0.832s] running egg_info
+[0.832s] writing ../../build/example_py/example_py.egg-info/PKG-INFO
+[0.833s] writing dependency_links to ../../build/example_py/example_py.egg-info/dependency_links.txt
+[0.833s] writing entry points to ../../build/example_py/example_py.egg-info/entry_points.txt
+[0.833s] writing requirements to ../../build/example_py/example_py.egg-info/requires.txt
+[0.833s] writing top-level names to ../../build/example_py/example_py.egg-info/top_level.txt
+[0.862s] reading manifest file '../../build/example_py/example_py.egg-info/SOURCES.txt'
+[0.863s] writing manifest file '../../build/example_py/example_py.egg-info/SOURCES.txt'
+[0.863s] running build
+[0.863s] running build_py
+[0.863s] copying example_py/node_02.py -> /home/yunzhou/node/ROS2/ros_ws/build/example_py/build/lib/example_py
+[0.863s] copying example_py/node_04.py -> /home/yunzhou/node/ROS2/ros_ws/build/example_py/build/lib/example_py
+[0.863s] running install
+[0.864s] running install_lib
+[0.865s] copying /home/yunzhou/node/ROS2/ros_ws/build/example_py/build/lib/example_py/node_02.py -> /home/yunzhou/node/ROS2/ros_ws/install/example_py/lib/python3.8/site-packages/example_py
+[0.865s] copying /home/yunzhou/node/ROS2/ros_ws/build/example_py/build/lib/example_py/node_04.py -> /home/yunzhou/node/ROS2/ros_ws/install/example_py/lib/python3.8/site-packages/example_py
+[0.865s] byte-compiling /home/yunzhou/node/ROS2/ros_ws/install/example_py/lib/python3.8/site-packages/example_py/node_02.py to node_02.cpython-38.pyc
+[0.866s] byte-compiling /home/yunzhou/node/ROS2/ros_ws/install/example_py/lib/python3.8/site-packages/example_py/node_04.py to node_04.cpython-38.pyc
+[0.866s] running install_data
+[0.867s] running install_egg_info
+[0.868s] removing '/home/yunzhou/node/ROS2/ros_ws/install/example_py/lib/python3.8/site-packages/example_py-0.0.0-py3.8.egg-info' (and everything under it)
+[0.868s] Copying ../../build/example_py/example_py.egg-info to /home/yunzhou/node/ROS2/ros_ws/install/example_py/lib/python3.8/site-packages/example_py-0.0.0-py3.8.egg-info
+[0.868s] running install_scripts
+[0.880s] Installing node_02 script to /home/yunzhou/node/ROS2/ros_ws/install/example_py/lib/example_py
+[0.880s] Installing node_04 script to /home/yunzhou/node/ROS2/ros_ws/install/example_py/lib/example_py
+[0.880s] writing list of installed files to '/home/yunzhou/node/ROS2/ros_ws/build/example_py/install.log'
+[0.895s] Invoked command in '/home/yunzhou/node/ROS2/ros_ws/src/example_py' returned '0': PYTHONPATH=/home/yunzhou/node/ROS2/ros_ws/build/example_py/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/yunzhou/node/ROS2/ros_ws/install/example_py/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/example_py build --build-base /home/yunzhou/node/ROS2/ros_ws/build/example_py/build install --record /home/yunzhou/node/ROS2/ros_ws/build/example_py/install.log --install-scripts $base/lib/example_py --single-version-externally-managed install_data
