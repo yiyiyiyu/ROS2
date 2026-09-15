@@ -1,4 +1,17 @@
-# 版本
+# [版本](https://docs.ros.org/)
+
+| Ubuntu版本	| 代号	| ROS 版本 | 代号	| 发布时间 | EOL (支持结束)	| 备注 |
+|------|----------|------|------|------|------|------|
+|18.04 LTS |Bionic| ROS 1	Melodic	| Morenia	| 2018.05| 2023.05|ROS 2 首个官方 LTS 版本| 
+| || ROS 2 Dashing	| Diademata	| 2019.05	|2021.05|ROS 1 重要的 LTS 版本之一| 
+| || ROS 2 Eloquent	| Elusor	| 2019.11|	2020.11|	ROS 2 短期支持版本| 
+|20.04 LTS |Focal| ROS 1 Noetic	|Ninjemys |	2020.05	|2025.05	|ROS 1 最终版本，官方推荐|
+| || **ROS 2 Foxy**|	Fitzroy	|2020.06|	2023.06|	ROS 2 首个3年LTS版本，应用广泛|
+| || ROS 2 Galactic|	Geochelone|	2021.05|	2022.12|	ROS 2 短期支持版本，优化了性能|
+|22.04 LTS|Jammy	|**ROS 2 Humble**	|Hawksbill|	2022.05|	2027.05|	ROS 2 首个5年LTS版本，主流选择|
+| || ROS 2 Iron	|Irwini |	2023.05|	2024.11	|ROS 2 短期支持版本，引入新API |
+|24.04 LTS	|Noble	|**ROS 2 Jazzy**|	Jalisco	|2024.05	|2029.05|	最新ROS 2 LTS版本，适配新系统|
+|24.04 LTS	|Noble|	ROS 2 Rolling|	Ridley|	持续更新|	持续支持|	滚动开发版，用于体验最新特性|
 
 - Lyrical - Ubuntu Resolute Raccoon (26.04)
 - Jazzy - Ubuntu Noble (24.04)
@@ -705,8 +718,8 @@ public:
 ## 1.2 ROS2
 
 ### 1.2.1 架构
-
-![image-20220602204152352](ROS2架构图.png)
+![alt text](assets/ROS架构对比图.png)
+![image-20220602204152352](assets/ROS2架构图.png)
 
 - DDS实现层：数据分发服务（Data Distribution Service, DDS）。
 
@@ -875,7 +888,215 @@ ROS2 支持通过共享内存实现零拷贝：
 
 
 
-# 2. 工具
+# 2. 工作空间与包管理
+
+# 2.1 工作空间结构
+```text
+.(工作空间)
+├── build
+    ├── 包1
+      ├── CMakeCache.txt
+      ├── Makefile
+      ├── cmake_install.cmake
+├── install 
+    ├── 包1
+        ├── lib
+        ├── share
+    ├── 包2
+        ├── lib
+        ├── share
+    ├── setup.bash
+    ├── setup.sh
+    ├── setup.zsh
+    ├── zshrc
+    ├── zshrc.d
+├── src
+    └── 包1
+        ├── src
+        ├── CMakeLists.txt
+        └── launch
+    └── 包2
+        ├── src
+        ├── CMakeLists.txt
+        └── launch
+├── log
+    ├── 包1
+    ├── 包2
+
+4 directories, 0 files
+```
+
+## 2.2 功能包获取方式
+
+1. 安装获取
+```bash
+sudo apt install ros-<version>-package_name
+```
+此方法获取的功能包不需要source 环境变量
+
+2. 从源代码获取
+```bash
+git clone https://github.com/ros2/package_name.git
+```
+此方法获取的功能包需要source 环境变量
+
+3. 手动编译
+```bash
+cd <工作空间>
+colcon build
+```
+此方法获取的功能包需要source 环境变量
 
 
+# 3 Colcon
+## 3.1 安装
+```bash
+sudo apt-get install python3-colcon-common-extensions
+```
+安装完成后，打开终端输入colcon即可看到其使用方法。
+## 3.2 使用示例
+1. 创建工作目录
+```bash
+mkdir -p ros_ws && cd ros_ws
+mkdir src && cd src
+```
+2. 下载个ROS2示例源码
+```bash
+git clone https://github.com/ros2/examples src/examples -b humble
+```
+3. 编译全部功能包
+```bash
+colcon build  
+```
+- 编译 C++ 源码、Python 脚本、消息接口 .msg、服务 .srv、动作 .action
+- 生成可执行文件、库文件、头文件、Python 包
+- 默认输出目录：build/（编译中间文件）、install/（安装产物）、log/（日志）
+- 编译后，会把源码里的 Python 脚本、配置文件、launch 文件、yaml 参数文件完整拷贝一份到 install/对应包/share/、install/对应包/lib/python*/site-packages/。
 
+~痛点： 修改源码里的 .py、.launch.py、.yaml 后，不会自动生效； 必须重新执行一遍 colcon build 重新拷贝，调试极其繁琐； 频繁重复编译浪费时间.解决方案:
+
+`colcon build --symlink-install`
+  链接安装，无需source 环境变量(每次调整 python 脚本时都不必重新build了)
+
+```bash
+colcon build --packages-select YOUR_PKG_NAME  # 只编译一个包
+colcon build --packages-select YOUR_PKG_NAME  --cmake-args -DBUILD_TESTING=0 #不编译测试单元
+colcon test #运行编译的包的测试
+```
+
+4. 运行示例
+```bash
+source install/setup.bash
+ros2 run examples minimal_talker
+```
+
+
+## 3.3 使用RCLCPP编写功能包
+
+(1) 创建工作空间,并进入src目录
+```bash
+mkdir -p ros_ws && cd ros_ws
+mkdir src && cd src
+```
+(2) 创建功能包
+```bash
+ros2 pkg create examples_cpp --build-type ament_cmake --dependencies rclcpp
+``` 
+- `pkg create` 是创建包的意思
+- --build-type 用来指定该包的编译类型，一共有三个可选项`ament_python`、`ament_cmake`、`cmake` (foxy不支持,默认为ament_cmake)
+- `--dependencies` 指的是这个功能包的依赖，这里是一个ros2的C++客户端接口rclcpp
+
+(3) 创建节点
+
+`node_01.cpp`
+```C++
+#include "rclcpp/rclcpp.hpp"
+
+
+int main(int argc, char **argv)
+{
+    /* 初始化rclcpp  */
+    rclcpp::init(argc, argv);
+    /*产生一个node_01的节点*/
+    auto node = std::make_shared<rclcpp::Node>("node_01");
+    // 打印一句自我介绍
+    RCLCPP_INFO(node->get_logger(), "node_01节点已经启动.");
+    /* 运行节点，并检测退出信号 Ctrl+C*/
+    rclcpp::spin(node);
+    /* 停止运行 */
+    rclcpp::shutdown();
+    return 0;
+}
+
+```
+`CMakeLists.txt`
+```
+add_executable(node_01 src/node_01.cpp)
+ament_target_dependencies(node_01 rclcpp)
+install(TARGETS
+  node_01
+  DESTINATION lib/${PROJECT_NAME}
+)
+```
+(4) 编译与运行
+```bash
+colcon build
+source setup.bash
+ros2 run examples_cpp node_01
+```
+## 3.4 使用RCLPY编写功能包
+
+(1) 创建功能包
+```bash
+cd ros_ws/src
+ros2 pkg create example_py --build-type ament_python --dependencies rclpy
+```
+创建完成后的目录结构
+```text
+.
+├── example_py
+│   └── __init__.py
+├── package.xml
+├── resource
+│   └── example_py
+├── setup.cfg
+├── setup.py
+└── test
+    ├── test_copyright.py
+    ├── test_flake8.py
+    └── test_pep257.py
+
+3 directories, 8 files
+```
+(2) 编写程序，创建节点
+`node_02.py`
+```python
+import rclpy
+from rclpy.node import Node
+
+def main(args=None):
+    """
+    ros2运行该节点的入口函数
+    编写ROS2节点的一般步骤
+    1. 导入库文件
+    2. 初始化客户端库
+    3. 新建节点对象
+    4. spin循环节点
+    5. 关闭客户端库
+    """
+    rclpy.init(args=args) # 初始化rclpy
+    node = Node("node_02")  # 新建一个节点
+    node.get_logger().info("大家好，我是node_02.")
+    rclpy.spin(node) # 保持节点运行，检测是否收到退出指令（Ctrl+C）
+    rclpy.shutdown() # 关闭rclpy
+
+```
+
+`setup.py`
+```
+    entry_points={
+        'console_scripts': [
+            "node_02 = example_py.node_02:main"
+        ],
+    },
+```
