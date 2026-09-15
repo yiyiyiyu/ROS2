@@ -1181,4 +1181,73 @@ def main(args=None):
 
 ```
 
+# 5 Domain_ID
 
+在DDS中，不同逻辑网络共享物理网络的主要机制称为域(Domain) ID。
+
+同一域上的ROS2节点可以自由地相互发现并发送消息，而不同域上的ROS2节点则不能。所有ROS2节点默认使用域ID为0。为了避免在同一网络上运行ROS2的不同计算机组之间互相干扰，应为每组设置不同的域ID。
+
+## 5.1 Domain_ID --> UDP
+DDS 的端口分配遵循 OMG DDSI-RTPS 规范，其默认端口号由以下公式计算得出：
+
+**多播端口（用于节点发现）**：
+
+- DiscoveryMulticastPort = 7400 + 250 * DomainId + 0
+
+- UserMulticastPort = 7400 + 250 * DomainId + 1
+
+**单播端口（用于与特定参与者通信）**：
+
+- DiscoveryUnicastPort = 7400 + 250 * DomainId + 10 + 2 * ParticipantId
+
+- UserUnicastPort = 7400 + 250 * DomainId + 11 + 2 * ParticipantId
+
+其中，DomainId 是设置的域 ID，ParticipantId 是同一台主机上、同一域内参与者的索引（从 0 开始），用于避免同一主机内的端口冲突。
+
+
+**端口计算示例**
+公式中使用的默认参数如下：
+
+- PB (Port Base) = 7400
+
+- DG (DomainId Gain) = 250
+
+- PG (ParticipantId Gain) = 2
+
+- d0, d1, d2, d3 = 0, 10, 1, 11
+
+（1）域 0 (默认)：
+
+    - 发现多播端口 = 7400 + 250*0 + 0 = 7400
+    - 用户多播端口 = 7401。
+    - 域 0 中的第 1 个参与者 (ParticipantId=1)：发现单播端口 = 7400 + 250*0 + 10 + 2*1 = 7412。
+
+（2）域 1：
+
+    - 发现多播端口 = 7400 + 250*1 + 0 = 7650，
+    - 用户多播端口 = 7651。
+
+**🚧 ROS 2 中的实际限制与建议**
+
+虽然理论上域 ID 可以更大，但由于 UDP 端口号是 16 位无符号整数（最大 65535），可用的最高域 ID 被限制为 232。
+
+更重要的是，操作系统会动态分配临时端口（Ephemeral Ports） 用于客户端连接，DDS 端口可能会与此范围冲突。因此，ROS 2 官方建议在以下安全范围内选择域 ID：
+
+```test
+操作系统	默认临时端口范围	推荐的安全域 ID 范围
+Linux	32768 - 60999	0 - 101 和 215 - 232
+macOS	49152 - 65535	0 - 166
+Windows	49152 - 65535	0 - 166
+```
+
+**⚙️ 配置与管理**
+
+在 ROS 2 中，默认域 ID 为 0。可以通过设置环境变量 ROS_DOMAIN_ID 来指定不同的域。只有域 ID 相同的 ROS 2 节点才能相互发现和通信。
+
+例如，在终端中启动一个域 ID 为 5 的节点：
+
+```bash
+export ROS_DOMAIN_ID=5
+ros2 run your_package your_node
+```
+此外，一些 DDS 实现（如 Fast DDS）允许通过配置文件或 API 修改端口计算中的基础参数（如 PB, DG），从而自定义端口映射，但这需要同一网络中的所有参与者进行一致配置，否则会导致无法通信。
