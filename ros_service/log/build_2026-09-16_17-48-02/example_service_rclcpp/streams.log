@@ -1,0 +1,180 @@
+[0.012s] Invoking command in '/home/yunzhou/node/ROS2/ros_service/build/example_service_rclcpp': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake /home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp -DCMAKE_INSTALL_PREFIX=/home/yunzhou/node/ROS2/ros_service/install/example_service_rclcpp
+[0.067s] -- The C compiler identification is GNU 9.4.0
+[0.115s] -- The CXX compiler identification is GNU 9.4.0
+[0.120s] -- Check for working C compiler: /usr/bin/cc
+[0.186s] -- Check for working C compiler: /usr/bin/cc -- works
+[0.187s] -- Detecting C compiler ABI info
+[0.255s] -- Detecting C compiler ABI info - done
+[0.264s] -- Detecting C compile features
+[0.264s] -- Detecting C compile features - done
+[0.266s] -- Check for working CXX compiler: /usr/bin/c++
+[0.338s] -- Check for working CXX compiler: /usr/bin/c++ -- works
+[0.339s] -- Detecting CXX compiler ABI info
+[0.412s] -- Detecting CXX compiler ABI info - done
+[0.421s] -- Detecting CXX compile features
+[0.421s] -- Detecting CXX compile features - done
+[0.423s] -- Found ament_cmake: 0.9.12 (/opt/ros/foxy/share/ament_cmake/cmake)
+[0.443s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3") 
+[0.443s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[0.600s] -- Found rclcpp: 2.4.3 (/opt/ros/foxy/share/rclcpp/cmake)
+[0.636s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.640s] -- Found rosidl_adapter: 1.3.1 (/opt/ros/foxy/share/rosidl_adapter/cmake)
+[0.722s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "1.1.1f")  
+[0.750s] -- Found FastRTPS: /opt/ros/foxy/include  
+[0.812s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.852s] -- Found rmw_implementation_cmake: 1.0.4 (/opt/ros/foxy/share/rmw_implementation_cmake/cmake)
+[0.853s] -- Using RMW implementation 'rmw_cyclonedds_cpp' as default
+[0.853s] -- Looking for pthread.h
+[0.919s] -- Looking for pthread.h - found
+[0.919s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[0.988s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+[0.988s] -- Looking for pthread_create in pthreads
+[1.045s] -- Looking for pthread_create in pthreads - not found
+[1.046s] -- Looking for pthread_create in pthread
+[1.110s] -- Looking for pthread_create in pthread - found
+[1.111s] -- Found Threads: TRUE  
+[1.231s] -- Found example_interfaces: 0.9.1 (/opt/ros/foxy/share/example_interfaces/cmake)
+[1.335s] -- Found ament_lint_auto: 0.9.8 (/opt/ros/foxy/share/ament_lint_auto/cmake)
+[1.390s] -- Added test 'copyright' to check source files copyright and LICENSE
+[1.391s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[1.391s] -- Configured cppcheck include dirs: 
+[1.391s] -- Configured cppcheck exclude dirs and/or files: 
+[1.392s] -- Added test 'cpplint' to check C / C++ code against the Google style
+[1.392s] -- Configured cpplint exclude dirs and/or files: 
+[1.392s] -- Added test 'lint_cmake' to check CMake code style
+[1.393s] -- Added test 'uncrustify' to check C / C++ code style
+[1.393s] -- Configured uncrustify additional arguments: 
+[1.394s] -- Added test 'xmllint' to check XML markup files
+[1.398s] -- Configuring done
+[1.406s] -- Generating done
+[1.409s] -- Build files have been written to: /home/yunzhou/node/ROS2/ros_service/build/example_service_rclcpp
+[1.420s] Invoked command in '/home/yunzhou/node/ROS2/ros_service/build/example_service_rclcpp' returned '0': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake /home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp -DCMAKE_INSTALL_PREFIX=/home/yunzhou/node/ROS2/ros_service/install/example_service_rclcpp
+[1.421s] Invoking command in '/home/yunzhou/node/ROS2/ros_service/build/example_service_rclcpp': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --build /home/yunzhou/node/ROS2/ros_service/build/example_service_rclcpp -- -j8 -l8
+[1.463s] [35m[1mScanning dependencies of target service_server_01[0m
+[1.463s] [35m[1mScanning dependencies of target service_client_01[0m
+[1.477s] [ 25%] [32mBuilding CXX object CMakeFiles/service_client_01.dir/src/service_client_01.cpp.o[0m
+[1.492s] [ 50%] [32mBuilding CXX object CMakeFiles/service_server_01.dir/src/service_server_01.cpp.o[0m
+[1.644s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:3:32:[m[K [01;31m[Kerror: [m[K‘[01m[Krclcpp[m[K’ has not been declared
+[1.644s]     3 | class ServiceClient01 : public [01;31m[Krclcpp[m[K::Node
+[1.644s]       |                                [01;31m[K^~~~~~[m[K
+[1.644s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:3:40:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K{[m[K’ before ‘[01m[KNode[m[K’
+[1.644s]     3 | class ServiceClient01 : public rclcpp::[01;31m[KNode[m[K
+[1.645s]       |                                        [01;31m[K^~~~[m[K
+[1.645s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:5:1:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[Kpublic[m[K’
+[1.645s]     5 | [01;31m[Kpublic[m[K:
+[1.645s]       | [01;31m[K^~~~~~[m[K
+[1.645s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:5:1:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K}[m[K’ before ‘[01m[Kpublic[m[K’
+[1.645s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:4:1:[m[K [01;36m[Knote: [m[Kto match this ‘[01m[K{[m[K’
+[1.645s]     4 | [01;36m[K{[m[K
+[1.645s]       | [01;36m[K^[m[K
+[1.645s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:[m[K In function ‘[01m[Kvoid send_request(int, int)[m[K’:
+[1.645s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:16:17:[m[K [01;31m[Kerror: [m[Kinvalid use of ‘[01m[Kthis[m[K’ in non-member function
+[1.645s]    16 |     RCLCPP_INFO([01;31m[Kthis[m[K->get_logger(), "计算%d+%d", a, b);
+[1.645s]       |                 [01;31m[K^~~~[m[K
+[1.646s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:16:5:[m[K [01;31m[Kerror: [m[K‘[01m[KRCLCPP_INFO[m[K’ was not declared in this scope
+[1.646s]    16 |     [01;31m[KRCLCPP_INFO[m[K(this->get_logger(), "计算%d+%d", a, b);
+[1.646s]       |     [01;31m[K^~~~~~~~~~~[m[K
+[1.646s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:19:13:[m[K [01;31m[Kerror: [m[K‘[01m[Kclient_[m[K’ was not declared in this scope
+[1.646s]    19 |     while (![01;31m[Kclient_[m[K->wait_for_service(std::chrono::seconds(1)))
+[1.646s]       |             [01;31m[K^~~~~~~[m[K
+[1.646s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:19:44:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::chrono[m[K’ has not been declared
+[1.646s]    19 |     while (!client_->wait_for_service(std::[01;31m[Kchrono[m[K::seconds(1)))
+[1.646s]       |                                            [01;31m[K^~~~~~[m[K
+[1.646s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:22:12:[m[K [01;31m[Kerror: [m[K‘[01m[Krclcpp[m[K’ has not been declared
+[1.646s]    22 |       if (![01;31m[Krclcpp[m[K::ok())
+[1.646s]       |            [01;31m[K^~~~~~[m[K
+[1.646s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:24:22:[m[K [01;31m[Kerror: [m[Kinvalid use of ‘[01m[Kthis[m[K’ in non-member function
+[1.646s]    24 |         RCLCPP_ERROR([01;31m[Kthis[m[K->get_logger(), "等待服务的过程中被打断...");
+[1.647s]       |                      [01;31m[K^~~~[m[K
+[1.647s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:24:9:[m[K [01;31m[Kerror: [m[K‘[01m[KRCLCPP_ERROR[m[K’ was not declared in this scope
+[1.647s]    24 |         [01;31m[KRCLCPP_ERROR[m[K(this->get_logger(), "等待服务的过程中被打断...");
+[1.647s]       |         [01;31m[K^~~~~~~~~~~~[m[K
+[1.647s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:27:19:[m[K [01;31m[Kerror: [m[Kinvalid use of ‘[01m[Kthis[m[K’ in non-member function
+[1.647s]    27 |       RCLCPP_INFO([01;31m[Kthis[m[K->get_logger(), "等待服务端上线中");
+[1.647s]       |                   [01;31m[K^~~~[m[K
+[1.649s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:37:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kclient_[m[K’ was not declared in this scope
+[1.649s]    37 |     [01;31m[Kclient_[m[K->async_send_request(
+[1.649s]       |     [01;31m[K^~~~~~~[m[K
+[1.649s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:38:23:[m[K [01;31m[Kerror: [m[K‘[01m[Kbind[m[K’ is not a member of ‘[01m[Kstd[m[K’
+[1.649s]    38 |         request, std::[01;31m[Kbind[m[K(&ServiceClient01::result_callback_, this,
+[1.650s]       |                       [01;31m[K^~~~[m[K
+[1.650s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:2:1:[m[K [01;36m[Knote: [m[K‘[01m[Kstd::bind[m[K’ is defined in header ‘[01m[K<functional>[m[K’; did you forget to ‘[01m[K#include <functional>[m[K’?
+[1.650s]     1 | #include "example_interfaces/srv/add_two_ints.hpp"
+[1.650s]   +++ |+[32m[K#include <functional>[m[K
+[1.650s]     2 | 
+[1.650s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:38:46:[m[K [01;31m[Kerror: [m[Kincomplete type ‘[01m[KServiceClient01[m[K’ used in nested name specifier
+[1.650s]    38 |         request, std::bind(&ServiceClient01::[01;31m[Kresult_callback_[m[K, this,
+[1.650s]       |                                              [01;31m[K^~~~~~~~~~~~~~~~[m[K
+[1.650s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:38:64:[m[K [01;31m[Kerror: [m[Kinvalid use of ‘[01m[Kthis[m[K’ in non-member function
+[1.650s]    38 |         request, std::bind(&ServiceClient01::result_callback_, [01;31m[Kthis[m[K,
+[1.650s]       |                                                                [01;31m[K^~~~[m[K
+[1.650s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:39:33:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::placeholders[m[K’ has not been declared
+[1.650s]    39 |                            std::[01;31m[Kplaceholders[m[K::_1));
+[1.650s]       |                                 [01;31m[K^~~~~~~~~~~~[m[K
+[1.650s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:[m[K At global scope:
+[1.651s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:40:4:[m[K [01;35m[Kwarning: [m[Kextra ‘[01m[K;[m[K’ [[01;35m[K-Wpedantic[m[K]
+[1.651s]    40 |   }[01;35m[K;[m[K
+[1.651s]       |    [01;35m[K^[m[K
+[1.651s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:42:1:[m[K [01;31m[Kerror: [m[Kexpected unqualified-id before ‘[01m[Kprivate[m[K’
+[1.651s]    42 | [01;31m[Kprivate[m[K:
+[1.651s]       | [01;31m[K^~~~~~~[m[K
+[1.651s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:47:7:[m[K [01;31m[Kerror: [m[Kvariable or field ‘[01m[Kresult_callback_[m[K’ declared void
+[1.651s]    47 |       [01;31m[Krclcpp[m[K::Client<example_interfaces::srv::AddTwoInts>::SharedFuture
+[1.651s]       |       [01;31m[K^~~~~~[m[K
+[1.651s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:47:7:[m[K [01;31m[Kerror: [m[K‘[01m[Krclcpp[m[K’ has not been declared
+[1.651s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:47:57:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K>[m[K’ token
+[1.651s]    47 |       rclcpp::Client<example_interfaces::srv::AddTwoInts[01;31m[K>[m[K::SharedFuture
+[1.651s]       |                                                         [01;31m[K^[m[K
+[1.652s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:47:60:[m[K [01;31m[Kerror: [m[K‘[01m[K::SharedFuture[m[K’ has not been declared
+[1.652s]    47 |       rclcpp::Client<example_interfaces::srv::AddTwoInts>::[01;31m[KSharedFuture[m[K
+[1.652s]       |                                                            [01;31m[K^~~~~~~~~~~~[m[K
+[1.652s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:53:1:[m[K [01;31m[Kerror: [m[Kexpected declaration before ‘[01m[K}[m[K’ token
+[1.652s]    53 | [01;31m[K}[m[K;
+[1.652s]       | [01;31m[K^[m[K
+[1.652s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:[m[K In function ‘[01m[Kint main(int, char**)[m[K’:
+[1.652s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:57:3:[m[K [01;31m[Kerror: [m[K‘[01m[Krclcpp[m[K’ has not been declared
+[1.652s]    57 |   [01;31m[Krclcpp[m[K::init(argc, argv);
+[1.652s]       |   [01;31m[K^~~~~~[m[K
+[1.652s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:62:7:[m[K [01;31m[Kerror: [m[Kinvalid use of incomplete type ‘[01m[Kusing element_type = class ServiceClient01[m[K’ {aka ‘[01m[Kclass ServiceClient01[m[K’}
+[1.652s]    62 |   node[01;31m[K->[m[Ksend_request(5, 6);
+[1.653s]       |       [01;31m[K^~[m[K
+[1.653s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:3:7:[m[K [01;36m[Knote: [m[Kforward declaration of ‘[01m[Kusing element_type = class ServiceClient01[m[K’ {aka ‘[01m[Kclass ServiceClient01[m[K’}
+[1.653s]     3 | class [01;36m[KServiceClient01[m[K : public rclcpp::Node
+[1.653s]       |       [01;36m[K^~~~~~~~~~~~~~~[m[K
+[1.653s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:63:3:[m[K [01;31m[Kerror: [m[K‘[01m[Krclcpp[m[K’ has not been declared
+[1.653s]    63 |   [01;31m[Krclcpp[m[K::spin(node);
+[1.653s]       |   [01;31m[K^~~~~~[m[K
+[1.653s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:64:3:[m[K [01;31m[Kerror: [m[K‘[01m[Krclcpp[m[K’ has not been declared
+[1.653s]    64 |   [01;31m[Krclcpp[m[K::shutdown();
+[1.653s]       |   [01;31m[K^~~~~~[m[K
+[1.674s] In file included from [01m[K/usr/include/c++/9/bits/shared_ptr_base.h:56[m[K,
+[1.674s]                  from [01m[K/usr/include/c++/9/bits/shared_ptr.h:52[m[K,
+[1.674s]                  from [01m[K/usr/include/c++/9/memory:81[m[K,
+[1.674s]                  from [01m[K/opt/ros/foxy/include/rosidl_runtime_cpp/bounded_vector.hpp:19[m[K,
+[1.674s]                  from [01m[K/opt/ros/foxy/include/example_interfaces/srv/detail/add_two_ints__struct.hpp:8[m[K,
+[1.674s]                  from [01m[K/opt/ros/foxy/include/example_interfaces/srv/add_two_ints.hpp:7[m[K,
+[1.674s]                  from [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:1[m[K:
+[1.674s] /usr/include/c++/9/ext/aligned_buffer.h: In instantiation of ‘[01m[Kstruct __gnu_cxx::__aligned_buffer<ServiceClient01>[m[K’:
+[1.674s] [01m[K/usr/include/c++/9/bits/shared_ptr_base.h:535:35:[m[K   required from ‘[01m[Kclass std::_Sp_counted_ptr_inplace<ServiceClient01, std::allocator<ServiceClient01>, __gnu_cxx::_S_atomic>::_Impl[m[K’
+[1.674s] [01m[K/usr/include/c++/9/bits/shared_ptr_base.h:596:13:[m[K   required from ‘[01m[Kclass std::_Sp_counted_ptr_inplace<ServiceClient01, std::allocator<ServiceClient01>, __gnu_cxx::_S_atomic>[m[K’
+[1.675s] [01m[K/usr/include/c++/9/bits/shared_ptr_base.h:676:43:[m[K   required from ‘[01m[Kstd::__shared_count<_Lp>::__shared_count(_Tp*&, std::_Sp_alloc_shared_tag<_Alloc>, _Args&& ...) [with _Tp = ServiceClient01; _Alloc = std::allocator<ServiceClient01>; _Args = {const char (&)[18]}; __gnu_cxx::_Lock_policy _Lp = __gnu_cxx::_S_atomic][m[K’
+[1.675s] [01m[K/usr/include/c++/9/bits/shared_ptr_base.h:1344:71:[m[K   required from ‘[01m[Kstd::__shared_ptr<_Tp, _Lp>::__shared_ptr(std::_Sp_alloc_shared_tag<_Tp>, _Args&& ...) [with _Alloc = std::allocator<ServiceClient01>; _Args = {const char (&)[18]}; _Tp = ServiceClient01; __gnu_cxx::_Lock_policy _Lp = __gnu_cxx::_S_atomic][m[K’
+[1.675s] [01m[K/usr/include/c++/9/bits/shared_ptr.h:359:59:[m[K   required from ‘[01m[Kstd::shared_ptr<_Tp>::shared_ptr(std::_Sp_alloc_shared_tag<_Tp>, _Args&& ...) [with _Alloc = std::allocator<ServiceClient01>; _Args = {const char (&)[18]}; _Tp = ServiceClient01][m[K’
+[1.675s] [01m[K/usr/include/c++/9/bits/shared_ptr.h:701:14:[m[K   required from ‘[01m[Kstd::shared_ptr<_Tp> std::allocate_shared(const _Alloc&, _Args&& ...) [with _Tp = ServiceClient01; _Alloc = std::allocator<ServiceClient01>; _Args = {const char (&)[18]}][m[K’
+[1.675s] [01m[K/usr/include/c++/9/bits/shared_ptr.h:717:39:[m[K   required from ‘[01m[Kstd::shared_ptr<_Tp> std::make_shared(_Args&& ...) [with _Tp = ServiceClient01; _Args = {const char (&)[18]}][m[K’
+[1.675s] [01m[K/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp/src/service_client_01.cpp:59:68:[m[K   required from here
+[1.675s] [01m[K/usr/include/c++/9/ext/aligned_buffer.h:91:28:[m[K [01;31m[Kerror: [m[Kinvalid application of ‘[01m[Ksizeof[m[K’ to incomplete type ‘[01m[KServiceClient01[m[K’
+[1.675s]    91 |     : std::aligned_storage<[01;31m[Ksizeof(_Tp)[m[K, __alignof__(_Tp)>
+[1.675s]       |                            [01;31m[K^~~~~~~~~~~[m[K
+[1.675s] [01m[K/usr/include/c++/9/ext/aligned_buffer.h:91:28:[m[K [01;31m[Kerror: [m[Kinvalid application of ‘[01m[Ksizeof[m[K’ to incomplete type ‘[01m[KServiceClient01[m[K’
+[1.692s] make[2]: *** [CMakeFiles/service_client_01.dir/build.make:63：CMakeFiles/service_client_01.dir/src/service_client_01.cpp.o] 错误 1
+[1.692s] make[1]: *** [CMakeFiles/Makefile2:80：CMakeFiles/service_client_01.dir/all] 错误 2
+[1.692s] make[1]: *** 正在等待未完成的任务....
+[2.960s] [ 75%] [32m[1mLinking CXX executable service_server_01[0m
+[3.052s] /usr/bin/ld: CMakeFiles/service_server_01.dir/src/service_server_01.cpp.o: in function `rclcpp::Service<example_interfaces::srv::AddTwoInts>::Service(std::shared_ptr<rcl_node_t>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, rclcpp::AnyServiceCallback<example_interfaces::srv::AddTwoInts>, rcl_service_options_t&)':
+[3.052s] service_server_01.cpp:(.text._ZN6rclcpp7ServiceIN18example_interfaces3srv10AddTwoIntsEEC2ESt10shared_ptrI10rcl_node_tERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEENS_18AnyServiceCallbackIS3_EER21rcl_service_options_t[_ZN6rclcpp7ServiceIN18example_interfaces3srv10AddTwoIntsEEC5ESt10shared_ptrI10rcl_node_tERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEENS_18AnyServiceCallbackIS3_EER21rcl_service_options_t]+0xb4): undefined reference to `rosidl_service_type_support_t const* rosidl_typesupport_cpp::get_service_type_support_handle<example_interfaces::srv::AddTwoInts>()'
+[3.052s] collect2: error: ld returned 1 exit status
+[3.053s] make[2]: *** [CMakeFiles/service_server_01.dir/build.make:131：service_server_01] 错误 1
+[3.053s] make[1]: *** [CMakeFiles/Makefile2:107：CMakeFiles/service_server_01.dir/all] 错误 2
+[3.054s] make: *** [Makefile:141：all] 错误 2
+[3.056s] Invoked command in '/home/yunzhou/node/ROS2/ros_service/build/example_service_rclcpp' returned '2': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --build /home/yunzhou/node/ROS2/ros_service/build/example_service_rclcpp -- -j8 -l8

@@ -82,7 +82,7 @@
 - [动手学ROS2](https://fishros.com/d2lros2/#/)
 - [ROS2 完全教程：从原理到实践 | ros2_tutorial](https://zsc.github.io/ros2_tutorial/)
 
-# 1. 架构
+# 1 架构
 
 ## 1.1 ROS1
 
@@ -888,9 +888,9 @@ ROS2 支持通过共享内存实现零拷贝：
 
 
 
-# 2. 工作空间与包管理
+# 2 工作空间与包管理
 
-# 2.1 工作空间结构
+## 2.1 工作空间结构
 ```text
 .(工作空间)
 ├── build
@@ -1001,7 +1001,7 @@ mkdir src && cd src
 (2) 创建功能包
 ```bash
 ros2 pkg create example_cpp --build-type ament_cmake --dependencies rclcpp
-``` 
+```
 - `pkg create` 是创建包的意思
 - --build-type 用来指定该包的编译类型，一共有三个可选项`ament_python`、`ament_cmake`、`cmake` (foxy不支持,默认为ament_cmake)
 - `--dependencies` 指的是这个功能包的依赖，这里是一个ros2的C++客户端接口rclcpp
@@ -1102,7 +1102,8 @@ def main(args=None):
 ```
 
 # 4 面对对象方式编写ROS2节点
-1. c++
+## 4.1 C++
+
 ```C++
 
 #include "rclcpp/rclcpp.hpp"
@@ -1147,7 +1148,8 @@ install(TARGETS
 )
 ```
 
-2. Python 
+## 4.2 Python 
+
 ```python
 #!/usr/bin/env python3
 import rclpy
@@ -1220,7 +1222,9 @@ DDS 的端口分配遵循 OMG DDSI-RTPS 规范，其默认端口号由以下公�
 
     - 发现多播端口 = 7400 + 250*0 + 0 = 7400
     - 用户多播端口 = 7401。
-    - 域 0 中的第 1 个参与者 (ParticipantId=1)：发现单播端口 = 7400 + 250*0 + 10 + 2*1 = 7412。
+    - 域 0 中的第 1 个参与者 (ParticipantId=1)：
+       发现单播端口 = 7400 + 250*0 + 10 + 2*1 = 7412
+       用户单播端口 = 7400 + 250*0 + 11 + 2*1 = 7413
 
 （2）域 1：
 
@@ -1251,3 +1255,492 @@ export ROS_DOMAIN_ID=5
 ros2 run your_package your_node
 ```
 此外，一些 DDS 实现（如 Fast DDS）允许通过配置文件或 API 修改端口计算中的基础参数（如 PB, DG），从而自定义端口映射，但这需要同一网络中的所有参与者进行一致配置，否则会导致无法通信。
+
+# 6 通信
+
+通信的原理涉及两个主要方面：`通信协议`和`通信方式`。
+
+- 通信协议定义了数据的格式、传输方式、错误检测和纠正等规则，以确保可靠的数据传输。
+
+- 通信方式涉及了不同的通信介质和技术，包括`网络通信`和`进程间通信（IPC）`。
+
+## 6.1 网络通信
+
+**UDP**
+
+例如，使用`ping`命令进行基于UDP的网络通信：
+
+```bash
+ping 192.168.0.1
+fping -a -g 10.18.0.1 10.18.0.10 
+```
+
+该命令将向IP地址为192.168.0.1的主机发送ICMP Echo请求，并等待接收相应的回复。
+
+**TCP**
+
+服务端：使用`nc`命令进行基于TCP的网络通信：
+
+```bash
+nc -l 1234 // 监听一次
+nc -lk 1234  // 持续监听
+```
+
+该命令将在本地监听端口1234，并等待与之建立TCP连接的客户端。
+
+
+
+客户端：通过在另一个终端窗口中执行以下命令，可以建立与本地1234端口的TCP连接并在连接上发送消息：
+
+```bash
+echo "Hello, TCP!" | nc 127.0.0.1 1234 // 发送一次
+nc 127.0.0.1 1234 // 持续发送
+```
+
+## 6.2 进程间通信
+
+**基于共享内存的进程间通信（IPC）方式**
+
+基于共享内存的IPC方式通过共享内存区域在同一计算机系统内的不同进程之间进行通信。在Linux命令行中，可以使用`ipcs`和`ipcrm`命令来管理共享内存段。
+
+通过`ipcs`命令查看当前系统中的共享内存段：
+
+```bash
+ipcs -m
+```
+
+使用`ipcrm`命令删除不再需要的共享内存段：
+
+```bash
+ipcrm -m <shmid>
+```
+
+## 6.3 中间件
+
+### 6.3.1 [ZeroMQ](https://zeromq.org/)
+
+ZeroMQ非常的轻量，也就是小巧，占用资源少，看名字，Zero Message Queue，零消息队列。
+
+ZeroMQ提供了各种（如进程内、进程间、TCP 和多播）消息传输的套接字.
+
+### 6.3.2 [PyZmq](https://pypi.org/project/pyzmq/)
+
+pyzmq也提供了类似于订阅发布的方式来传递消息，还有更多的使用方法，比如客户端服务端这种。
+
+https://www.php.cn/faq/459626.html
+
+
+
+# 7 ROS2中的通信
+
+[rclcpp](https://docs.ros2.org/latest/api/rclcpp/namespacerclcpp.html)
+
+
+
+## 7.1 话题(Topic)
+
+一个节点发布数据到某个话题上，另外一个节点就可以通过订阅话题拿到数据。
+
+一个话题可有多个发布者，和多个订阅者 。
+
+**读取话题**
+
+1. GUI: 
+   - `rqt_graph`
+
+2. CLI:
+   - `ros2 topic list -t`
+   -  `ros2 topic echo </话题名称>`
+   - `ros2 topic info  /chatter` 查看主题类型比如`std_msgs/msg/String`，发布者和订阅者数量
+   - `ros2 interface show std_msgs/msg/String`  查看里面有什么
+   - `ros2 topic pub /chatter std_msgs/msg/String 'data: "123"'` 手动发布命令
+
+**创建/订阅话题**
+
+- CPP
+
+  - 发布者
+
+    `topic_publisher_01.cpp`
+
+    ```cpp
+    #include "rclcpp/rclcpp.hpp"
+    #include "std_msgs/msg/string.hpp" // 新加消息类头文件
+    
+    class TopicPublisher01 : public rclcpp::Node
+    {
+    public:
+        // 构造函数,有一个参数为节点名称
+        TopicPublisher01(std::string name) : Node(name)
+        {
+            RCLCPP_INFO(this->get_logger(), "大家好，我是%s.", name.c_str());
+            // 创建发布者
+            command_publisher_ = this->create_publisher<std_msgs::msg::String>("command", 10);
+            // 创建定时器，500ms为周期，定时发布
+            timer_ = this->create_wall_timer(std::chrono::milliseconds(500), std::bind(&TopicPublisher01::timer_callback, this));
+        }
+    
+    private:
+        void timer_callback()
+        {
+            // 创建消息
+            std_msgs::msg::String message;
+            message.data = "forward";
+            // 日志打印
+            RCLCPP_INFO(this->get_logger(), "Publishing: '%s'", message.data.c_str());
+            // 发布消息
+            command_publisher_->publish(message);
+        }
+        // 声名定时器指针
+        rclcpp::TimerBase::SharedPtr timer_;
+        // 声明话题发布者指针
+        rclcpp::Publisher<std_msgs::msg::String>::SharedPtr command_publisher_;
+    };
+    
+    int main(int argc, char **argv)
+    {
+        rclcpp::init(argc, argv);
+        /*创建对应节点的共享指针对象*/
+        auto node = std::make_shared<TopicPublisher01>("topic_publisher_01");
+        /* 运行节点，并检测退出信号*/
+        rclcpp::spin(node);
+        rclcpp::shutdown();
+        return 0;
+    }
+    ```
+
+  - 订阅者
+
+    `topic_publisher_01.cpp`
+
+    ```c++
+    #include "rclcpp/rclcpp.hpp"
+    #include "std_msgs/msg/string.hpp"
+    
+    class TopicPublisher01 : public rclcpp::Node
+    {
+    public:
+        // 构造函数,有一个参数为节点名称
+        TopicPublisher01(std::string name) : Node(name)
+        {
+            RCLCPP_INFO(this->get_logger(), "大家好，我是%s.", name.c_str());
+            // 创建发布者
+            command_publisher_ = this->create_publisher<std_msgs::msg::String>("command", 10);
+            // 创建定时器，500ms为周期，定时发布
+            timer_ = this->create_wall_timer(std::chrono::milliseconds(500), std::bind(&TopicPublisher01::timer_callback, this));
+        }
+    
+    private:
+        void timer_callback()
+        {
+            // 创建消息
+            std_msgs::msg::String message;
+            message.data = "forward";
+            // 日志打印
+            RCLCPP_INFO(this->get_logger(), "Publishing: '%s'", message.data.c_str());
+            // 发布消息
+            command_publisher_->publish(message);
+        }
+        // 声名定时器指针
+        rclcpp::TimerBase::SharedPtr timer_;
+        // 声明话题发布者指针
+        rclcpp::Publisher<std_msgs::msg::String>::SharedPtr command_publisher_;
+    };
+    
+    int main(int argc, char **argv)
+    {
+        rclcpp::init(argc, argv);
+        /*创建对应节点的共享指针对象*/
+        auto node = std::make_shared<TopicSubscribe01>("topic_subscribe_01");
+        /* 运行节点，并检测退出信号*/
+        rclcpp::spin(node);
+        rclcpp::shutdown();
+        return 0;
+    }
+    ```
+
+  - 配置
+
+    `CMakeLists.txt`
+
+    ```cmake
+    find_package(std_msgs REQUIRED) # 新加依赖
+    
+    add_executable(topic_publisher_01 src/topic_publisher_01.cpp)
+    ament_target_dependencies(topic_publisher_01 rclcpp std_msgs)
+    install(TARGETS
+      topic_publisher_01
+      DESTINATION lib/${PROJECT_NAME}
+    )
+    
+    add_executable(topic_subscribe_01 src/topic_subscribe_01.cpp)
+    ament_target_dependencies(topic_subscribe_01 rclcpp std_msgs)
+    install(TARGETS
+      topic_subscribe_01
+      DESTINATION lib/${PROJECT_NAME}
+    )
+    ```
+
+    `packages.xml`
+
+    ```xml
+    <buildtool_depend>ament_cmake</buildtool_depend>
+    <depend>rclcpp</depend>
+    <depend>std_msgs</depend> # 加上依赖
+    <test_depend>ament_lint_auto</test_depend>
+    <test_depend>ament_lint_common</test_depend>
+    ```
+
+  - 手动发布`topic`信息
+
+    ```bash
+    ros2 topic pub /command std_msgs/msg/String "{data: forward}"
+    ```
+
+- Python
+
+  - 发布者
+
+    `topic_publisher_02.py`
+
+    ```cpp
+    #!/usr/bin/env python3
+    import rclpy
+    from rclpy.node import Node
+    from std_msgs.msg import String
+    
+    class NodePublisher02(Node):
+        def __init__(self,name):
+            super().__init__(name)
+            self.get_logger().info("大家好，我是%s!" % name)
+            self.command_publisher_ = self.create_publisher(String,"command", 10) 
+            self.timer = self.create_timer(0.5, self.timer_callback)
+        def timer_callback(self):
+            """
+            定时器回调函数
+            """
+            msg = String()
+            msg.data = 'backup'
+            self.command_publisher_.publish(msg) 
+            self.get_logger().info(f'发布了指令：{msg.data}')    #打印一下发布的数据
+    
+    def main(args=None):
+        rclpy.init(args=args) # 初始化rclpy
+        node = NodePublisher02("topic_publisher_02")  # 新建一个节点
+        rclpy.spin(node) # 保持节点运行，检测是否收到退出指令（Ctrl+C）
+        rclpy.shutdown() # 关闭rclpy
+    
+    ```
+
+  - 订阅者
+
+    `touch topic_subscribe_02.py`
+
+    ```c++
+    #!/usr/bin/env python3
+    import rclpy
+    from rclpy.node import Node
+    from std_msgs.msg import String
+    
+    class NodeSubscribe02(Node):
+        def __init__(self,name):
+            super().__init__(name)
+            self.get_logger().info("大家好，我是%s!" % name)
+            # 创建订阅者
+            self.command_subscribe_ = self.create_subscription(String,"command",self.command_callback,10)
+        def command_callback(self,msg):
+            speed = 0.0
+            if msg.data=="backup":
+                speed = -0.2
+            self.get_logger().info(f'收到[{msg.data}]命令，发送速度{speed}')
+    
+    def main(args=None):
+        rclpy.init(args=args) # 初始化rclpy
+        node = NodeSubscribe02("topic_subscribe_02")  # 新建一个节点
+        rclpy.spin(node) # 保持节点运行，检测是否收到退出指令（Ctrl+C）
+        rclpy.shutdown() # 关闭rclpy
+    ```
+
+  - `setup.py`
+
+    ```python
+    entry_points={
+        'console_scripts': [
+            "topic_publisher_02 = example_topic_rclpy.topic_publisher_02:main",
+            "topic_subscribe_02 = example_topic_rclpy.topic_subscribe_02:main"
+        ],
+    },
+    ```
+
+## 7.2 服务 (Service)
+
+![img](./assets/Service-SingleServiceClient.gif)
+
+![img](./assets/Service-MultipleServiceClient.gif)
+
+
+
+- 同一个服务（名称相同）有且只能有一个节点来提供
+- 同一个服务可以被多个客户端调用
+
+
+
+**读取服务**
+
+- `ros2 service list`  查询有哪些服务
+- `ros2 service type /add_two_ints`查看服务的接口
+- `ros2 service find example_interfaces/srv/AddTwoInts` 查看使用接口的服务
+
+- `ros2 interface show example_interfaces/srv/AddTwoInts` 查看接口定义
+
+**创建/订阅 服务**
+
+- **CPP**
+
+  -  `service_client_01.cpp`
+
+    ```cpp
+    #include "rclcpp/rclcpp.hpp"
+    #include "example_interfaces/srv/add_two_ints.hpp"
+    
+    class ServiceClient01 : public rclcpp::Node
+    {
+    public:
+      // 构造函数,有一个参数为节点名称
+      ServiceClient01(std::string name) : Node(name)
+      {
+        RCLCPP_INFO(this->get_logger(), "节点已启动：%s.", name.c_str());
+        // 创建客户端
+        client_ = this->create_client<example_interfaces::srv::AddTwoInts>("add_two_ints_srv");
+      }
+    
+      void send_request(int a, int b)
+      {
+        RCLCPP_INFO(this->get_logger(), "计算%d+%d", a, b);
+    
+        // 1.等待服务端上线
+        while (!client_->wait_for_service(std::chrono::seconds(1)))
+        {
+          // 等待时检测rclcpp的状态
+          if (!rclcpp::ok())
+          {
+            RCLCPP_ERROR(this->get_logger(), "等待服务的过程中被打断...");
+            return;
+          }
+          RCLCPP_INFO(this->get_logger(), "等待服务端上线中");
+        }
+    
+        // 2.构造请求的
+        auto request =
+            std::make_shared<example_interfaces::srv::AddTwoInts_Request>();
+        request->a = a;
+        request->b = b;
+    
+        // 3.发送异步请求，然后等待返回，返回时调用回调函数
+        client_->async_send_request(
+            request, std::bind(&ServiceClient01::result_callback_, this,
+                               std::placeholders::_1));
+      };
+    
+    private:
+      // 声明客户端
+      rclcpp::Client<example_interfaces::srv::AddTwoInts>::SharedPtr client_;
+    
+      void result_callback_(
+          rclcpp::Client<example_interfaces::srv::AddTwoInts>::SharedFuture
+              result_future)
+      {
+        auto response = result_future.get();
+        RCLCPP_INFO(this->get_logger(), "计算结果：%ld", response->sum);
+      }
+    };
+    
+    int main(int argc, char **argv)
+    {
+      rclcpp::init(argc, argv);
+      /*创建对应节点的共享指针对象*/
+      auto node = std::make_shared<ServiceClient01>("service_client_01");
+      /* 运行节点，并检测退出信号*/
+      // 增加这一行，node->send_request(5, 6);，计算5+6结果
+      node->send_request(5, 6);
+      rclcpp::spin(node);
+      rclcpp::shutdown();
+      return 0;
+    }
+    
+    ```
+
+  - `service_server_01.cpp`
+
+    ```cpp
+    #include "rclcpp/rclcpp.hpp"
+    #include "example_interfaces/srv/add_two_ints.hpp"
+    
+    class ServiceServer01 : public rclcpp::Node
+    {
+    public:
+      ServiceServer01(std::string name) : Node(name)
+      {
+        RCLCPP_INFO(this->get_logger(), "节点已启动：%s.", name.c_str());
+        // 创建服务
+        add_ints_server_ =
+            this->create_service<example_interfaces::srv::AddTwoInts>(
+                "add_two_ints_srv",
+                std::bind(&ServiceServer01::handle_add_two_ints, this,
+                          std::placeholders::_1, std::placeholders::_2));
+      }
+    
+    private:
+      // 声明一个服务
+      rclcpp::Service<example_interfaces::srv::AddTwoInts>::SharedPtr
+          add_ints_server_;
+    
+      // 收到请求的处理函数
+      void handle_add_two_ints(
+          const std::shared_ptr<example_interfaces::srv::AddTwoInts::Request> request,
+          std::shared_ptr<example_interfaces::srv::AddTwoInts::Response> response)
+      {
+        RCLCPP_INFO(this->get_logger(), "收到a: %ld b: %ld", request->a,
+                    request->b);
+        response->sum = request->a + request->b;
+      };
+    };
+    
+    int main(int argc, char **argv)
+    {
+      rclcpp::init(argc, argv);
+      auto node = std::make_shared<ServiceServer01>("service_server_01");
+      rclcpp::spin(node);
+      rclcpp::shutdown();
+      return 0;
+    }
+    ```
+
+  - `CMakeLists.txt`
+
+    ```cmake
+    find_package(example_interfaces REQUIRED)
+    
+    ament_target_dependencies(service_client_01 rclcpp example_interfaces)
+    
+    ament_target_dependencies(service_server_01 rclcpp example_interfaces)
+    ```
+
+  - `packages.xml`
+
+    ```xml
+    <depend>example_interfaces</depend>
+    ```
+
+**Python**
+
+
+
+
+
+****
+
+## 7.3 动作(Actor)
+
+## 7.4 接口
+

@@ -1,0 +1,20 @@
+[0.012s] Invoking command in '/home/yunzhou/node/ROS2/ros_service/build/example_service_rclcpp': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --build /home/yunzhou/node/ROS2/ros_service/build/example_service_rclcpp -- -j8 -l8
+[0.052s] [35m[1mScanning dependencies of target service_client_01[0m
+[0.052s] [35m[1mScanning dependencies of target service_server_01[0m
+[0.085s] [ 25%] [32mBuilding CXX object CMakeFiles/service_server_01.dir/src/service_server_01.cpp.o[0m
+[0.085s] [ 50%] [32mBuilding CXX object CMakeFiles/service_client_01.dir/src/service_client_01.cpp.o[0m
+[1.851s] [ 75%] [32m[1mLinking CXX executable service_server_01[0m
+[1.949s] /usr/bin/ld: CMakeFiles/service_server_01.dir/src/service_server_01.cpp.o: in function `rclcpp::Service<example_interfaces::srv::AddTwoInts>::Service(std::shared_ptr<rcl_node_t>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, rclcpp::AnyServiceCallback<example_interfaces::srv::AddTwoInts>, rcl_service_options_t&)':
+[1.949s] service_server_01.cpp:(.text._ZN6rclcpp7ServiceIN18example_interfaces3srv10AddTwoIntsEEC2ESt10shared_ptrI10rcl_node_tERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEENS_18AnyServiceCallbackIS3_EER21rcl_service_options_t[_ZN6rclcpp7ServiceIN18example_interfaces3srv10AddTwoIntsEEC5ESt10shared_ptrI10rcl_node_tERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEENS_18AnyServiceCallbackIS3_EER21rcl_service_options_t]+0xb4): undefined reference to `rosidl_service_type_support_t const* rosidl_typesupport_cpp::get_service_type_support_handle<example_interfaces::srv::AddTwoInts>()'
+[1.949s] collect2: error: ld returned 1 exit status
+[1.950s] make[2]: *** [CMakeFiles/service_server_01.dir/build.make:131：service_server_01] 错误 1
+[1.951s] make[1]: *** [CMakeFiles/Makefile2:107：CMakeFiles/service_server_01.dir/all] 错误 2
+[1.951s] make[1]: *** 正在等待未完成的任务....
+[2.114s] [100%] [32m[1mLinking CXX executable service_client_01[0m
+[2.206s] /usr/bin/ld: CMakeFiles/service_client_01.dir/src/service_client_01.cpp.o: in function `rclcpp::Client<example_interfaces::srv::AddTwoInts>::Client(rclcpp::node_interfaces::NodeBaseInterface*, std::shared_ptr<rclcpp::node_interfaces::NodeGraphInterface>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, rcl_client_options_t&)':
+[2.206s] service_client_01.cpp:(.text._ZN6rclcpp6ClientIN18example_interfaces3srv10AddTwoIntsEEC2EPNS_15node_interfaces17NodeBaseInterfaceESt10shared_ptrINS5_18NodeGraphInterfaceEERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEER20rcl_client_options_t[_ZN6rclcpp6ClientIN18example_interfaces3srv10AddTwoIntsEEC5EPNS_15node_interfaces17NodeBaseInterfaceESt10shared_ptrINS5_18NodeGraphInterfaceEERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEER20rcl_client_options_t]+0xc4): undefined reference to `rosidl_service_type_support_t const* rosidl_typesupport_cpp::get_service_type_support_handle<example_interfaces::srv::AddTwoInts>()'
+[2.215s] collect2: error: ld returned 1 exit status
+[2.217s] make[2]: *** [CMakeFiles/service_client_01.dir/build.make:131：service_client_01] 错误 1
+[2.217s] make[1]: *** [CMakeFiles/Makefile2:80：CMakeFiles/service_client_01.dir/all] 错误 2
+[2.217s] make: *** [Makefile:141：all] 错误 2
+[2.219s] Invoked command in '/home/yunzhou/node/ROS2/ros_service/build/example_service_rclcpp' returned '2': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --build /home/yunzhou/node/ROS2/ros_service/build/example_service_rclcpp -- -j8 -l8

@@ -1,0 +1,87 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "example_service_rclcpp",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "example_service_rclcpp_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-example_service_rclcpp_uninstall-53fe88ab13f454a5f30d.json",
+					"name" : "example_service_rclcpp_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "service_client_01::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-service_client_01-38aceaff189c7fccd4ab.json",
+					"name" : "service_client_01",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "service_server_01::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-service_server_01-82c9fb0bbf2be5a84b72.json",
+					"name" : "service_server_01",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-8723fc62ea789a548288.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/yunzhou/node/ROS2/ros_service/build/example_service_rclcpp",
+		"source" : "/home/yunzhou/node/ROS2/ros_service/src/example_service_rclcpp"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 0
+	}
+}

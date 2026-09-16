@@ -1,0 +1,41 @@
+[0.479s] Invoking command in '/home/yunzhou/node/ROS2/ros_topic/src/example_topic_rclpy': PYTHONPATH=/home/yunzhou/node/ROS2/ros_topic/build/example_topic_rclpy/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/yunzhou/node/ROS2/ros_topic/install/example_topic_rclpy/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/example_topic_rclpy build --build-base /home/yunzhou/node/ROS2/ros_topic/build/example_topic_rclpy/build install --record /home/yunzhou/node/ROS2/ros_topic/build/example_topic_rclpy/install.log --install-scripts $base/lib/example_topic_rclpy --single-version-externally-managed install_data
+[0.646s] running egg_info
+[0.646s] creating ../../build/example_topic_rclpy/example_topic_rclpy.egg-info
+[0.647s] writing ../../build/example_topic_rclpy/example_topic_rclpy.egg-info/PKG-INFO
+[0.647s] writing dependency_links to ../../build/example_topic_rclpy/example_topic_rclpy.egg-info/dependency_links.txt
+[0.647s] writing entry points to ../../build/example_topic_rclpy/example_topic_rclpy.egg-info/entry_points.txt
+[0.647s] writing requirements to ../../build/example_topic_rclpy/example_topic_rclpy.egg-info/requires.txt
+[0.647s] writing top-level names to ../../build/example_topic_rclpy/example_topic_rclpy.egg-info/top_level.txt
+[0.648s] writing manifest file '../../build/example_topic_rclpy/example_topic_rclpy.egg-info/SOURCES.txt'
+[0.689s] reading manifest file '../../build/example_topic_rclpy/example_topic_rclpy.egg-info/SOURCES.txt'
+[0.690s] writing manifest file '../../build/example_topic_rclpy/example_topic_rclpy.egg-info/SOURCES.txt'
+[0.690s] running build
+[0.690s] running build_py
+[0.691s] creating /home/yunzhou/node/ROS2/ros_topic/build/example_topic_rclpy/build
+[0.691s] creating /home/yunzhou/node/ROS2/ros_topic/build/example_topic_rclpy/build/lib
+[0.691s] creating /home/yunzhou/node/ROS2/ros_topic/build/example_topic_rclpy/build/lib/example_topic_rclpy
+[0.691s] copying example_topic_rclpy/topic_subscribe_02.py -> /home/yunzhou/node/ROS2/ros_topic/build/example_topic_rclpy/build/lib/example_topic_rclpy
+[0.691s] copying example_topic_rclpy/__init__.py -> /home/yunzhou/node/ROS2/ros_topic/build/example_topic_rclpy/build/lib/example_topic_rclpy
+[0.691s] copying example_topic_rclpy/topic_publisher_02.py -> /home/yunzhou/node/ROS2/ros_topic/build/example_topic_rclpy/build/lib/example_topic_rclpy
+[0.691s] running install
+[0.692s] running install_lib
+[0.693s] creating /home/yunzhou/node/ROS2/ros_topic/install/example_topic_rclpy/lib/python3.8/site-packages/example_topic_rclpy
+[0.693s] copying /home/yunzhou/node/ROS2/ros_topic/build/example_topic_rclpy/build/lib/example_topic_rclpy/topic_subscribe_02.py -> /home/yunzhou/node/ROS2/ros_topic/install/example_topic_rclpy/lib/python3.8/site-packages/example_topic_rclpy
+[0.693s] copying /home/yunzhou/node/ROS2/ros_topic/build/example_topic_rclpy/build/lib/example_topic_rclpy/__init__.py -> /home/yunzhou/node/ROS2/ros_topic/install/example_topic_rclpy/lib/python3.8/site-packages/example_topic_rclpy
+[0.693s] copying /home/yunzhou/node/ROS2/ros_topic/build/example_topic_rclpy/build/lib/example_topic_rclpy/topic_publisher_02.py -> /home/yunzhou/node/ROS2/ros_topic/install/example_topic_rclpy/lib/python3.8/site-packages/example_topic_rclpy
+[0.694s] byte-compiling /home/yunzhou/node/ROS2/ros_topic/install/example_topic_rclpy/lib/python3.8/site-packages/example_topic_rclpy/topic_subscribe_02.py to topic_subscribe_02.cpython-38.pyc
+[0.695s] byte-compiling /home/yunzhou/node/ROS2/ros_topic/install/example_topic_rclpy/lib/python3.8/site-packages/example_topic_rclpy/__init__.py to __init__.cpython-38.pyc
+[0.696s] byte-compiling /home/yunzhou/node/ROS2/ros_topic/install/example_topic_rclpy/lib/python3.8/site-packages/example_topic_rclpy/topic_publisher_02.py to topic_publisher_02.cpython-38.pyc
+[0.696s] running install_data
+[0.696s] creating /home/yunzhou/node/ROS2/ros_topic/install/example_topic_rclpy/share/ament_index
+[0.696s] creating /home/yunzhou/node/ROS2/ros_topic/install/example_topic_rclpy/share/ament_index/resource_index
+[0.696s] creating /home/yunzhou/node/ROS2/ros_topic/install/example_topic_rclpy/share/ament_index/resource_index/packages
+[0.696s] copying resource/example_topic_rclpy -> /home/yunzhou/node/ROS2/ros_topic/install/example_topic_rclpy/share/ament_index/resource_index/packages
+[0.696s] copying package.xml -> /home/yunzhou/node/ROS2/ros_topic/install/example_topic_rclpy/share/example_topic_rclpy
+[0.696s] running install_egg_info
+[0.698s] Copying ../../build/example_topic_rclpy/example_topic_rclpy.egg-info to /home/yunzhou/node/ROS2/ros_topic/install/example_topic_rclpy/lib/python3.8/site-packages/example_topic_rclpy-0.0.0-py3.8.egg-info
+[0.699s] running install_scripts
+[0.717s] Installing topic_publisher_02 script to /home/yunzhou/node/ROS2/ros_topic/install/example_topic_rclpy/lib/example_topic_rclpy
+[0.717s] Installing topic_subscribe_02 script to /home/yunzhou/node/ROS2/ros_topic/install/example_topic_rclpy/lib/example_topic_rclpy
+[0.718s] writing list of installed files to '/home/yunzhou/node/ROS2/ros_topic/build/example_topic_rclpy/install.log'
+[0.737s] Invoked command in '/home/yunzhou/node/ROS2/ros_topic/src/example_topic_rclpy' returned '0': PYTHONPATH=/home/yunzhou/node/ROS2/ros_topic/build/example_topic_rclpy/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/yunzhou/node/ROS2/ros_topic/install/example_topic_rclpy/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/example_topic_rclpy build --build-base /home/yunzhou/node/ROS2/ros_topic/build/example_topic_rclpy/build install --record /home/yunzhou/node/ROS2/ros_topic/build/example_topic_rclpy/install.log --install-scripts $base/lib/example_topic_rclpy --single-version-externally-managed install_data

@@ -1,0 +1,6 @@
+[35m[1mScanning dependencies of target service_client_01[0m
+[35m[1mScanning dependencies of target service_server_01[0m
+[ 25%] [32mBuilding CXX object CMakeFiles/service_server_01.dir/src/service_server_01.cpp.o[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/service_client_01.dir/src/service_client_01.cpp.o[0m
+[ 75%] [32m[1mLinking CXX executable service_server_01[0m
+[100%] [32m[1mLinking CXX executable service_client_01[0m
