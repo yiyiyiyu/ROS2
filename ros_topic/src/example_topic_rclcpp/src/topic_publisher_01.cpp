@@ -24,9 +24,9 @@ private:
     // 发布消息
     command_publisher_->publish(message);
   }
-  // 声名定时器指针
+  // 声明定时器指针
   rclcpp::TimerBase::SharedPtr timer_;
-  // 声明节点
+  // 声明话题发布者指针
   rclcpp::Publisher<std_msgs::msg::String>::SharedPtr command_publisher_;
 };
 

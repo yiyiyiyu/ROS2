@@ -1341,7 +1341,7 @@ https://www.php.cn/faq/459626.html
 
 一个节点发布数据到某个话题上，另外一个节点就可以通过订阅话题拿到数据。
 
-一个话题可有多个发布者，和多个订阅者 。
+> **一个有多个发布者，和多个订阅者** 。
 
 **读取话题**
 
@@ -1571,6 +1571,18 @@ https://www.php.cn/faq/459626.html
         ],
     },
     ```
+
+- 其他指令
+
+  - `ros2 topic bw /rosout` 展示话题的带宽
+  - `ros2 topic delay /rosout` 展示话题的延时
+  - `ros2 topic echo /rosout` 打印话题
+  - `ros2 topic find rcl_interfaces/msg/Log` 展示给定类型的话题
+  - `ros2 topic hz /rosout` 展示话题的平均发送频率
+  - `ros2 topic info /rosout` 展示话题的信息
+  - `ros2 topic list` 展示话题
+  - `ros2 topic pub` 手动发布话题
+  - `ros2 topic type` 展示话题的类型
 
 ## 7.2 服务 (Service)
 
@@ -2368,6 +2380,8 @@ Actions:
   ---
   int32[] partial_sequence
   ```
+
+> `msg、srv、action`文件通过 ROS2 的`IDL`模块 产生了Python和C++头文件。有了头文件，就可以在程序里导入并使用这个消息模块。
 
 ## 8.3 编写
 
