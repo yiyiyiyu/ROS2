@@ -1,0 +1,69 @@
+[0.012s] Invoking command in '/home/yunzhou/node/ROS2/ros_interface/build/example_interfaces_rclcpp': AMENT_PREFIX_PATH=/home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces:/opt/ros/foxy LD_LIBRARY_PATH=/home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/cmake /home/yunzhou/node/ROS2/ros_interface/src/example_interfaces_rclcpp -DCMAKE_INSTALL_PREFIX=/home/yunzhou/node/ROS2/ros_interface/install/example_interfaces_rclcpp
+[0.065s] -- The C compiler identification is GNU 9.4.0
+[0.106s] -- The CXX compiler identification is GNU 9.4.0
+[0.110s] -- Check for working C compiler: /usr/bin/cc
+[0.173s] -- Check for working C compiler: /usr/bin/cc -- works
+[0.173s] -- Detecting C compiler ABI info
+[0.232s] -- Detecting C compiler ABI info - done
+[0.240s] -- Detecting C compile features
+[0.240s] -- Detecting C compile features - done
+[0.241s] -- Check for working CXX compiler: /usr/bin/c++
+[0.312s] -- Check for working CXX compiler: /usr/bin/c++ -- works
+[0.312s] -- Detecting CXX compiler ABI info
+[0.382s] -- Detecting CXX compiler ABI info - done
+[0.390s] -- Detecting CXX compile features
+[0.390s] -- Detecting CXX compile features - done
+[0.392s] -- Found ament_cmake: 0.9.12 (/opt/ros/foxy/share/ament_cmake/cmake)
+[0.410s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3") 
+[0.410s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[0.571s] -- Found rclcpp: 2.4.3 (/opt/ros/foxy/share/rclcpp/cmake)
+[0.606s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.611s] -- Found rosidl_adapter: 1.3.1 (/opt/ros/foxy/share/rosidl_adapter/cmake)
+[0.690s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "1.1.1f")  
+[0.715s] -- Found FastRTPS: /opt/ros/foxy/include  
+[0.779s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.830s] -- Found rmw_implementation_cmake: 1.0.4 (/opt/ros/foxy/share/rmw_implementation_cmake/cmake)
+[0.831s] -- Using RMW implementation 'rmw_cyclonedds_cpp' as default
+[0.833s] -- Looking for pthread.h
+[0.897s] -- Looking for pthread.h - found
+[0.897s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[0.963s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+[0.963s] -- Looking for pthread_create in pthreads
+[1.017s] -- Looking for pthread_create in pthreads - not found
+[1.017s] -- Looking for pthread_create in pthread
+[1.081s] -- Looking for pthread_create in pthread - found
+[1.082s] -- Found Threads: TRUE  
+[1.225s] -- Found example_ros2_interfaces: 0.0.0 (/home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/cmake)
+[1.323s] -- Found ament_lint_auto: 0.9.8 (/opt/ros/foxy/share/ament_lint_auto/cmake)
+[1.380s] -- Added test 'copyright' to check source files copyright and LICENSE
+[1.381s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[1.381s] -- Configured cppcheck include dirs: $<BUILD_INTERFACE:/home/yunzhou/node/ROS2/ros_interface/src/example_interfaces_rclcpp/include>
+[1.381s] -- Configured cppcheck exclude dirs and/or files: 
+[1.382s] -- Added test 'cpplint' to check C / C++ code against the Google style
+[1.382s] -- Configured cpplint exclude dirs and/or files: 
+[1.383s] -- Added test 'lint_cmake' to check CMake code style
+[1.384s] -- Added test 'uncrustify' to check C / C++ code style
+[1.384s] -- Configured uncrustify additional arguments: 
+[1.384s] -- Added test 'xmllint' to check XML markup files
+[1.387s] -- Configuring done
+[1.399s] -- Generating done
+[1.414s] -- Build files have been written to: /home/yunzhou/node/ROS2/ros_interface/build/example_interfaces_rclcpp
+[1.420s] Invoked command in '/home/yunzhou/node/ROS2/ros_interface/build/example_interfaces_rclcpp' returned '0': AMENT_PREFIX_PATH=/home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces:/opt/ros/foxy LD_LIBRARY_PATH=/home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/cmake /home/yunzhou/node/ROS2/ros_interface/src/example_interfaces_rclcpp -DCMAKE_INSTALL_PREFIX=/home/yunzhou/node/ROS2/ros_interface/install/example_interfaces_rclcpp
+[1.422s] Invoking command in '/home/yunzhou/node/ROS2/ros_interface/build/example_interfaces_rclcpp': AMENT_PREFIX_PATH=/home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces:/opt/ros/foxy LD_LIBRARY_PATH=/home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/cmake --build /home/yunzhou/node/ROS2/ros_interface/build/example_interfaces_rclcpp -- -j8 -l8
+[1.459s] [35m[1mScanning dependencies of target example_interfaces_control_01[0m
+[1.459s] [35m[1mScanning dependencies of target example_interfaces_robot_01[0m
+[1.513s] [ 25%] [32mBuilding CXX object CMakeFiles/example_interfaces_control_01.dir/src/example_interfaces_control_01.cpp.o[0m
+[1.514s] [ 50%] [32mBuilding CXX object CMakeFiles/example_interfaces_robot_01.dir/src/example_interfaces_robot_01.cpp.o[0m
+[2.433s] [01m[K/home/yunzhou/node/ROS2/ros_interface/src/example_interfaces_rclcpp/src/example_interfaces_robot_01.cpp:35:5:[m[K [01;31m[Kerror: [m[Kredefinition of ‘[01m[Kint main(int, char**)[m[K’
+[2.433s]    35 | int [01;31m[Kmain[m[K(int argc, char **argv)
+[2.433s]       |     [01;31m[K^~~~[m[K
+[2.433s] [01m[K/home/yunzhou/node/ROS2/ros_interface/src/example_interfaces_rclcpp/src/example_interfaces_robot_01.cpp:3:5:[m[K [01;36m[Knote: [m[K‘[01m[Kint main(int, char**)[m[K’ previously defined here
+[2.433s]     3 | int [01;36m[Kmain[m[K(int argc, char **argv)
+[2.433s]       |     [01;36m[K^~~~[m[K
+[2.688s] make[2]: *** [CMakeFiles/example_interfaces_robot_01.dir/build.make:63：CMakeFiles/example_interfaces_robot_01.dir/src/example_interfaces_robot_01.cpp.o] 错误 1
+[2.688s] make[1]: *** [CMakeFiles/Makefile2:107：CMakeFiles/example_interfaces_robot_01.dir/all] 错误 2
+[2.689s] make[1]: *** 正在等待未完成的任务....
+[2.869s] [ 75%] [32m[1mLinking CXX executable example_interfaces_control_01[0m
+[2.969s] [ 75%] Built target example_interfaces_control_01
+[2.970s] make: *** [Makefile:141：all] 错误 2
+[2.972s] Invoked command in '/home/yunzhou/node/ROS2/ros_interface/build/example_interfaces_rclcpp' returned '2': AMENT_PREFIX_PATH=/home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces:/opt/ros/foxy LD_LIBRARY_PATH=/home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/cmake --build /home/yunzhou/node/ROS2/ros_interface/build/example_interfaces_rclcpp -- -j8 -l8

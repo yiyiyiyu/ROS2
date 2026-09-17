@@ -1,0 +1,3 @@
+/home/yunzhou/node/ROS2/ros_interface/build/example_ros2_interfaces/rosidl_adapter/example_ros2_interfaces:msg/RobotPose.idl
+/home/yunzhou/node/ROS2/ros_interface/build/example_ros2_interfaces/rosidl_adapter/example_ros2_interfaces:msg/RobotStatus.idl
+/home/yunzhou/node/ROS2/ros_interface/build/example_ros2_interfaces/rosidl_adapter/example_ros2_interfaces:srv/MoveRobot.idl

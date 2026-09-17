@@ -1,0 +1,4 @@
+[console_scripts]
+example_interfaces_control_02 = example_interfaces_rclpy.example_interfaces_control_02:main
+example_interfaces_robot_02 = example_interfaces_rclpy.example_interfaces_robot_02:main
+

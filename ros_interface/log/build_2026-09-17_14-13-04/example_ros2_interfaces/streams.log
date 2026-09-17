@@ -1,0 +1,172 @@
+[0.012s] Invoking command in '/home/yunzhou/node/ROS2/ros_interface/build/example_ros2_interfaces': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --build /home/yunzhou/node/ROS2/ros_interface/build/example_ros2_interfaces -- -j8 -l8
+[0.066s] [ 10%] Built target example_ros2_interfaces__rosidl_generator_c
+[0.066s] [ 12%] Built target example_ros2_interfaces__cpp
+[0.100s] [ 25%] Built target example_ros2_interfaces__rosidl_typesupport_cpp
+[0.100s] [ 34%] Built target example_ros2_interfaces__rosidl_typesupport_introspection_c
+[0.100s] [ 44%] Built target example_ros2_interfaces__rosidl_typesupport_introspection_cpp
+[0.103s] [ 55%] Built target example_ros2_interfaces__rosidl_typesupport_c
+[0.108s] [ 65%] Built target example_ros2_interfaces__rosidl_typesupport_fastrtps_cpp
+[0.141s] [ 76%] Built target example_ros2_interfaces__rosidl_typesupport_fastrtps_c
+[0.165s] [ 76%] Built target example_ros2_interfaces
+[0.189s] [ 78%] Built target example_ros2_interfaces__py
+[0.221s] [ 87%] Built target example_ros2_interfaces__python
+[0.255s] [ 91%] Built target example_ros2_interfaces__rosidl_typesupport_fastrtps_c__pyext
+[0.257s] [100%] Built target example_ros2_interfaces__rosidl_typesupport_introspection_c__pyext
+[0.257s] [100%] Built target example_ros2_interfaces__rosidl_typesupport_c__pyext
+[0.269s] Invoked command in '/home/yunzhou/node/ROS2/ros_interface/build/example_ros2_interfaces' returned '0': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --build /home/yunzhou/node/ROS2/ros_interface/build/example_ros2_interfaces -- -j8 -l8
+[0.279s] Invoking command in '/home/yunzhou/node/ROS2/ros_interface/build/example_ros2_interfaces': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --install /home/yunzhou/node/ROS2/ros_interface/build/example_ros2_interfaces
+[0.288s] -- Install configuration: ""
+[0.289s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/ament_index/resource_index/rosidl_interfaces/example_ros2_interfaces
+[0.289s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces
+[0.289s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg
+[0.289s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/rosidl_generator_c__visibility_control.h
+[0.289s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail
+[0.289s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/robot_pose__type_support.h
+[0.289s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/robot_status__functions.c
+[0.289s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/robot_pose__struct.h
+[0.289s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/robot_status__functions.h
+[0.289s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/robot_pose__functions.c
+[0.289s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/robot_status__struct.h
+[0.289s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/robot_status__type_support.h
+[0.290s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/robot_pose__functions.h
+[0.290s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/robot_pose.h
+[0.290s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/robot_status.h
+[0.290s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv
+[0.290s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv/detail
+[0.290s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv/detail/move_robot__functions.h
+[0.290s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv/detail/move_robot__functions.c
+[0.290s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv/detail/move_robot__struct.h
+[0.290s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv/detail/move_robot__type_support.h
+[0.290s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv/move_robot.h
+[0.290s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/environment/library_path.sh
+[0.290s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/environment/library_path.dsv
+[0.291s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib/libexample_ros2_interfaces__rosidl_generator_c.so
+[0.291s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces
+[0.291s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg
+[0.291s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail
+[0.291s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/robot_status__rosidl_typesupport_fastrtps_c.h
+[0.291s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/robot_pose__rosidl_typesupport_fastrtps_c.h
+[0.291s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[0.291s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv
+[0.291s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv/detail
+[0.291s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv/detail/move_robot__rosidl_typesupport_fastrtps_c.h
+[0.291s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib/libexample_ros2_interfaces__rosidl_typesupport_fastrtps_c.so
+[0.291s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces
+[0.291s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg
+[0.292s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[0.292s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail
+[0.292s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/dds_fastrtps
+[0.292s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/robot_pose__rosidl_typesupport_fastrtps_cpp.hpp
+[0.292s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/robot_status__rosidl_typesupport_fastrtps_cpp.hpp
+[0.292s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv
+[0.292s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv/detail
+[0.292s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv/detail/move_robot__rosidl_typesupport_fastrtps_cpp.hpp
+[0.292s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv/detail/dds_fastrtps
+[0.292s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib/libexample_ros2_interfaces__rosidl_typesupport_fastrtps_cpp.so
+[0.292s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces
+[0.292s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg
+[0.292s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail
+[0.292s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/robot_pose__rosidl_typesupport_introspection_c.h
+[0.292s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/robot_status__type_support.c
+[0.293s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/robot_pose__type_support.c
+[0.293s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/robot_status__rosidl_typesupport_introspection_c.h
+[0.293s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[0.293s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv
+[0.293s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv/detail
+[0.293s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv/detail/move_robot__rosidl_typesupport_introspection_c.h
+[0.293s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv/detail/move_robot__type_support.c
+[0.293s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib/libexample_ros2_interfaces__rosidl_typesupport_introspection_c.so
+[0.293s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib/libexample_ros2_interfaces__rosidl_typesupport_c.so
+[0.293s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces
+[0.293s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg
+[0.293s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail
+[0.293s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/robot_pose__type_support.hpp
+[0.293s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/robot_pose__struct.hpp
+[0.293s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/robot_status__traits.hpp
+[0.293s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/robot_pose__traits.hpp
+[0.293s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/robot_pose__builder.hpp
+[0.293s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/robot_status__type_support.hpp
+[0.293s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/robot_status__struct.hpp
+[0.293s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/robot_status__builder.hpp
+[0.293s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/rosidl_generator_cpp__visibility_control.hpp
+[0.293s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/robot_pose.hpp
+[0.293s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/robot_status.hpp
+[0.293s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv
+[0.294s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv/detail
+[0.294s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv/detail/move_robot__struct.hpp
+[0.294s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv/detail/move_robot__builder.hpp
+[0.294s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv/detail/move_robot__type_support.hpp
+[0.294s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv/detail/move_robot__traits.hpp
+[0.294s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv/move_robot.hpp
+[0.294s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces
+[0.294s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg
+[0.294s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail
+[0.294s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/robot_status__rosidl_typesupport_introspection_cpp.hpp
+[0.294s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/robot_pose__rosidl_typesupport_introspection_cpp.hpp
+[0.294s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/robot_status__type_support.cpp
+[0.294s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/msg/detail/robot_pose__type_support.cpp
+[0.294s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv
+[0.294s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv/detail
+[0.294s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv/detail/move_robot__type_support.cpp
+[0.294s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/include/example_ros2_interfaces/srv/detail/move_robot__rosidl_typesupport_introspection_cpp.hpp
+[0.294s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib/libexample_ros2_interfaces__rosidl_typesupport_introspection_cpp.so
+[0.294s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib/libexample_ros2_interfaces__rosidl_typesupport_cpp.so
+[0.294s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/environment/pythonpath.sh
+[0.294s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/environment/pythonpath.dsv
+[0.294s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib/python3.8/site-packages/example_ros2_interfaces/__init__.py
+[0.318s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib/python3.8/site-packages/example_ros2_interfaces/msg
+[0.318s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib/python3.8/site-packages/example_ros2_interfaces/msg/_robot_status_s.c
+[0.319s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib/python3.8/site-packages/example_ros2_interfaces/msg/_robot_pose.py
+[0.319s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib/python3.8/site-packages/example_ros2_interfaces/msg/_robot_pose_s.c
+[0.319s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib/python3.8/site-packages/example_ros2_interfaces/msg/__init__.py
+[0.319s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib/python3.8/site-packages/example_ros2_interfaces/msg/_robot_status.py
+[0.319s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib/python3.8/site-packages/example_ros2_interfaces/srv
+[0.319s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib/python3.8/site-packages/example_ros2_interfaces/srv/_move_robot.py
+[0.319s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib/python3.8/site-packages/example_ros2_interfaces/srv/_move_robot_s.c
+[0.319s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib/python3.8/site-packages/example_ros2_interfaces/srv/__init__.py
+[0.319s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib/python3.8/site-packages/example_ros2_interfaces/example_ros2_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-38-x86_64-linux-gnu.so
+[0.319s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib/python3.8/site-packages/example_ros2_interfaces/example_ros2_interfaces_s__rosidl_typesupport_introspection_c.cpython-38-x86_64-linux-gnu.so
+[0.320s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib/python3.8/site-packages/example_ros2_interfaces/example_ros2_interfaces_s__rosidl_typesupport_c.cpython-38-x86_64-linux-gnu.so
+[0.320s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib/libexample_ros2_interfaces__python.so
+[0.321s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/msg/RobotPose.idl
+[0.321s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/msg/RobotStatus.idl
+[0.321s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/srv/MoveRobot.idl
+[0.321s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/msg/RobotPose.msg
+[0.321s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/msg/RobotStatus.msg
+[0.321s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/srv/MoveRobot.srv
+[0.321s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/srv/MoveRobot_Request.msg
+[0.321s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/srv/MoveRobot_Response.msg
+[0.321s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/ament_index/resource_index/package_run_dependencies/example_ros2_interfaces
+[0.322s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/ament_index/resource_index/parent_prefix_path/example_ros2_interfaces
+[0.322s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/environment/ament_prefix_path.sh
+[0.322s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/environment/ament_prefix_path.dsv
+[0.322s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/environment/path.sh
+[0.322s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/environment/path.dsv
+[0.322s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/local_setup.bash
+[0.322s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/local_setup.sh
+[0.322s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/local_setup.zsh
+[0.322s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/local_setup.dsv
+[0.322s] -- Installing: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/package.dsv
+[0.322s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/ament_index/resource_index/packages/example_ros2_interfaces
+[0.323s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/cmake/example_ros2_interfaces__rosidl_generator_cExport.cmake
+[0.323s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/cmake/example_ros2_interfaces__rosidl_generator_cExport-noconfig.cmake
+[0.323s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/cmake/example_ros2_interfaces__rosidl_typesupport_introspection_cExport.cmake
+[0.323s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/cmake/example_ros2_interfaces__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[0.323s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/cmake/example_ros2_interfaces__rosidl_typesupport_cExport.cmake
+[0.323s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/cmake/example_ros2_interfaces__rosidl_typesupport_cExport-noconfig.cmake
+[0.323s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/cmake/example_ros2_interfaces__rosidl_generator_cppExport.cmake
+[0.323s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/cmake/example_ros2_interfaces__rosidl_typesupport_introspection_cppExport.cmake
+[0.323s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/cmake/example_ros2_interfaces__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[0.323s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/cmake/example_ros2_interfaces__rosidl_typesupport_cppExport.cmake
+[0.324s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/cmake/example_ros2_interfaces__rosidl_typesupport_cppExport-noconfig.cmake
+[0.324s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/cmake/rosidl_cmake-extras.cmake
+[0.324s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/cmake/ament_cmake_export_dependencies-extras.cmake
+[0.324s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/cmake/ament_cmake_export_libraries-extras.cmake
+[0.324s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/cmake/ament_cmake_export_targets-extras.cmake
+[0.324s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/cmake/ament_cmake_export_include_directories-extras.cmake
+[0.324s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[0.324s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[0.324s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/cmake/example_ros2_interfacesConfig.cmake
+[0.324s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/cmake/example_ros2_interfacesConfig-version.cmake
+[0.324s] -- Up-to-date: /home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/share/example_ros2_interfaces/package.xml
+[0.328s] Invoked command in '/home/yunzhou/node/ROS2/ros_interface/build/example_ros2_interfaces' returned '0': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --install /home/yunzhou/node/ROS2/ros_interface/build/example_ros2_interfaces

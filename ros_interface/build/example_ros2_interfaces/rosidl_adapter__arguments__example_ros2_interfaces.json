@@ -1,0 +1,8 @@
+{
+  "package_name": "example_ros2_interfaces",
+  "non_idl_tuples": [
+    "/home/yunzhou/node/ROS2/ros_interface/src/example_ros2_interfaces:msg/RobotPose.msg",
+    "/home/yunzhou/node/ROS2/ros_interface/src/example_ros2_interfaces:msg/RobotStatus.msg",
+    "/home/yunzhou/node/ROS2/ros_interface/src/example_ros2_interfaces:srv/MoveRobot.srv"
+  ]
+}

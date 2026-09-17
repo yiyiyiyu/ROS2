@@ -1,0 +1,10 @@
+[01m[K/home/yunzhou/node/ROS2/ros_interface/src/example_interfaces_rclcpp/src/example_interfaces_robot_01.cpp:35:5:[m[K [01;31m[Kerror: [m[Kredefinition of ‘[01m[Kint main(int, char**)[m[K’
+   35 | int [01;31m[Kmain[m[K(int argc, char **argv)
+      |     [01;31m[K^~~~[m[K
+[01m[K/home/yunzhou/node/ROS2/ros_interface/src/example_interfaces_rclcpp/src/example_interfaces_robot_01.cpp:3:5:[m[K [01;36m[Knote: [m[K‘[01m[Kint main(int, char**)[m[K’ previously defined here
+    3 | int [01;36m[Kmain[m[K(int argc, char **argv)
+      |     [01;36m[K^~~~[m[K
+make[2]: *** [CMakeFiles/example_interfaces_robot_01.dir/build.make:63：CMakeFiles/example_interfaces_robot_01.dir/src/example_interfaces_robot_01.cpp.o] 错误 1
+make[1]: *** [CMakeFiles/Makefile2:107：CMakeFiles/example_interfaces_robot_01.dir/all] 错误 2
+make[1]: *** 正在等待未完成的任务....
+make: *** [Makefile:141：all] 错误 2

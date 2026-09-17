@@ -1,0 +1,4 @@
+Invoking command in '/home/yunzhou/node/ROS2/ros_interface/build/example_ros2_interfaces': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --build /home/yunzhou/node/ROS2/ros_interface/build/example_ros2_interfaces -- -j8 -l8
+Invoked command in '/home/yunzhou/node/ROS2/ros_interface/build/example_ros2_interfaces' returned '0': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --build /home/yunzhou/node/ROS2/ros_interface/build/example_ros2_interfaces -- -j8 -l8
+Invoking command in '/home/yunzhou/node/ROS2/ros_interface/build/example_ros2_interfaces': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --install /home/yunzhou/node/ROS2/ros_interface/build/example_ros2_interfaces
+Invoked command in '/home/yunzhou/node/ROS2/ros_interface/build/example_ros2_interfaces' returned '0': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --install /home/yunzhou/node/ROS2/ros_interface/build/example_ros2_interfaces

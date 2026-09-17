@@ -1,0 +1,16 @@
+[0.013s] Invoking command in '/home/yunzhou/node/ROS2/ros_interface/build/example_interfaces_rclcpp': AMENT_PREFIX_PATH=/home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces:/opt/ros/foxy LD_LIBRARY_PATH=/home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/cmake --build /home/yunzhou/node/ROS2/ros_interface/build/example_interfaces_rclcpp -- -j8 -l8
+[0.056s] [35m[1mScanning dependencies of target example_interfaces_robot_01[0m
+[0.056s] [35m[1mScanning dependencies of target example_interfaces_control_01[0m
+[0.088s] [ 25%] [32mBuilding CXX object CMakeFiles/example_interfaces_robot_01.dir/src/example_interfaces_robot_01.cpp.o[0m
+[0.088s] [ 50%] [32mBuilding CXX object CMakeFiles/example_interfaces_control_01.dir/src/example_interfaces_control_01.cpp.o[0m
+[1.868s] [ 75%] [32m[1mLinking CXX executable example_interfaces_robot_01[0m
+[1.943s] /usr/bin/ld: /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o: in function `_start':
+[1.943s] (.text+0x24): undefined reference to `main'
+[1.943s] collect2: error: ld returned 1 exit status
+[1.945s] make[2]: *** [CMakeFiles/example_interfaces_robot_01.dir/build.make:141：example_interfaces_robot_01] 错误 1
+[1.945s] make[1]: *** [CMakeFiles/Makefile2:107：CMakeFiles/example_interfaces_robot_01.dir/all] 错误 2
+[1.945s] make[1]: *** 正在等待未完成的任务....
+[4.077s] [100%] [32m[1mLinking CXX executable example_interfaces_control_01[0m
+[4.269s] [100%] Built target example_interfaces_control_01
+[4.270s] make: *** [Makefile:141：all] 错误 2
+[4.272s] Invoked command in '/home/yunzhou/node/ROS2/ros_interface/build/example_interfaces_rclcpp' returned '2': AMENT_PREFIX_PATH=/home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces:/opt/ros/foxy LD_LIBRARY_PATH=/home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/yunzhou/node/ROS2/ros_interface/install/example_ros2_interfaces/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/cmake --build /home/yunzhou/node/ROS2/ros_interface/build/example_interfaces_rclcpp -- -j8 -l8
