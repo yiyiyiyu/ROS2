@@ -1,0 +1,3 @@
+[console_scripts]
+parameters_basic = example_parameters_rclpy.parameters_basic:main
+

@@ -1,0 +1,15 @@
+[0.020s] Invoking command in '/home/yi/ros2/ROS2/ros_parameter/build/example_parameters_rclcpp': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/yi/ros2/ROS2/ros_parameter/build/example_parameters_rclcpp -- -j24 -l24
+[0.124s] [35m[1mConsolidate compiler generated dependencies of target parameters_basic[0m
+[0.152s] [ 50%] [32mBuilding CXX object CMakeFiles/parameters_basic.dir/src/parameters_basic.cpp.o[0m
+[2.279s] [01m[K/home/yi/ros2/ROS2/ros_parameter/src/example_parameters_rclcpp/src/parameters_basic.cpp:18:24:[m[K [01;31m[Kerror: [m[K‘[01m[KShardPtr[m[K’ in ‘[01m[Kclass rclcpp::TimerBase[m[K’ does not name a type
+[2.279s]    18 |     rclcpp::TimerBase::[01;31m[KShardPtr[m[K timer_;
+[2.279s]       |                        [01;31m[K^~~~~~~~[m[K
+[2.284s] [01m[K/home/yi/ros2/ROS2/ros_parameter/src/example_parameters_rclcpp/src/parameters_basic.cpp:[m[K In constructor ‘[01m[KParametersBasicNode::ParametersBasicNode(std::string)[m[K’:
+[2.285s] [01m[K/home/yi/ros2/ROS2/ros_parameter/src/example_parameters_rclcpp/src/parameters_basic.cpp:13:7:[m[K [01;31m[Kerror: [m[K‘[01m[Ktimer_[m[K’ was not declared in this scope; did you mean ‘[01m[Ktimer_t[m[K’?
+[2.285s]    13 |       [01;31m[Ktimer_[m[K = this->create_wall_timer(
+[2.285s]       |       [01;31m[K^~~~~~[m[K
+[2.285s]       |       [32m[Ktimer_t[m[K
+[2.610s] gmake[2]: *** [CMakeFiles/parameters_basic.dir/build.make:76: CMakeFiles/parameters_basic.dir/src/parameters_basic.cpp.o] Error 1
+[2.611s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/parameters_basic.dir/all] Error 2
+[2.611s] gmake: *** [Makefile:146: all] Error 2
+[2.615s] Invoked command in '/home/yi/ros2/ROS2/ros_parameter/build/example_parameters_rclcpp' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/yi/ros2/ROS2/ros_parameter/build/example_parameters_rclcpp -- -j24 -l24

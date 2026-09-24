@@ -1,0 +1,183 @@
+[0.000000] (-) TimerEvent: {}
+[0.000167] (example_parameters_rclcpp) JobQueued: {'identifier': 'example_parameters_rclcpp', 'dependencies': OrderedDict()}
+[0.000228] (example_parameters_rclcpp) JobStarted: {'identifier': 'example_parameters_rclcpp'}
+[0.019104] (example_parameters_rclcpp) JobProgress: {'identifier': 'example_parameters_rclcpp', 'progress': 'cmake'}
+[0.021443] (example_parameters_rclcpp) Command: {'cmd': ['/usr/bin/cmake', '/home/yi/ros2/ROS2/ros_parameter/src/example_parameters_rclcpp', '-DCMAKE_INSTALL_PREFIX=/home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp'], 'cwd': '/home/yi/ros2/ROS2/ros_parameter/build/example_parameters_rclcpp', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'yi'), ('GIT_ASKPASS', '/home/yi/.vscode-server/bin/7debcd0e2acdea1c52de81bf9ee1620444407dda/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/yi/.mujoco/mujoco200/bin:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/home/yi/.mujoco/mujoco200/bin:/usr/lib/nvidia:/usr/lib/nvidia'), ('HOME', '/home/yi'), ('CONDA_SHLVL', '0'), ('OLDPWD', '/home/yi/ros2/ROS2/ros_parameter/src'), ('TERM_PROGRAM_VERSION', '1.138.0'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-eeff9d1a-cb9f-418b-b4e2-7a039464fb00.sock'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/yi/.vscode-server/bin/7debcd0e2acdea1c52de81bf9ee1620444407dda/extensions/git/dist/askpass-main.js'), ('VSCODE_GIT_ASKPASS_NODE', '/home/yi/.vscode-server/bin/7debcd0e2acdea1c52de81bf9ee1620444407dda/node'), ('VSCODE_PYTHON_AUTOACTIVATE_GUARD', '1'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('_CE_M', ''), ('WSL_DISTRO_NAME', 'Ubuntu-22.04'), ('_CONDA_ROOT', '/home/yi/miniconda3'), ('WAYLAND_DISPLAY', 'wayland-0'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'yi'), ('NAME', 'DESKTOP-9FJML7G'), ('WSL_INTEROP', '/run/WSL/6895_interop'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/yi/.mujoco/mujoco200/bin:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/home/yi/.mujoco/mujoco200/bin:/usr/lib/nvidia:/usr/lib/nvidia:/home/yi/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand:/home/yi/.vscode-server/data/User/globalStorage/github.copilot-chat/copilotCli:/home/yi/.vscode-server/bin/7debcd0e2acdea1c52de81bf9ee1620444407dda/bin/remote-cli:/opt/ros/humble/bin:/home/yi/miniconda3/condabin:/home/yi/.mujoco/mujoco200/bin:/usr/lib/nvidia:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR:/mnt/d/DAILY/Git/cmd:/mnt/d/WORK/Matlab/runtime/win64:/mnt/d/WORK/Matlab/bin:/mnt/d/Windows Kits/10/Windows Performance Toolkit/:/mnt/c/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/:/mnt/c/Program Files/Microsoft SQL Server/160/Tools/Binn/:/mnt/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/:/mnt/c/Program Files/Microsoft SQL Server/160/DTS/Binn/:/mnt/c/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/:/mnt/d/WORK/mingw64/bin:/mnt/c/Users/Y/.pixi/bin:/mnt/c/Users/Y/.local/bin:/mnt/c/Users/Y/AppData/Local/Microsoft/WindowsApps:/mnt/d/WORK/Microsoft VS Code/bin:/mnt/d/WORK/Miniconda:/mnt/d/WORK/Miniconda/Scripts:/mnt/c/Users/Y/AppData/Local/Programs/DockerDesktop/resources/bin:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LD_PRELOAD', '/usr/lib/x86_64-linux-gnu/libGLEW.so'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-d3d905f311.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('CONDA_PYTHON_EXE', '/home/yi/miniconda3/bin/python'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('_CONDA_EXE', '/home/yi/miniconda3/bin/conda'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/yi/ros2/ROS2/ros_parameter/build/example_parameters_rclcpp'), ('COPILOT_DEBUG_NONCE', 'fbc251491b76bddd2228edb21010189e'), ('CONDA_EXE', '/home/yi/miniconda3/bin/conda'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('HOSTTYPE', 'x86_64'), ('MUJOCO_KEY_PATH', '/home/yi/.mujoco/home/yi/.mujoco'), ('WSLENV', 'VSCODE_WSL_EXT_LOCATION/up'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.099277] (-) TimerEvent: {}
+[0.200275] (-) TimerEvent: {}
+[0.279501] (example_parameters_rclcpp) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.300450] (-) TimerEvent: {}
+[0.401388] (-) TimerEvent: {}
+[0.502343] (-) TimerEvent: {}
+[0.603468] (-) TimerEvent: {}
+[0.704107] (-) TimerEvent: {}
+[0.745621] (example_parameters_rclcpp) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.804319] (-) TimerEvent: {}
+[0.904814] (-) TimerEvent: {}
+[1.005309] (-) TimerEvent: {}
+[1.106093] (-) TimerEvent: {}
+[1.126711] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[1.206403] (-) TimerEvent: {}
+[1.281701] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[1.286363] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[1.287520] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[1.288569] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[1.292831] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[1.306608] (-) TimerEvent: {}
+[1.407523] (-) TimerEvent: {}
+[1.446332] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[1.451203] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[1.451776] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[1.452038] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[1.473462] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.14 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[1.507848] (-) TimerEvent: {}
+[1.599413] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[1.607988] (-) TimerEvent: {}
+[1.705048] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Found rclcpp: 16.0.19 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[1.708154] (-) TimerEvent: {}
+[1.809103] (-) TimerEvent: {}
+[1.910125] (-) TimerEvent: {}
+[1.915729] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.9 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[1.923180] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.9 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[1.936480] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.9 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[1.955562] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.974105] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[2.010453] (-) TimerEvent: {}
+[2.030950] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.3 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[2.035306] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.10 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[2.111088] (-) TimerEvent: {}
+[2.212138] (-) TimerEvent: {}
+[2.313128] (-) TimerEvent: {}
+[2.414208] (-) TimerEvent: {}
+[2.515350] (-) TimerEvent: {}
+[2.616325] (-) TimerEvent: {}
+[2.717251] (-) TimerEvent: {}
+[2.818161] (-) TimerEvent: {}
+[2.919064] (-) TimerEvent: {}
+[3.019976] (-) TimerEvent: {}
+[3.120867] (-) TimerEvent: {}
+[3.221809] (-) TimerEvent: {}
+[3.322753] (-) TimerEvent: {}
+[3.423764] (-) TimerEvent: {}
+[3.491076] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[3.524086] (-) TimerEvent: {}
+[3.625041] (-) TimerEvent: {}
+[3.725986] (-) TimerEvent: {}
+[3.826916] (-) TimerEvent: {}
+[3.927853] (-) TimerEvent: {}
+[4.028753] (-) TimerEvent: {}
+[4.129599] (-) TimerEvent: {}
+[4.230524] (-) TimerEvent: {}
+[4.331571] (-) TimerEvent: {}
+[4.432482] (-) TimerEvent: {}
+[4.533517] (-) TimerEvent: {}
+[4.634442] (-) TimerEvent: {}
+[4.735404] (-) TimerEvent: {}
+[4.835958] (-) TimerEvent: {}
+[4.936891] (-) TimerEvent: {}
+[4.962785] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[5.037474] (-) TimerEvent: {}
+[5.138456] (-) TimerEvent: {}
+[5.239539] (-) TimerEvent: {}
+[5.340443] (-) TimerEvent: {}
+[5.440998] (-) TimerEvent: {}
+[5.541591] (-) TimerEvent: {}
+[5.642201] (-) TimerEvent: {}
+[5.742656] (-) TimerEvent: {}
+[5.843198] (-) TimerEvent: {}
+[5.943731] (-) TimerEvent: {}
+[6.044320] (-) TimerEvent: {}
+[6.144883] (-) TimerEvent: {}
+[6.245413] (-) TimerEvent: {}
+[6.346010] (-) TimerEvent: {}
+[6.446412] (-) TimerEvent: {}
+[6.546745] (-) TimerEvent: {}
+[6.647078] (-) TimerEvent: {}
+[6.747402] (-) TimerEvent: {}
+[6.847689] (-) TimerEvent: {}
+[6.948001] (-) TimerEvent: {}
+[7.048237] (-) TimerEvent: {}
+[7.148598] (-) TimerEvent: {}
+[7.248931] (-) TimerEvent: {}
+[7.349246] (-) TimerEvent: {}
+[7.449811] (-) TimerEvent: {}
+[7.539617] (example_parameters_rclcpp) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[7.549992] (-) TimerEvent: {}
+[7.575026] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[7.650433] (-) TimerEvent: {}
+[7.739779] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[7.740257] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[7.750634] (-) TimerEvent: {}
+[7.851345] (-) TimerEvent: {}
+[7.893107] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[7.894084] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[7.951465] (-) TimerEvent: {}
+[7.964034] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.12.15 (/opt/ros/humble/share/ament_lint_auto/cmake)\n'}
+[8.035350] (example_parameters_rclcpp) StdoutLine: {'line': b"-- Added test 'cppcheck' to perform static code analysis on C / C++ code\n"}
+[8.035588] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Configured cppcheck include dirs: $<BUILD_INTERFACE:/home/yi/ros2/ROS2/ros_parameter/src/example_parameters_rclcpp/include>\n'}
+[8.035692] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Configured cppcheck exclude dirs and/or files: \n'}
+[8.037469] (example_parameters_rclcpp) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[8.039505] (example_parameters_rclcpp) StdoutLine: {'line': b"-- Added test 'uncrustify' to check C / C++ code style\n"}
+[8.039728] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Configured uncrustify additional arguments: \n'}
+[8.040423] (example_parameters_rclcpp) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[8.043186] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Configuring done\n'}
+[8.051616] (-) TimerEvent: {}
+[8.055417] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Generating done\n'}
+[8.058596] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Build files have been written to: /home/yi/ros2/ROS2/ros_parameter/build/example_parameters_rclcpp\n'}
+[8.067894] (example_parameters_rclcpp) CommandEnded: {'returncode': 0}
+[8.069008] (example_parameters_rclcpp) JobProgress: {'identifier': 'example_parameters_rclcpp', 'progress': 'build'}
+[8.071004] (example_parameters_rclcpp) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/yi/ros2/ROS2/ros_parameter/build/example_parameters_rclcpp', '--', '-j24', '-l24'], 'cwd': '/home/yi/ros2/ROS2/ros_parameter/build/example_parameters_rclcpp', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'yi'), ('GIT_ASKPASS', '/home/yi/.vscode-server/bin/7debcd0e2acdea1c52de81bf9ee1620444407dda/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/yi/.mujoco/mujoco200/bin:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/home/yi/.mujoco/mujoco200/bin:/usr/lib/nvidia:/usr/lib/nvidia'), ('HOME', '/home/yi'), ('CONDA_SHLVL', '0'), ('OLDPWD', '/home/yi/ros2/ROS2/ros_parameter/src'), ('TERM_PROGRAM_VERSION', '1.138.0'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-eeff9d1a-cb9f-418b-b4e2-7a039464fb00.sock'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/yi/.vscode-server/bin/7debcd0e2acdea1c52de81bf9ee1620444407dda/extensions/git/dist/askpass-main.js'), ('VSCODE_GIT_ASKPASS_NODE', '/home/yi/.vscode-server/bin/7debcd0e2acdea1c52de81bf9ee1620444407dda/node'), ('VSCODE_PYTHON_AUTOACTIVATE_GUARD', '1'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('_CE_M', ''), ('WSL_DISTRO_NAME', 'Ubuntu-22.04'), ('_CONDA_ROOT', '/home/yi/miniconda3'), ('WAYLAND_DISPLAY', 'wayland-0'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'yi'), ('NAME', 'DESKTOP-9FJML7G'), ('WSL_INTEROP', '/run/WSL/6895_interop'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/yi/.mujoco/mujoco200/bin:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/home/yi/.mujoco/mujoco200/bin:/usr/lib/nvidia:/usr/lib/nvidia:/home/yi/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand:/home/yi/.vscode-server/data/User/globalStorage/github.copilot-chat/copilotCli:/home/yi/.vscode-server/bin/7debcd0e2acdea1c52de81bf9ee1620444407dda/bin/remote-cli:/opt/ros/humble/bin:/home/yi/miniconda3/condabin:/home/yi/.mujoco/mujoco200/bin:/usr/lib/nvidia:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR:/mnt/d/DAILY/Git/cmd:/mnt/d/WORK/Matlab/runtime/win64:/mnt/d/WORK/Matlab/bin:/mnt/d/Windows Kits/10/Windows Performance Toolkit/:/mnt/c/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/:/mnt/c/Program Files/Microsoft SQL Server/160/Tools/Binn/:/mnt/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/:/mnt/c/Program Files/Microsoft SQL Server/160/DTS/Binn/:/mnt/c/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/:/mnt/d/WORK/mingw64/bin:/mnt/c/Users/Y/.pixi/bin:/mnt/c/Users/Y/.local/bin:/mnt/c/Users/Y/AppData/Local/Microsoft/WindowsApps:/mnt/d/WORK/Microsoft VS Code/bin:/mnt/d/WORK/Miniconda:/mnt/d/WORK/Miniconda/Scripts:/mnt/c/Users/Y/AppData/Local/Programs/DockerDesktop/resources/bin:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LD_PRELOAD', '/usr/lib/x86_64-linux-gnu/libGLEW.so'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-d3d905f311.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('CONDA_PYTHON_EXE', '/home/yi/miniconda3/bin/python'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('_CONDA_EXE', '/home/yi/miniconda3/bin/conda'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/yi/ros2/ROS2/ros_parameter/build/example_parameters_rclcpp'), ('COPILOT_DEBUG_NONCE', 'fbc251491b76bddd2228edb21010189e'), ('CONDA_EXE', '/home/yi/miniconda3/bin/conda'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('HOSTTYPE', 'x86_64'), ('MUJOCO_KEY_PATH', '/home/yi/.mujoco/home/yi/.mujoco'), ('WSLENV', 'VSCODE_WSL_EXT_LOCATION/up'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[8.125432] (example_parameters_rclcpp) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/parameters_basic.dir/src/parameters_basic.cpp.o\x1b[0m\n'}
+[8.151907] (-) TimerEvent: {}
+[8.252928] (-) TimerEvent: {}
+[8.353857] (-) TimerEvent: {}
+[8.454960] (-) TimerEvent: {}
+[8.556093] (-) TimerEvent: {}
+[8.657112] (-) TimerEvent: {}
+[8.758184] (-) TimerEvent: {}
+[8.859272] (-) TimerEvent: {}
+[8.960750] (-) TimerEvent: {}
+[9.061915] (-) TimerEvent: {}
+[9.163040] (-) TimerEvent: {}
+[9.264208] (-) TimerEvent: {}
+[9.365299] (-) TimerEvent: {}
+[9.466426] (-) TimerEvent: {}
+[9.566859] (-) TimerEvent: {}
+[9.667897] (-) TimerEvent: {}
+[9.768953] (-) TimerEvent: {}
+[9.870116] (-) TimerEvent: {}
+[9.971256] (-) TimerEvent: {}
+[10.072402] (-) TimerEvent: {}
+[10.173699] (-) TimerEvent: {}
+[10.274835] (-) TimerEvent: {}
+[10.375899] (-) TimerEvent: {}
+[10.477015] (-) TimerEvent: {}
+[10.535364] (example_parameters_rclcpp) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable parameters_basic\x1b[0m\n'}
+[10.577419] (-) TimerEvent: {}
+[10.678398] (-) TimerEvent: {}
+[10.760274] (example_parameters_rclcpp) StdoutLine: {'line': b'[100%] Built target parameters_basic\n'}
+[10.772779] (example_parameters_rclcpp) CommandEnded: {'returncode': 0}
+[10.774215] (example_parameters_rclcpp) JobProgress: {'identifier': 'example_parameters_rclcpp', 'progress': 'install'}
+[10.778554] (-) TimerEvent: {}
+[10.782313] (example_parameters_rclcpp) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/yi/ros2/ROS2/ros_parameter/build/example_parameters_rclcpp'], 'cwd': '/home/yi/ros2/ROS2/ros_parameter/build/example_parameters_rclcpp', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'yi'), ('GIT_ASKPASS', '/home/yi/.vscode-server/bin/7debcd0e2acdea1c52de81bf9ee1620444407dda/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/yi/.mujoco/mujoco200/bin:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/home/yi/.mujoco/mujoco200/bin:/usr/lib/nvidia:/usr/lib/nvidia'), ('HOME', '/home/yi'), ('CONDA_SHLVL', '0'), ('OLDPWD', '/home/yi/ros2/ROS2/ros_parameter/src'), ('TERM_PROGRAM_VERSION', '1.138.0'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-eeff9d1a-cb9f-418b-b4e2-7a039464fb00.sock'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/yi/.vscode-server/bin/7debcd0e2acdea1c52de81bf9ee1620444407dda/extensions/git/dist/askpass-main.js'), ('VSCODE_GIT_ASKPASS_NODE', '/home/yi/.vscode-server/bin/7debcd0e2acdea1c52de81bf9ee1620444407dda/node'), ('VSCODE_PYTHON_AUTOACTIVATE_GUARD', '1'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('_CE_M', ''), ('WSL_DISTRO_NAME', 'Ubuntu-22.04'), ('_CONDA_ROOT', '/home/yi/miniconda3'), ('WAYLAND_DISPLAY', 'wayland-0'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'yi'), ('NAME', 'DESKTOP-9FJML7G'), ('WSL_INTEROP', '/run/WSL/6895_interop'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/yi/.mujoco/mujoco200/bin:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/home/yi/.mujoco/mujoco200/bin:/usr/lib/nvidia:/usr/lib/nvidia:/home/yi/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand:/home/yi/.vscode-server/data/User/globalStorage/github.copilot-chat/copilotCli:/home/yi/.vscode-server/bin/7debcd0e2acdea1c52de81bf9ee1620444407dda/bin/remote-cli:/opt/ros/humble/bin:/home/yi/miniconda3/condabin:/home/yi/.mujoco/mujoco200/bin:/usr/lib/nvidia:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA App/NvDLISR:/mnt/d/DAILY/Git/cmd:/mnt/d/WORK/Matlab/runtime/win64:/mnt/d/WORK/Matlab/bin:/mnt/d/Windows Kits/10/Windows Performance Toolkit/:/mnt/c/Program Files (x86)/Microsoft SQL Server/160/Tools/Binn/:/mnt/c/Program Files/Microsoft SQL Server/160/Tools/Binn/:/mnt/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/:/mnt/c/Program Files/Microsoft SQL Server/160/DTS/Binn/:/mnt/c/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/:/mnt/d/WORK/mingw64/bin:/mnt/c/Users/Y/.pixi/bin:/mnt/c/Users/Y/.local/bin:/mnt/c/Users/Y/AppData/Local/Microsoft/WindowsApps:/mnt/d/WORK/Microsoft VS Code/bin:/mnt/d/WORK/Miniconda:/mnt/d/WORK/Miniconda/Scripts:/mnt/c/Users/Y/AppData/Local/Programs/DockerDesktop/resources/bin:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LD_PRELOAD', '/usr/lib/x86_64-linux-gnu/libGLEW.so'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-d3d905f311.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('CONDA_PYTHON_EXE', '/home/yi/miniconda3/bin/python'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('_CONDA_EXE', '/home/yi/miniconda3/bin/conda'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/yi/ros2/ROS2/ros_parameter/build/example_parameters_rclcpp'), ('COPILOT_DEBUG_NONCE', 'fbc251491b76bddd2228edb21010189e'), ('CONDA_EXE', '/home/yi/miniconda3/bin/conda'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('HOSTTYPE', 'x86_64'), ('MUJOCO_KEY_PATH', '/home/yi/.mujoco/home/yi/.mujoco'), ('WSLENV', 'VSCODE_WSL_EXT_LOCATION/up'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[10.789848] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[10.791247] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Installing: /home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/lib/example_parameters_rclcpp/parameters_basic\n'}
+[10.791789] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Set runtime path of "/home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/lib/example_parameters_rclcpp/parameters_basic" to ""\n'}
+[10.793048] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Installing: /home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/ament_index/resource_index/package_run_dependencies/example_parameters_rclcpp\n'}
+[10.793589] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Installing: /home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/ament_index/resource_index/parent_prefix_path/example_parameters_rclcpp\n'}
+[10.794522] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Installing: /home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/example_parameters_rclcpp/environment/ament_prefix_path.sh\n'}
+[10.794752] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Installing: /home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/example_parameters_rclcpp/environment/ament_prefix_path.dsv\n'}
+[10.794935] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Installing: /home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/example_parameters_rclcpp/environment/path.sh\n'}
+[10.795464] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Installing: /home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/example_parameters_rclcpp/environment/path.dsv\n'}
+[10.795755] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Installing: /home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/example_parameters_rclcpp/local_setup.bash\n'}
+[10.795845] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Installing: /home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/example_parameters_rclcpp/local_setup.sh\n'}
+[10.795931] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Installing: /home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/example_parameters_rclcpp/local_setup.zsh\n'}
+[10.796091] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Installing: /home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/example_parameters_rclcpp/local_setup.dsv\n'}
+[10.796148] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Installing: /home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/example_parameters_rclcpp/package.dsv\n'}
+[10.796514] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Installing: /home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/ament_index/resource_index/packages/example_parameters_rclcpp\n'}
+[10.797002] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Installing: /home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/example_parameters_rclcpp/cmake/example_parameters_rclcppConfig.cmake\n'}
+[10.797210] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Installing: /home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/example_parameters_rclcpp/cmake/example_parameters_rclcppConfig-version.cmake\n'}
+[10.797352] (example_parameters_rclcpp) StdoutLine: {'line': b'-- Installing: /home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/example_parameters_rclcpp/package.xml\n'}
+[10.799587] (example_parameters_rclcpp) CommandEnded: {'returncode': 0}
+[10.826600] (example_parameters_rclcpp) JobEnded: {'identifier': 'example_parameters_rclcpp', 'rc': 0}
+[10.827874] (-) EventReactorShutdown: {}

@@ -1,0 +1,16 @@
+/home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/lib/example_parameters_rclcpp/parameters_basic
+/home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/ament_index/resource_index/package_run_dependencies/example_parameters_rclcpp
+/home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/ament_index/resource_index/parent_prefix_path/example_parameters_rclcpp
+/home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/example_parameters_rclcpp/environment/ament_prefix_path.sh
+/home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/example_parameters_rclcpp/environment/ament_prefix_path.dsv
+/home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/example_parameters_rclcpp/environment/path.sh
+/home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/example_parameters_rclcpp/environment/path.dsv
+/home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/example_parameters_rclcpp/local_setup.bash
+/home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/example_parameters_rclcpp/local_setup.sh
+/home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/example_parameters_rclcpp/local_setup.zsh
+/home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/example_parameters_rclcpp/local_setup.dsv
+/home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/example_parameters_rclcpp/package.dsv
+/home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/ament_index/resource_index/packages/example_parameters_rclcpp
+/home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/example_parameters_rclcpp/cmake/example_parameters_rclcppConfig.cmake
+/home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/example_parameters_rclcpp/cmake/example_parameters_rclcppConfig-version.cmake
+/home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclcpp/share/example_parameters_rclcpp/package.xml

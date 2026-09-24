@@ -1,0 +1,11 @@
+[01m[K/home/yi/ros2/ROS2/ros_parameter/src/example_parameters_rclcpp/src/parameters_basic.cpp:18:24:[m[K [01;31m[Kerror: [m[K‘[01m[KShardPtr[m[K’ in ‘[01m[Kclass rclcpp::TimerBase[m[K’ does not name a type
+   18 |     rclcpp::TimerBase::[01;31m[KShardPtr[m[K timer_;
+      |                        [01;31m[K^~~~~~~~[m[K
+[01m[K/home/yi/ros2/ROS2/ros_parameter/src/example_parameters_rclcpp/src/parameters_basic.cpp:[m[K In constructor ‘[01m[KParametersBasicNode::ParametersBasicNode(std::string)[m[K’:
+[01m[K/home/yi/ros2/ROS2/ros_parameter/src/example_parameters_rclcpp/src/parameters_basic.cpp:13:7:[m[K [01;31m[Kerror: [m[K‘[01m[Ktimer_[m[K’ was not declared in this scope; did you mean ‘[01m[Ktimer_t[m[K’?
+   13 |       [01;31m[Ktimer_[m[K = this->create_wall_timer(
+      |       [01;31m[K^~~~~~[m[K
+      |       [32m[Ktimer_t[m[K
+gmake[2]: *** [CMakeFiles/parameters_basic.dir/build.make:76: CMakeFiles/parameters_basic.dir/src/parameters_basic.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/parameters_basic.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

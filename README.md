@@ -1827,7 +1827,21 @@ https://www.php.cn/faq/459626.html
 
 ## 7.4 参数(Parameters)
 
+- `ros param list` 查看所有打开的节点的参数
 
+- `ros2 param describe <node_name> <param_name>` 查看参数的含义
+
+- `ros2 param get /turtlesim background_b` 获取参数的值
+
+- `ros2 param set <node_name> <parameter_name> <value>` 设置参数
+
+- `ros2 param dump <node_name>` 将当前所有参数记录
+
+- `ros2 param load  /turtlesim ./turtlesim.yaml` 载入参数运行
+
+- `ros2 run <package_name> <executable_name> --ros-args --params-file <file_name>` 载入参数运行
+
+  
 
 # 8 接口(interface)
 
