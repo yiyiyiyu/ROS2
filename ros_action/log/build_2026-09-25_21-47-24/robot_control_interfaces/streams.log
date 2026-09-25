@@ -1,0 +1,244 @@
+[0.024s] Invoking command in '/home/yi/ros2/ROS2/ros_action/build/robot_control_interfaces': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/yi/ros2/ROS2/ros_action/src/robot_control_interfaces -DCMAKE_INSTALL_PREFIX=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces
+[0.304s] -- The C compiler identification is GNU 11.4.0
+[0.779s] -- The CXX compiler identification is GNU 11.4.0
+[1.131s] -- Detecting C compiler ABI info
+[1.282s] -- Detecting C compiler ABI info - done
+[1.286s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.287s] -- Detecting C compile features
+[1.289s] -- Detecting C compile features - done
+[1.292s] -- Detecting CXX compiler ABI info
+[1.439s] -- Detecting CXX compiler ABI info - done
+[1.443s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[1.444s] -- Detecting CXX compile features
+[1.444s] -- Detecting CXX compile features - done
+[1.464s] -- Found ament_cmake: 1.3.14 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.584s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.685s] -- Found rosidl_default_generators: 1.2.1 (/opt/ros/humble/share/rosidl_default_generators/cmake)
+[1.691s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.700s] -- Found rosidl_adapter: 3.1.9 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.893s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[2.179s] -- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)
+[2.330s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[2.506s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[2.627s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.10.12", minimum required is "3.6") 
+[2.629s] -- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)
+[2.991s] -- Found PythonLibs: /usr/lib/x86_64-linux-gnu/libpython3.10.so (found suitable version "3.10.12", minimum required is "3.5") 
+[2.991s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[2.991s] -- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10
+[2.991s] -- Using PYTHON_LIBRARIES: /usr/lib/x86_64-linux-gnu/libpython3.10.so
+[3.006s] -- Found PythonExtra: .so  
+[3.114s] -- Found ament_lint_auto: 0.12.15 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[3.148s] -- Added test 'lint_cmake' to check CMake code style
+[3.150s] -- Added test 'xmllint' to check XML markup files
+[3.154s] -- Configuring done
+[3.203s] -- Generating done
+[3.212s] -- Build files have been written to: /home/yi/ros2/ROS2/ros_action/build/robot_control_interfaces
+[3.219s] Invoked command in '/home/yi/ros2/ROS2/ros_action/build/robot_control_interfaces' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/yi/ros2/ROS2/ros_action/src/robot_control_interfaces -DCMAKE_INSTALL_PREFIX=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces
+[3.221s] Invoking command in '/home/yi/ros2/ROS2/ros_action/build/robot_control_interfaces': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/yi/ros2/ROS2/ros_action/build/robot_control_interfaces -- -j24 -l24
+[3.262s] [  3%] [34m[1mGenerating C code for ROS interfaces[0m
+[3.272s] [  9%] [34m[1mGenerating C++ code for ROS interfaces[0m
+[3.272s] [  9%] [34m[1mGenerating Rust code for ROS interfaces[0m
+[3.281s] [  9%] Built target ament_cmake_python_copy_robot_control_interfaces
+[3.432s] running egg_info
+[3.432s] creating robot_control_interfaces.egg-info
+[3.432s] writing robot_control_interfaces.egg-info/PKG-INFO
+[3.433s] writing dependency_links to robot_control_interfaces.egg-info/dependency_links.txt
+[3.433s] writing top-level names to robot_control_interfaces.egg-info/top_level.txt
+[3.433s] writing manifest file 'robot_control_interfaces.egg-info/SOURCES.txt'
+[3.436s] reading manifest file 'robot_control_interfaces.egg-info/SOURCES.txt'
+[3.437s] writing manifest file 'robot_control_interfaces.egg-info/SOURCES.txt'
+[3.446s] [  9%] Built target robot_control_interfaces__rs
+[3.457s] [  9%] Built target ament_cmake_python_build_robot_control_interfaces_egg
+[3.518s] [ 12%] [32mBuilding C object CMakeFiles/robot_control_interfaces__rosidl_generator_c.dir/rosidl_generator_c/robot_control_interfaces/action/detail/move_robot__functions.c.o[0m
+[3.528s] [ 12%] Built target robot_control_interfaces__cpp
+[3.540s] [ 15%] [34m[1mGenerating C++ introspection for ROS interfaces[0m
+[3.540s] [ 21%] [34m[1mGenerating C++ type support for eProsima Fast-RTPS[0m
+[3.541s] [ 21%] [34m[1mGenerating C++ type support dispatch for ROS interfaces[0m
+[3.632s] [ 25%] [32m[1mLinking C shared library librobot_control_interfaces__rosidl_generator_c.so[0m
+[3.714s] [ 28%] [32mBuilding CXX object CMakeFiles/robot_control_interfaces__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/robot_control_interfaces/action/move_robot__type_support.cpp.o[0m
+[3.734s] [ 28%] Built target robot_control_interfaces__rosidl_generator_c
+[3.746s] [ 37%] [34m[1mGenerating C type support dispatch for ROS interfaces[0m
+[3.746s] [ 37%] [34m[1mGenerating C type support for eProsima Fast-RTPS[0m
+[3.746s] [ 37%] [34m[1mGenerating C introspection for ROS interfaces[0m
+[3.748s] [ 40%] [32mBuilding CXX object CMakeFiles/robot_control_interfaces__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/robot_control_interfaces/action/detail/move_robot__type_support.cpp.o[0m
+[3.767s] [ 43%] [32mBuilding CXX object CMakeFiles/robot_control_interfaces__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/robot_control_interfaces/action/detail/dds_fastrtps/move_robot__type_support.cpp.o[0m
+[3.935s] [ 46%] [32mBuilding CXX object CMakeFiles/robot_control_interfaces__rosidl_typesupport_c.dir/rosidl_typesupport_c/robot_control_interfaces/action/move_robot__type_support.cpp.o[0m
+[3.978s] [ 50%] [32mBuilding C object CMakeFiles/robot_control_interfaces__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/robot_control_interfaces/action/detail/move_robot__type_support.c.o[0m
+[3.987s] [ 53%] [32m[1mLinking CXX shared library librobot_control_interfaces__rosidl_typesupport_c.so[0m
+[3.991s] [ 56%] [32mBuilding CXX object CMakeFiles/robot_control_interfaces__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/robot_control_interfaces/action/detail/move_robot__type_support_c.cpp.o[0m
+[4.024s] [ 59%] [32m[1mLinking C shared library librobot_control_interfaces__rosidl_typesupport_introspection_c.so[0m
+[4.101s] [ 59%] Built target robot_control_interfaces__rosidl_typesupport_c
+[4.135s] [ 59%] Built target robot_control_interfaces__rosidl_typesupport_introspection_c
+[4.154s] [ 62%] [32m[1mLinking CXX shared library librobot_control_interfaces__rosidl_typesupport_cpp.so[0m
+[4.192s] [ 65%] [32m[1mLinking CXX shared library librobot_control_interfaces__rosidl_typesupport_introspection_cpp.so[0m
+[4.210s] [ 68%] [32m[1mLinking CXX shared library librobot_control_interfaces__rosidl_typesupport_fastrtps_cpp.so[0m
+[4.266s] [ 68%] Built target robot_control_interfaces__rosidl_typesupport_cpp
+[4.269s] [ 71%] [32m[1mLinking CXX shared library librobot_control_interfaces__rosidl_typesupport_fastrtps_c.so[0m
+[4.321s] [ 71%] Built target robot_control_interfaces__rosidl_typesupport_introspection_cpp
+[4.347s] [ 71%] Built target robot_control_interfaces__rosidl_typesupport_fastrtps_cpp
+[4.403s] [ 71%] Built target robot_control_interfaces__rosidl_typesupport_fastrtps_c
+[4.425s] [ 71%] Built target robot_control_interfaces
+[4.448s] [ 75%] [34m[1mGenerating Python code for ROS interfaces[0m
+[4.860s] [ 75%] Built target robot_control_interfaces__py
+[4.881s] [ 78%] [32mBuilding C object CMakeFiles/robot_control_interfaces__rosidl_generator_py.dir/rosidl_generator_py/robot_control_interfaces/action/_move_robot_s.c.o[0m
+[5.043s] [ 81%] [32m[1mLinking C shared library rosidl_generator_py/robot_control_interfaces/librobot_control_interfaces__rosidl_generator_py.so[0m
+[5.153s] [ 81%] Built target robot_control_interfaces__rosidl_generator_py
+[5.178s] [ 87%] [32mBuilding C object CMakeFiles/robot_control_interfaces__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/robot_control_interfaces/_robot_control_interfaces_s.ep.rosidl_typesupport_c.c.o[0m
+[5.178s] [ 87%] [32mBuilding C object CMakeFiles/robot_control_interfaces__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/robot_control_interfaces/_robot_control_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c.o[0m
+[5.179s] [ 90%] [32mBuilding C object CMakeFiles/robot_control_interfaces__rosidl_typesupport_introspection_c__pyext.dir/rosidl_generator_py/robot_control_interfaces/_robot_control_interfaces_s.ep.rosidl_typesupport_introspection_c.c.o[0m
+[5.269s] [ 96%] [32m[1mLinking C shared library rosidl_generator_py/robot_control_interfaces/robot_control_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so[0m
+[5.269s] [ 96%] [32m[1mLinking C shared library rosidl_generator_py/robot_control_interfaces/robot_control_interfaces_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so[0m
+[5.269s] [100%] [32m[1mLinking C shared library rosidl_generator_py/robot_control_interfaces/robot_control_interfaces_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so[0m
+[5.363s] [100%] Built target robot_control_interfaces__rosidl_typesupport_fastrtps_c__pyext
+[5.363s] [100%] Built target robot_control_interfaces__rosidl_typesupport_introspection_c__pyext
+[5.364s] [100%] Built target robot_control_interfaces__rosidl_typesupport_c__pyext
+[5.378s] Invoked command in '/home/yi/ros2/ROS2/ros_action/build/robot_control_interfaces' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/yi/ros2/ROS2/ros_action/build/robot_control_interfaces -- -j24 -l24
+[5.389s] Invoking command in '/home/yi/ros2/ROS2/ros_action/build/robot_control_interfaces': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/yi/ros2/ROS2/ros_action/build/robot_control_interfaces
+[5.394s] -- Install configuration: ""
+[5.395s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/ament_index/resource_index/rosidl_interfaces/robot_control_interfaces
+[5.395s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces
+[5.396s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/msg
+[5.397s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/msg/rosidl_generator_c__visibility_control.h
+[5.397s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action
+[5.397s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action/move_robot.h
+[5.397s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action/detail
+[5.398s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action/detail/move_robot__functions.h
+[5.398s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action/detail/move_robot__type_support.h
+[5.398s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action/detail/move_robot__struct.h
+[5.398s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action/detail/move_robot__functions.c
+[5.399s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/environment/library_path.sh
+[5.399s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/environment/library_path.dsv
+[5.400s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/lib/librobot_control_interfaces__rosidl_generator_c.so
+[5.400s] -- Set runtime path of "/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/lib/librobot_control_interfaces__rosidl_generator_c.so" to ""
+[5.400s] -- Up-to-date: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces
+[5.400s] -- Up-to-date: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/msg
+[5.401s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[5.401s] -- Up-to-date: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action
+[5.401s] -- Up-to-date: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action/detail
+[5.401s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action/detail/move_robot__rosidl_typesupport_fastrtps_c.h
+[5.401s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/lib/librobot_control_interfaces__rosidl_typesupport_fastrtps_c.so
+[5.401s] -- Set runtime path of "/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/lib/librobot_control_interfaces__rosidl_typesupport_fastrtps_c.so" to ""
+[5.401s] -- Up-to-date: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces
+[5.402s] -- Up-to-date: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/msg
+[5.402s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[5.402s] -- Up-to-date: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action
+[5.402s] -- Up-to-date: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action/detail
+[5.402s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action/detail/move_robot__type_support.c
+[5.402s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action/detail/move_robot__rosidl_typesupport_introspection_c.h
+[5.402s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/lib/librobot_control_interfaces__rosidl_typesupport_introspection_c.so
+[5.402s] -- Set runtime path of "/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/lib/librobot_control_interfaces__rosidl_typesupport_introspection_c.so" to ""
+[5.402s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/lib/librobot_control_interfaces__rosidl_typesupport_c.so
+[5.403s] -- Set runtime path of "/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/lib/librobot_control_interfaces__rosidl_typesupport_c.so" to ""
+[5.403s] -- Up-to-date: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces
+[5.403s] -- Up-to-date: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/msg
+[5.403s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/msg/rosidl_generator_cpp__visibility_control.hpp
+[5.403s] -- Up-to-date: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action
+[5.404s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action/move_robot.hpp
+[5.404s] -- Up-to-date: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action/detail
+[5.404s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action/detail/move_robot__type_support.hpp
+[5.404s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action/detail/move_robot__traits.hpp
+[5.404s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action/detail/move_robot__struct.hpp
+[5.404s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action/detail/move_robot__builder.hpp
+[5.405s] -- Up-to-date: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces
+[5.405s] -- Up-to-date: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/msg
+[5.405s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[5.405s] -- Up-to-date: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action
+[5.405s] -- Up-to-date: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action/detail
+[5.405s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action/detail/dds_fastrtps
+[5.405s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action/detail/move_robot__rosidl_typesupport_fastrtps_cpp.hpp
+[5.405s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/lib/librobot_control_interfaces__rosidl_typesupport_fastrtps_cpp.so
+[5.406s] -- Set runtime path of "/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/lib/librobot_control_interfaces__rosidl_typesupport_fastrtps_cpp.so" to ""
+[5.406s] -- Up-to-date: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces
+[5.406s] -- Up-to-date: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action
+[5.406s] -- Up-to-date: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action/detail
+[5.406s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action/detail/move_robot__rosidl_typesupport_introspection_cpp.hpp
+[5.406s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/include/robot_control_interfaces/robot_control_interfaces/action/detail/move_robot__type_support.cpp
+[5.406s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/lib/librobot_control_interfaces__rosidl_typesupport_introspection_cpp.so
+[5.406s] -- Set runtime path of "/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/lib/librobot_control_interfaces__rosidl_typesupport_introspection_cpp.so" to ""
+[5.407s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/lib/librobot_control_interfaces__rosidl_typesupport_cpp.so
+[5.407s] -- Set runtime path of "/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/lib/librobot_control_interfaces__rosidl_typesupport_cpp.so" to ""
+[5.407s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/environment/pythonpath.sh
+[5.407s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/environment/pythonpath.dsv
+[5.407s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces-0.0.0-py3.10.egg-info
+[5.409s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces-0.0.0-py3.10.egg-info/dependency_links.txt
+[5.409s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces-0.0.0-py3.10.egg-info/top_level.txt
+[5.409s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces-0.0.0-py3.10.egg-info/SOURCES.txt
+[5.409s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces-0.0.0-py3.10.egg-info/PKG-INFO
+[5.409s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces
+[5.410s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces/librobot_control_interfaces__rosidl_generator_py.so
+[5.410s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces/_robot_control_interfaces_s.ep.rosidl_typesupport_c.c
+[5.410s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces/__init__.py
+[5.410s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces/robot_control_interfaces_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
+[5.410s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces/robot_control_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
+[5.411s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces/_robot_control_interfaces_s.ep.rosidl_typesupport_introspection_c.c
+[5.411s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces/action
+[5.411s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces/action/_move_robot.py
+[5.411s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces/action/_move_robot_s.c
+[5.412s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces/action/__init__.py
+[5.412s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces/robot_control_interfaces_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
+[5.412s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces/_robot_control_interfaces_s.ep.rosidl_typesupport_fastrtps_c.c
+[5.441s] Listing '/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces'...
+[5.441s] Compiling '/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces/__init__.py'...
+[5.441s] Listing '/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces/action'...
+[5.441s] Compiling '/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces/action/__init__.py'...
+[5.441s] Compiling '/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces/action/_move_robot.py'...
+[5.444s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces/robot_control_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
+[5.444s] -- Set runtime path of "/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces/robot_control_interfaces_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so" to ""
+[5.445s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces/robot_control_interfaces_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
+[5.445s] -- Set runtime path of "/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces/robot_control_interfaces_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so" to ""
+[5.445s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces/robot_control_interfaces_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
+[5.446s] -- Set runtime path of "/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages/robot_control_interfaces/robot_control_interfaces_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so" to ""
+[5.446s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/lib/librobot_control_interfaces__rosidl_generator_py.so
+[5.446s] -- Set runtime path of "/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/lib/librobot_control_interfaces__rosidl_generator_py.so" to ""
+[5.447s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/ament_index/resource_index/rust_packages/robot_control_interfaces
+[5.447s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/rust
+[5.447s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/rust/Cargo.toml
+[5.447s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/rust/build.rs
+[5.447s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/rust/src
+[5.448s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/rust/src/action.rs
+[5.448s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/rust/src/lib.rs
+[5.448s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/rust/src/action
+[5.449s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/rust/src/action/rmw.rs
+[5.449s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/action/MoveRobot.idl
+[5.449s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/action/MoveRobot.action
+[5.449s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/ament_index/resource_index/package_run_dependencies/robot_control_interfaces
+[5.450s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/ament_index/resource_index/parent_prefix_path/robot_control_interfaces
+[5.450s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/environment/ament_prefix_path.sh
+[5.450s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/environment/ament_prefix_path.dsv
+[5.450s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/environment/path.sh
+[5.451s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/environment/path.dsv
+[5.451s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/local_setup.bash
+[5.451s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/local_setup.sh
+[5.451s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/local_setup.zsh
+[5.451s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/local_setup.dsv
+[5.451s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/package.dsv
+[5.452s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/ament_index/resource_index/packages/robot_control_interfaces
+[5.452s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/cmake/export_robot_control_interfaces__rosidl_generator_cExport.cmake
+[5.453s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/cmake/export_robot_control_interfaces__rosidl_generator_cExport-noconfig.cmake
+[5.453s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/cmake/export_robot_control_interfaces__rosidl_typesupport_fastrtps_cExport.cmake
+[5.453s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/cmake/export_robot_control_interfaces__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+[5.453s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/cmake/robot_control_interfaces__rosidl_typesupport_introspection_cExport.cmake
+[5.453s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/cmake/robot_control_interfaces__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[5.453s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/cmake/robot_control_interfaces__rosidl_typesupport_cExport.cmake
+[5.453s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/cmake/robot_control_interfaces__rosidl_typesupport_cExport-noconfig.cmake
+[5.454s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/cmake/export_robot_control_interfaces__rosidl_generator_cppExport.cmake
+[5.454s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/cmake/export_robot_control_interfaces__rosidl_typesupport_fastrtps_cppExport.cmake
+[5.454s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/cmake/export_robot_control_interfaces__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+[5.454s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/cmake/robot_control_interfaces__rosidl_typesupport_introspection_cppExport.cmake
+[5.454s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/cmake/robot_control_interfaces__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[5.455s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/cmake/robot_control_interfaces__rosidl_typesupport_cppExport.cmake
+[5.455s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/cmake/robot_control_interfaces__rosidl_typesupport_cppExport-noconfig.cmake
+[5.455s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/cmake/export_robot_control_interfaces__rosidl_generator_pyExport.cmake
+[5.455s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/cmake/export_robot_control_interfaces__rosidl_generator_pyExport-noconfig.cmake
+[5.455s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/cmake/rosidl_cmake-extras.cmake
+[5.455s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/cmake/ament_cmake_export_dependencies-extras.cmake
+[5.455s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/cmake/ament_cmake_export_include_directories-extras.cmake
+[5.456s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/cmake/ament_cmake_export_libraries-extras.cmake
+[5.456s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/cmake/ament_cmake_export_targets-extras.cmake
+[5.456s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[5.456s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[5.456s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/cmake/rosidl_cmake_aggregate_target-extras.cmake
+[5.457s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/cmake/robot_control_interfacesConfig.cmake
+[5.457s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/cmake/robot_control_interfacesConfig-version.cmake
+[5.457s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/package.xml
+[5.460s] Invoked command in '/home/yi/ros2/ROS2/ros_action/build/robot_control_interfaces' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/yi/ros2/ROS2/ros_action/build/robot_control_interfaces

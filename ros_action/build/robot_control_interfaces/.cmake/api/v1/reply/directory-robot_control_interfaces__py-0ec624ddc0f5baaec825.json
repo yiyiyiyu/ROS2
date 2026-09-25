@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "robot_control_interfaces__py",
+		"source" : "/home/yi/ros2/ROS2/ros_action/build/robot_control_interfaces/robot_control_interfaces__py"
+	}
+}

@@ -1,0 +1,88 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-76e53b6c3a57dd4e1c03.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "example_action_rclcpp",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "action_control_01::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-action_control_01-f6035e9110bcfe780cd2.json",
+					"name" : "action_control_01",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "action_robot_01::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-action_robot_01-ef8eda53fbb7e055069a.json",
+					"name" : "action_robot_01",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "example_action_rclcpp_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-example_action_rclcpp_uninstall-428548f829b7016683dd.json",
+					"name" : "example_action_rclcpp_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-25f16167e983c2366ac3.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/yi/ros2/ROS2/ros_action/build/example_action_rclcpp",
+		"source" : "/home/yi/ros2/ROS2/ros_action/src/example_action_rclcpp"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

@@ -1,0 +1,77 @@
+[0.093s] Invoking command in '/home/yi/ros2/ROS2/ros_action/build/example_action_rclcpp': AMENT_PREFIX_PATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces:/opt/ros/humble LD_LIBRARY_PATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake /home/yi/ros2/ROS2/ros_action/src/example_action_rclcpp -DCMAKE_INSTALL_PREFIX=/home/yi/ros2/ROS2/ros_action/install/example_action_rclcpp
+[0.299s] -- The C compiler identification is GNU 11.4.0
+[0.805s] -- The CXX compiler identification is GNU 11.4.0
+[1.149s] -- Detecting C compiler ABI info
+[1.299s] -- Detecting C compiler ABI info - done
+[1.303s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.304s] -- Detecting C compile features
+[1.305s] -- Detecting C compile features - done
+[1.309s] -- Detecting CXX compiler ABI info
+[1.455s] -- Detecting CXX compiler ABI info - done
+[1.460s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[1.460s] -- Detecting CXX compile features
+[1.460s] -- Detecting CXX compile features - done
+[1.475s] -- Found ament_cmake: 1.3.14 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.595s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.696s] -- Found rclcpp: 16.0.19 (/opt/ros/humble/share/rclcpp/cmake)
+[1.900s] -- Found rosidl_generator_c: 3.1.9 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.906s] -- Found rosidl_adapter: 3.1.9 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.918s] -- Found rosidl_generator_cpp: 3.1.9 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.938s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.960s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[2.025s] -- Found rmw_implementation_cmake: 6.1.3 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[2.029s] -- Found rmw_fastrtps_cpp: 6.2.10 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[3.341s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[4.673s] -- Found FastRTPS: /opt/ros/humble/include  
+[7.076s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[7.094s] -- Looking for pthread.h
+[7.256s] -- Looking for pthread.h - found
+[7.257s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[7.398s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[7.399s] -- Found Threads: TRUE  
+[7.474s] -- Found rclcpp_action: 16.0.19 (/opt/ros/humble/share/rclcpp_action/cmake)
+[7.516s] -- Found robot_control_interfaces: 0.0.0 (/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/share/robot_control_interfaces/cmake)
+[7.528s] -- Found example_interfaces: 0.9.3 (/opt/ros/humble/share/example_interfaces/cmake)
+[7.547s] -- Found ament_lint_auto: 0.12.15 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[7.613s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[7.613s] -- Configured cppcheck include dirs: $<BUILD_INTERFACE:/home/yi/ros2/ROS2/ros_action/src/example_action_rclcpp/include>
+[7.613s] -- Configured cppcheck exclude dirs and/or files: 
+[7.615s] -- Added test 'lint_cmake' to check CMake code style
+[7.617s] -- Added test 'uncrustify' to check C / C++ code style
+[7.617s] -- Configured uncrustify additional arguments: 
+[7.618s] -- Added test 'xmllint' to check XML markup files
+[7.621s] -- Configuring done
+[7.638s] -- Generating done
+[7.643s] -- Build files have been written to: /home/yi/ros2/ROS2/ros_action/build/example_action_rclcpp
+[7.653s] Invoked command in '/home/yi/ros2/ROS2/ros_action/build/example_action_rclcpp' returned '0': AMENT_PREFIX_PATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces:/opt/ros/humble LD_LIBRARY_PATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake /home/yi/ros2/ROS2/ros_action/src/example_action_rclcpp -DCMAKE_INSTALL_PREFIX=/home/yi/ros2/ROS2/ros_action/install/example_action_rclcpp
+[7.654s] Invoking command in '/home/yi/ros2/ROS2/ros_action/build/example_action_rclcpp': AMENT_PREFIX_PATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces:/opt/ros/humble LD_LIBRARY_PATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/yi/ros2/ROS2/ros_action/build/example_action_rclcpp -- -j24 -l24
+[7.707s] [ 60%] [32mBuilding CXX object CMakeFiles/action_robot_01.dir/src/robot.cpp.o[0m
+[7.708s] [ 60%] [32mBuilding CXX object CMakeFiles/action_robot_01.dir/src/action_robot_01.cpp.o[0m
+[7.708s] [ 60%] [32mBuilding CXX object CMakeFiles/action_control_01.dir/src/action_control_01.cpp.o[0m
+[10.812s] [ 80%] [32m[1mLinking CXX executable action_robot_01[0m
+[11.002s] [100%] [32m[1mLinking CXX executable action_control_01[0m
+[11.071s] [100%] Built target action_robot_01
+[11.203s] [100%] Built target action_control_01
+[11.215s] Invoked command in '/home/yi/ros2/ROS2/ros_action/build/example_action_rclcpp' returned '0': AMENT_PREFIX_PATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces:/opt/ros/humble LD_LIBRARY_PATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/yi/ros2/ROS2/ros_action/build/example_action_rclcpp -- -j24 -l24
+[11.217s] Invoking command in '/home/yi/ros2/ROS2/ros_action/build/example_action_rclcpp': AMENT_PREFIX_PATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces:/opt/ros/humble LD_LIBRARY_PATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --install /home/yi/ros2/ROS2/ros_action/build/example_action_rclcpp
+[11.224s] -- Install configuration: ""
+[11.224s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/example_action_rclcpp/lib/example_action_rclcpp/action_robot_01
+[11.226s] -- Set runtime path of "/home/yi/ros2/ROS2/ros_action/install/example_action_rclcpp/lib/example_action_rclcpp/action_robot_01" to ""
+[11.226s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/example_action_rclcpp/lib/example_action_rclcpp/action_control_01
+[11.227s] -- Set runtime path of "/home/yi/ros2/ROS2/ros_action/install/example_action_rclcpp/lib/example_action_rclcpp/action_control_01" to ""
+[11.228s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/example_action_rclcpp/share/ament_index/resource_index/package_run_dependencies/example_action_rclcpp
+[11.229s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/example_action_rclcpp/share/ament_index/resource_index/parent_prefix_path/example_action_rclcpp
+[11.229s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/example_action_rclcpp/share/example_action_rclcpp/environment/ament_prefix_path.sh
+[11.229s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/example_action_rclcpp/share/example_action_rclcpp/environment/ament_prefix_path.dsv
+[11.230s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/example_action_rclcpp/share/example_action_rclcpp/environment/path.sh
+[11.230s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/example_action_rclcpp/share/example_action_rclcpp/environment/path.dsv
+[11.230s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/example_action_rclcpp/share/example_action_rclcpp/local_setup.bash
+[11.230s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/example_action_rclcpp/share/example_action_rclcpp/local_setup.sh
+[11.231s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/example_action_rclcpp/share/example_action_rclcpp/local_setup.zsh
+[11.231s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/example_action_rclcpp/share/example_action_rclcpp/local_setup.dsv
+[11.231s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/example_action_rclcpp/share/example_action_rclcpp/package.dsv
+[11.231s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/example_action_rclcpp/share/ament_index/resource_index/packages/example_action_rclcpp
+[11.232s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/example_action_rclcpp/share/example_action_rclcpp/cmake/example_action_rclcppConfig.cmake
+[11.232s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/example_action_rclcpp/share/example_action_rclcpp/cmake/example_action_rclcppConfig-version.cmake
+[11.232s] -- Installing: /home/yi/ros2/ROS2/ros_action/install/example_action_rclcpp/share/example_action_rclcpp/package.xml
+[11.234s] Invoked command in '/home/yi/ros2/ROS2/ros_action/build/example_action_rclcpp' returned '0': AMENT_PREFIX_PATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces:/opt/ros/humble LD_LIBRARY_PATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --install /home/yi/ros2/ROS2/ros_action/build/example_action_rclcpp

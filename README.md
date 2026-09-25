@@ -1817,31 +1817,644 @@ https://www.php.cn/faq/459626.html
     },
     ```
 
-
-
-
-
 ## 7.3 动作(Actor)
 
+![动-单一行动.gif](assets/Action-SingleActionClient.gif)
 
+
+
+- 目标：即Action客户端告诉服务端要做什么，服务端针对该目标要有响应。解决了不能确认服务端接收并处理目标问题
+- 反馈：即Action服务端告诉客户端此时做的进度如何（类似与工作汇报）。解决执行过程中没有反馈问题
+- 结果：即Action服务端最终告诉客户端其执行结果，结果最后返回，用于表示任务最终执行情况。
+
+> 参数是由服务构建出来了，而Action是由话题和服务共同构建出来的（一个Action = 三个服务+两个话题） 三个服务分别是：1.目标传递服务 2.结果传递服务 3.取消执行服务; 两个话题：1.反馈话题（服务发布，客户端订阅） 2.状态话题（服务端发布，客户端订阅）
+
+**命令**
+
+- `ros2 action list -t` 获取目前系统中的action列表
+- `ros2 interface show turtlesim/action/RotateAbsolute ` 获取接口的信息
+- `ros2 action info /turtle1/rotate_absolute ` 查看action信息
+- `ros2 action send_goal /turtle1/rotate_absolute turtlesim/action/RotateAbsolute "{theta: 1.6}"` 发送action指令；`--feedback` 获得实时反馈；
+
+
+
+**创建Action接口**
+
+- 创建功能包
+
+  ```shell
+  ros2 pkg create robot_control_interfaces --build-type ament_cmake
+  ```
+
+- 创建接口文件
+
+  ```shell
+  mkdir -p src/robot_control_interfaces/action
+  touch src/robot_control_interfaces/action/MoveRobot.action
+  ```
+
+- `packages.xml`
+
+  ```xml
+  <depend>rosidl_default_generators</depend>
+  <member_of_group>rosidl_interface_packages</member_of_group>
+  ```
+
+- `CMakeLists.txt`
+
+  ```cmake
+  find_package(ament_cmake REQUIRED)
+  find_package(rosidl_default_generators REQUIRED)
+  rosidl_generate_interfaces(${PROJECT_NAME}
+    "action/MoveRobot.action"
+  )
+  ```
+
+- 编写接口
+
+  ```
+  # Goal: 要移动的距离
+  float32 distance
+  ---
+  # Result: 最终的位置
+  float32 pose
+  ---
+  # Feedback: 中间反馈的位置和状态
+  float32 pose
+  uint32 status
+  uint32 STATUS_MOVEING = 3
+  uint32 STATUS_STOP = 4
+  ```
+
+- 编译
+
+  ```shell
+  colcon build --packages-select robot_control_interfaces
+  ```
+
+​	编译成功后，即可看到C++头文件和Python相关文件
+
+​	C++ Action消息头文件目录`install/robot_control_interfaces/include`
+
+​	Python Action消息文件目录`install/robot_control_interfaces/local/lib/python3.10`
+
+**Cpp**
+
+- `robot.cpp`
+
+  ```Cpp
+  #include "example_action_rclcpp/robot.h"
+  
+  /*移动一小步，请间隔500ms调用一次*/
+  float Robot::move_step() {
+    int direct = move_distance_ / fabs(move_distance_);
+    float step = direct * fabs(target_pose_ - current_pose_) *
+                 0.1; /* 每一步移动当前到目标距离的1/10*/
+    current_pose_ += step;
+    std::cout << "移动了：" << step << "当前位置：" << current_pose_ << std::endl;
+    return current_pose_;
+  }
+  
+  /*移动一段距离*/
+  bool Robot::set_goal(float distance) {
+    move_distance_ = distance;
+    target_pose_ += move_distance_;
+  
+    /* 当目标距离和当前距离大于0.01同意向目标移动 */
+    if (close_goal()) {
+      status_ = MoveRobot::Feedback::STATUS_STOP;
+      return false;
+    }
+    status_ = MoveRobot::Feedback::STATUS_MOVEING;
+    return true;
+  }
+  
+  float Robot::get_current_pose() { return current_pose_; }
+  int Robot::get_status() { return status_; }
+  /*是否接近目标*/
+  bool Robot::close_goal() { return fabs(target_pose_ - current_pose_) < 0.01; }
+  void Robot::stop_move() {
+    status_ = MoveRobot::Feedback::STATUS_STOP;
+  } /*停止移动*/
+  ```
+
+- `action_robot.cpp`
+
+  ```cpp
+  #include "example_action_rclcpp/robot.h"
+  #include "rclcpp/rclcpp.hpp"
+  #include "rclcpp_action/rclcpp_action.hpp"
+  #include "robot_control_interfaces/action/move_robot.hpp"
+  
+  class ActionRobot01 : public rclcpp::Node {
+   public:
+    using MoveRobot = robot_control_interfaces::action::MoveRobot;
+    using GoalHandleMoveRobot = rclcpp_action::ServerGoalHandle<MoveRobot>;
+  
+    explicit ActionRobot01(std::string name) : Node(name) {
+      RCLCPP_INFO(this->get_logger(), "节点已启动：%s.", name.c_str());
+  
+      using namespace std::placeholders;  // NOLINT
+  
+      this->action_server_ = rclcpp_action::create_server<MoveRobot>(
+          this, "move_robot",
+          std::bind(&ActionRobot01::handle_goal, this, _1, _2),
+          std::bind(&ActionRobot01::handle_cancel, this, _1),
+          std::bind(&ActionRobot01::handle_accepted, this, _1));
+    }
+  
+   private:
+    Robot robot;
+    rclcpp_action::Server<MoveRobot>::SharedPtr action_server_;
+  
+    rclcpp_action::GoalResponse handle_goal(
+        const rclcpp_action::GoalUUID& uuid,
+        std::shared_ptr<const MoveRobot::Goal> goal) {
+      RCLCPP_INFO(this->get_logger(), "Received goal request with distance %f",
+                  goal->distance);
+      (void)uuid;
+      if (fabs(goal->distance > 100)) {
+        RCLCPP_WARN(this->get_logger(), "目标距离太远了，本机器人表示拒绝！");
+        return rclcpp_action::GoalResponse::REJECT;
+      }
+      RCLCPP_INFO(this->get_logger(),
+                  "目标距离%f我可以走到，本机器人接受，准备出发！",
+                  goal->distance);
+      return rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;
+    }
+  
+    rclcpp_action::CancelResponse handle_cancel(
+        const std::shared_ptr<GoalHandleMoveRobot> goal_handle) {
+      RCLCPP_INFO(this->get_logger(), "Received request to cancel goal");
+      (void)goal_handle;
+      robot.stop_move(); /*认可取消执行，让机器人停下来*/
+      return rclcpp_action::CancelResponse::ACCEPT;
+    }
+  
+    void execute_move(const std::shared_ptr<GoalHandleMoveRobot> goal_handle) {
+      const auto goal = goal_handle->get_goal();
+      RCLCPP_INFO(this->get_logger(), "开始执行移动 %f 。。。", goal->distance);
+  
+      auto result = std::make_shared<MoveRobot::Result>();
+      rclcpp::Rate rate = rclcpp::Rate(2);
+      robot.set_goal(goal->distance);
+      while (rclcpp::ok() && !robot.close_goal()) {
+        robot.move_step();
+        auto feedback = std::make_shared<MoveRobot::Feedback>();
+        feedback->pose = robot.get_current_pose();
+        feedback->status = robot.get_status();
+        goal_handle->publish_feedback(feedback);
+        /*检测任务是否被取消*/
+        if (goal_handle->is_canceling()) {
+          result->pose = robot.get_current_pose();
+          goal_handle->canceled(result);
+          RCLCPP_INFO(this->get_logger(), "Goal Canceled");
+          return;
+        }
+        RCLCPP_INFO(this->get_logger(), "Publish Feedback"); /*Publish feedback*/
+        rate.sleep();
+      }
+  
+      result->pose = robot.get_current_pose();
+      goal_handle->succeed(result);
+      RCLCPP_INFO(this->get_logger(), "Goal Succeeded");
+    }
+  
+    void handle_accepted(const std::shared_ptr<GoalHandleMoveRobot> goal_handle) {
+      using std::placeholders::_1;
+      std::thread{std::bind(&ActionRobot01::execute_move, this, _1), goal_handle}
+          .detach();
+    }
+  };
+  
+  
+  int main(int argc, char** argv) {
+    rclcpp::init(argc, argv);
+    auto action_server = std::make_shared<ActionRobot01>("action_robot_01");
+    rclcpp::spin(action_server);
+    rclcpp::shutdown();
+    return 0;
+  }
+  
+  ```
+
+- `control.cpp`
+
+  ```Cpp
+  #include "rclcpp/rclcpp.hpp"
+  #include "rclcpp_action/rclcpp_action.hpp"
+  #include "robot_control_interfaces/action/move_robot.hpp"
+  
+  class ActionControl01 : public rclcpp::Node {
+   public:
+    using MoveRobot = robot_control_interfaces::action::MoveRobot;
+    using GoalHandleMoveRobot = rclcpp_action::ClientGoalHandle<MoveRobot>;
+  
+    explicit ActionControl01(
+        std::string name,
+        const rclcpp::NodeOptions& node_options = rclcpp::NodeOptions())
+        : Node(name, node_options) {
+      RCLCPP_INFO(this->get_logger(), "节点已启动：%s.", name.c_str());
+  
+      this->client_ptr_ =
+          rclcpp_action::create_client<MoveRobot>(this, "move_robot");
+  
+      this->timer_ =
+          this->create_wall_timer(std::chrono::milliseconds(500),
+                                  std::bind(&ActionControl01::send_goal, this));
+    }
+  
+    void send_goal() {
+      using namespace std::placeholders;
+  
+      this->timer_->cancel();
+  
+      if (!this->client_ptr_->wait_for_action_server(std::chrono::seconds(10))) {
+        RCLCPP_ERROR(this->get_logger(),
+                     "Action server not available after waiting");
+        rclcpp::shutdown();
+        return;
+      }
+  
+      auto goal_msg = MoveRobot::Goal();
+      goal_msg.distance = 10;
+  
+      RCLCPP_INFO(this->get_logger(), "Sending goal");
+  
+      auto send_goal_options =
+          rclcpp_action::Client<MoveRobot>::SendGoalOptions();
+      send_goal_options.goal_response_callback =
+          std::bind(&ActionControl01::goal_response_callback, this, _1);
+      send_goal_options.feedback_callback =
+          std::bind(&ActionControl01::feedback_callback, this, _1, _2);
+      send_goal_options.result_callback =
+          std::bind(&ActionControl01::result_callback, this, _1);
+      this->client_ptr_->async_send_goal(goal_msg, send_goal_options);
+    }
+  
+   private:
+    rclcpp_action::Client<MoveRobot>::SharedPtr client_ptr_;
+    rclcpp::TimerBase::SharedPtr timer_;
+  
+    void goal_response_callback(GoalHandleMoveRobot::SharedPtr goal_handle) {
+      if (!goal_handle) {
+        RCLCPP_ERROR(this->get_logger(), "Goal was rejected by server");
+      } else {
+        RCLCPP_INFO(this->get_logger(),
+                    "Goal accepted by server, waiting for result");
+      }
+    }
+  
+    void feedback_callback(
+        GoalHandleMoveRobot::SharedPtr,
+        const std::shared_ptr<const MoveRobot::Feedback> feedback) {
+      RCLCPP_INFO(this->get_logger(), "Feedback current pose:%f", feedback->pose);
+    }
+  
+    void result_callback(const GoalHandleMoveRobot::WrappedResult& result) {
+      switch (result.code) {
+        case rclcpp_action::ResultCode::SUCCEEDED:
+          break;
+        case rclcpp_action::ResultCode::ABORTED:
+          RCLCPP_ERROR(this->get_logger(), "Goal was aborted");
+          return;
+        case rclcpp_action::ResultCode::CANCELED:
+          RCLCPP_ERROR(this->get_logger(), "Goal was canceled");
+          return;
+        default:
+          RCLCPP_ERROR(this->get_logger(), "Unknown result code");
+          return;
+      }
+  
+      RCLCPP_INFO(this->get_logger(), "Result received: %f", result.result->pose);
+      // rclcpp::shutdown();
+    }
+  };  // class ActionControl01
+  // class ActionControl01
+  
+  int main(int argc, char** argv) {
+    rclcpp::init(argc, argv);
+    auto action_client = std::make_shared<ActionControl01>("action_robot_cpp");
+    rclcpp::spin(action_client);
+    rclcpp::shutdown();
+    return 0;
+  }
+  
+  ```
+
+**Python**
+
+- `robot.py`
+
+  ```python
+  from robot_control_interfaces.action import MoveRobot
+  import math
+  
+  class Robot():
+      """机器人类，模拟一个机器人"""
+  
+      def __init__(self) -> None:
+          self.current_pose_ = 0.0
+          self.target_pose_ = 0.0
+          self.move_distance_ = 0.0
+          self.status_ = MoveRobot.Feedback
+  
+      def get_status(self):
+          """获取状态"""
+          return self.status_
+  
+      def get_current_pose(self):
+          """获取当前位置"""
+          return self.current_pose_
+  
+      def close_goal(self):
+          """接近目标"""
+          return math.fabs(self.target_pose_ - self.current_pose_) < 0.01
+  
+      def stop_move(self):
+          """停止移动"""
+          self.status_ = MoveRobot.Feedback.STATUS_STOP
+  
+      def move_step(self):
+          """移动一小步"""
+          direct = self.move_distance_ / math.fabs(self.move_distance_)
+          step = direct * math.fabs(self.target_pose_ - self.current_pose_) * 0.1
+          self.current_pose_ += step  # 移动一步
+          print(f"移动了：{step}当前位置：{self.current_pose_}")
+          return self.current_pose_
+  
+      def set_goal(self, distance):
+          """设置目标"""
+          self.move_distance_ = distance
+          self.target_pose_ += distance  # 更新目标位置
+  
+          if self.close_goal():
+              self.stop_move()
+              return False
+  
+          self.status_ = MoveRobot.Feedback.STATUS_MOVEING  # 更新状态为移动
+          return True
+  
+  ```
+
+  
+
+- `action_robot.py`
+
+  ```python
+  #!/usr/bin/env python3
+  
+  import time
+  # 导入rclpy相关库
+  import rclpy
+  from rclpy.node import Node
+  from rclpy.action import ActionServer
+  from rclpy.action.server import ServerGoalHandle
+  # 导入接口
+  from robot_control_interfaces.action import MoveRobot
+  # 导入机器人类
+  from example_action_rclpy.robot import Robot
+  #from rclpy.executors import MultiThreadedExecutor
+  #from rclpy.callback_groups import MutuallyExclusiveCallbackGroup
+  
+  class ActionRobot02(Node):
+      """机器人端Action服务"""
+  
+      def __init__(self,name):
+          super().__init__(name)
+          self.get_logger().info(f"节点已启动：{name}!")
+  
+          self.robot_ = Robot()
+  
+          self.action_server_ = ActionServer(
+              self, MoveRobot, 'move_robot', self.execute_callback
+              # ,callback_group=MutuallyExclusiveCallbackGroup()
+          )
+  
+      def execute_callback(self, goal_handle: ServerGoalHandle):
+          """执行回调函数,若采用默认handle_goal函数则会自动调用"""
+          self.get_logger().info('执行移动机器人')
+          feedback_msg = MoveRobot.Feedback()
+          self.robot_.set_goal(goal_handle.request.distance)
+  
+          # rate = self.create_rate(2)
+          while rclpy.ok() and not self.robot_.close_goal():
+              # move
+              self.robot_.move_step()
+              # feedback
+              feedback_msg.pose = self.robot_.get_current_pose()
+              feedback_msg.status = self.robot_.get_status()
+              goal_handle.publish_feedback(feedback_msg)
+              # cancel check
+              if goal_handle.is_cancel_requested:
+                  result = MoveRobot.Result()
+                  result.pose = self.robot_.get_current_pose()
+                  return result
+              # rate.sleep() # Rate会造成死锁，单线程执行器时不能使用
+              time.sleep(0.5)
+  
+          goal_handle.succeed()
+          result = MoveRobot.Result()
+          result.pose = self.robot_.get_current_pose()
+          return result
+  
+          
+  def main(args=None):
+      """主函数"""
+      rclpy.init(args=args)
+      action_robot_02 = ActionRobot02("action_robot_02")
+      # 采用多线程执行器解决rate死锁问题
+      # executor = MultiThreadedExecutor()
+      # executor.add_node(action_robot_02)
+      # executor.spin()
+      rclpy.spin(action_robot_02)
+      rclpy.shutdown()
+  
+  ```
+
+  
+
+- `action_control.py`
+
+  ```python
+  import rclpy
+  from rclpy.action import ActionClient
+  from rclpy.node import Node
+  # 导入Action接口
+  from robot_control_interfaces.action import MoveRobot
+  
+  class ActionControl02(Node):
+      """Action客户端"""
+  
+      def __init__(self, name):
+          super().__init__(name)
+          self.get_logger().info(f"节点已启动：{name}!")
+          self.action_client_ = ActionClient(self, MoveRobot, 'move_robot')
+          self.send_goal_timer_ = self.create_timer(1, self.send_goal)
+  
+      def send_goal(self):
+          """发送目标"""
+          self.send_goal_timer_.cancel()
+          goal_msg = MoveRobot.Goal()
+          goal_msg.distance = 5.0
+          self.action_client_.wait_for_server()
+          self._send_goal_future = self.action_client_.send_goal_async(goal_msg,
+                                                                       feedback_callback=self.feedback_callback)
+          self._send_goal_future.add_done_callback(self.goal_response_callback)
+  
+      def goal_response_callback(self, future):
+          """收到目标处理结果"""
+          goal_handle = future.result()
+          if not goal_handle.accepted:
+              self.get_logger().info('Goal rejected :(')
+              return
+          self.get_logger().info('Goal accepted :)')
+          self._get_result_future = goal_handle.get_result_async()
+          self._get_result_future.add_done_callback(self.get_result_callback)
+  
+      def get_result_callback(self, future):
+          """获取结果反馈"""
+          result = future.result().result
+          self.get_logger().info(f'Result: {result.pose}')
+  
+      def feedback_callback(self, feedback_msg):
+          """获取回调反馈"""
+          feedback = feedback_msg.feedback
+          self.get_logger().info(f'Received feedback: {feedback.pose}')
+  
+  
+  def main(args=None):
+      """主函数"""
+      rclpy.init(args=args)
+      action_robot_02 = ActionControl02("action_control_02")
+      rclpy.spin(action_robot_02)
+      rclpy.shutdown()
+  
+  ```
+
+  
 
 ## 7.4 参数(Parameters)
 
-- `ros param list` 查看所有打开的节点的参数
+**A parameter is a configuration value of a node. You can think of parameters as node settings.**
+
+**组成成分**
+
+ROS2参数是由键值对**(name : value)** 组成。
+
+name : string
+
+value有多种
+
+- bool/bool[]
+- int64/int64[]
+- float64/float64[]
+- string/string[]
+- byte[]
+
+**命令**
+
+- `ros param list` 查看所有打开的节点的参数；
 
 - `ros2 param describe <node_name> <param_name>` 查看参数的含义
 
 - `ros2 param get /turtlesim background_b` 获取参数的值
 
-- `ros2 param set <node_name> <parameter_name> <value>` 设置参数
+- `ros2 param set <node_name> <parameter_name> <value>` 临时设置参数，重启节点恢复
 
-- `ros2 param dump <node_name>` 将当前所有参数记录
+- `ros2 param dump <node_name>` 将当前所有参数记录为yaml格式
 
-- `ros2 param load  /turtlesim ./turtlesim.yaml` 载入参数运行
+- `ros2 param load  /turtlesim ./turtlesim.yaml` 载入yaml格式参数运行
 
 - `ros2 run <package_name> <executable_name> --ros-args --params-file <file_name>` 载入参数运行
 
-  
+
+
+
+**CPP**
+
+```c++
+#include <chrono>
+#include "rclcpp/rclcpp.hpp"
+
+class ParametersBasicNode : public rclcpp::Node{
+  public:
+    explicit ParametersBasicNode(std::string name): Node(name){
+      RCLCPP_INFO(this->get_logger(),"节点已经启动:%s.",name.c_str());
+      this->declare_parameter("rcl_log_level", 0);     /*声明参数*/
+      this->get_parameter("rcl_log_level", log_level); /*获取参数*/
+      /*设置日志级别*/
+      this->get_logger().set_level((rclcpp::Logger::Level)log_level);
+      using namespace std::literals::chrono_literals;
+      timer_ = this->create_wall_timer(
+          500ms, std::bind(&ParametersBasicNode::timer_callback, this));
+    }
+  private:
+    int log_level;
+    rclcpp::TimerBase::SharedPtr timer_;
+    void timer_callback() {
+      this->get_parameter("rcl_log_level", log_level); /*获取参数*/
+      /*设置日志级别*/
+      this->get_logger().set_level((rclcpp::Logger::Level)log_level);
+      std::cout<<"======================================================"<<std::endl;
+      RCLCPP_DEBUG(this->get_logger(), "我是DEBUG级别的日志，我被打印出来了!");
+      RCLCPP_INFO(this->get_logger(), "我是INFO级别的日志，我被打印出来了!");
+      RCLCPP_WARN(this->get_logger(), "我是WARN级别的日志，我被打印出来了!");
+      RCLCPP_ERROR(this->get_logger(), "我是ERROR级别的日志，我被打印出来了!");
+      RCLCPP_FATAL(this->get_logger(), "我是FATAL级别的日志，我被打印出来了!");
+  }
+};
+
+int main(int argc,char** argv){
+  rclcpp::init(argc,argv);
+  auto node = std::make_shared<ParametersBasicNode>("parameters_basic");
+  rclcpp::spin(node);
+  rclcpp::shutdown();
+  return 0;
+}
+```
+
+**Python**
+
+```python
+#!/usr/bin/env python3
+import rclpy
+from rclpy.node import Node
+
+class ParametersBasicNode(Node):
+    def __init__(self, name):
+        super().__init__(name)
+        self.get_logger().info(f"节点已启动：{name}!")
+        # 声明参数
+        self.declare_parameter('rcl_log_level', 0)
+        # 获取参数
+        log_level = self.get_parameter("rcl_log_level").value
+        # 设置参数
+        self.get_logger().set_level(log_level)
+        # 定时修改
+        self.timer = self.create_timer(0.5, self.timer_callback)
+
+    def timer_callback(self):
+        """定时器回调函数"""
+        # 获取参数
+        log_level = self.get_parameter("rcl_log_level").value
+        # 设置参数
+        self.get_logger().set_level(log_level)
+        print(
+            f"========================{log_level}=============================")
+        self.get_logger().debug("我是DEBUG级别的日志，我被打印出来了!")
+        self.get_logger().info("我是INFO级别的日志，我被打印出来了!")
+        self.get_logger().warn("我是WARN级别的日志，我被打印出来了!")
+        self.get_logger().error("我是ERROR级别的日志，我被打印出来了!")
+        self.get_logger().fatal("我是FATAL级别的日志，我被打印出来了!")
+
+def main(args=None):
+    rclpy.init(args=args) # 初始化rclpy
+    node = ParametersBasicNode("parameters_basic")  # 新建一个节点
+    rclpy.spin(node) # 保持节点运行，检测是否收到退出指令（Ctrl+C）
+    rclpy.shutdown() # 关闭rclpy
+
+```
 
 # 8 接口(interface)
 
@@ -1855,41 +2468,6 @@ action_msgs
 action_tutorials_interfaces
 actionlib_msgs
 bond
-builtin_interfaces
-cartographer_ros_msgs
-composition_interfaces
-control_msgs
-controller_manager_msgs
-diagnostic_msgs
-dwb_msgs
-example_interfaces
-gazebo_msgs
-geometry_msgs
-lifecycle_msgs
-logging_demo
-map_msgs
-nav2_msgs
-nav_2d_msgs
-nav_msgs
-pcl_msgs
-pendulum_msgs
-rcl_interfaces
-rmw_dds_common
-rosbag2_interfaces
-rosgraph_msgs
-sensor_msgs
-shape_msgs
-slam_toolbox
-statistics_msgs
-std_msgs
-std_srvs
-stereo_msgs
-tf2_msgs
-trajectory_msgs
-turtlesim
-udp_msgs
-unique_identifier_msgs
-visualization_msgs
 ```
 
 再看接口包里有哪些接口：`ros2 interface package sensor_msgs`
@@ -1899,31 +2477,6 @@ yi@DESKTOP-9FJML7G:~$ ros2 interface package sensor_msgs # sensor_msgs 接口包
 sensor_msgs/msg/CameraInfo 
 sensor_msgs/msg/ChannelFloat32
 sensor_msgs/msg/NavSatStatus
-sensor_msgs/msg/FluidPressure
-sensor_msgs/msg/PointField
-sensor_msgs/msg/PointCloud2
-sensor_msgs/msg/TimeReference
-sensor_msgs/msg/JoyFeedback
-sensor_msgs/msg/Range
-sensor_msgs/msg/RegionOfInterest
-sensor_msgs/msg/Joy
-sensor_msgs/msg/MagneticField
-sensor_msgs/msg/Illuminance
-sensor_msgs/srv/SetCameraInfo
-sensor_msgs/msg/JoyFeedbackArray
-sensor_msgs/msg/MultiEchoLaserScan
-sensor_msgs/msg/MultiDOFJointState
-sensor_msgs/msg/BatteryState
-sensor_msgs/msg/PointCloud
-sensor_msgs/msg/Image
-sensor_msgs/msg/RelativeHumidity
-sensor_msgs/msg/JointState  # 机器人关节数据
-sensor_msgs/msg/NavSatFix
-sensor_msgs/msg/LaserScan
-sensor_msgs/msg/Temperature
-sensor_msgs/msg/Imu # 加速度传感器
-sensor_msgs/msg/CompressedImage
-sensor_msgs/msg/LaserEcho
 ```
 
 `ros2 interface list` 展示接口
@@ -1934,438 +2487,10 @@ Messages:
     action_msgs/msg/GoalInfo
     action_msgs/msg/GoalStatus
     action_msgs/msg/GoalStatusArray
-    actionlib_msgs/msg/GoalID
-    actionlib_msgs/msg/GoalStatus
-    actionlib_msgs/msg/GoalStatusArray
-    bond/msg/Constants
-    bond/msg/Status
-    builtin_interfaces/msg/Duration
-    builtin_interfaces/msg/Time
-    cartographer_ros_msgs/msg/BagfileProgress
-    cartographer_ros_msgs/msg/HistogramBucket
-    cartographer_ros_msgs/msg/LandmarkEntry
-    cartographer_ros_msgs/msg/LandmarkList
-    cartographer_ros_msgs/msg/Metric
-    cartographer_ros_msgs/msg/MetricFamily
-    cartographer_ros_msgs/msg/MetricLabel
-    cartographer_ros_msgs/msg/StatusCode
-    cartographer_ros_msgs/msg/StatusResponse
-    cartographer_ros_msgs/msg/SubmapEntry
-    cartographer_ros_msgs/msg/SubmapList
-    cartographer_ros_msgs/msg/SubmapTexture
-    cartographer_ros_msgs/msg/TrajectoryStates
-    control_msgs/msg/AdmittanceControllerState
-    control_msgs/msg/DynamicInterfaceGroupValues
-    control_msgs/msg/DynamicJointState
-    control_msgs/msg/GripperCommand
-    control_msgs/msg/InterfaceValue
-    control_msgs/msg/JointComponentTolerance
-    control_msgs/msg/JointControllerState
-    control_msgs/msg/JointJog
-    control_msgs/msg/JointTolerance
-    control_msgs/msg/JointTrajectoryControllerState
-    control_msgs/msg/MecanumDriveControllerState
-    control_msgs/msg/MultiDOFCommand
-    control_msgs/msg/MultiDOFStateStamped
-    control_msgs/msg/PidState
-    control_msgs/msg/SingleDOFState
-    control_msgs/msg/SingleDOFStateStamped
-    control_msgs/msg/SteeringControllerStatus
-    controller_manager_msgs/msg/ChainConnection
-    controller_manager_msgs/msg/ControllerState
-    controller_manager_msgs/msg/HardwareComponentState
-    controller_manager_msgs/msg/HardwareInterface
-    diagnostic_msgs/msg/DiagnosticArray
-    diagnostic_msgs/msg/DiagnosticStatus
-    diagnostic_msgs/msg/KeyValue
-    dwb_msgs/msg/CriticScore
-    dwb_msgs/msg/LocalPlanEvaluation
-    dwb_msgs/msg/Trajectory2D
-    dwb_msgs/msg/TrajectoryScore
-    example_interfaces/msg/Bool
-    example_interfaces/msg/Byte
-    example_interfaces/msg/ByteMultiArray
-    example_interfaces/msg/Char
-    example_interfaces/msg/Empty
-    example_interfaces/msg/Float32
-    example_interfaces/msg/Float32MultiArray
-    example_interfaces/msg/Float64
-    example_interfaces/msg/Float64MultiArray
-    example_interfaces/msg/Int16
-    example_interfaces/msg/Int16MultiArray
-    example_interfaces/msg/Int32
-    example_interfaces/msg/Int32MultiArray
-    example_interfaces/msg/Int64
-    example_interfaces/msg/Int64MultiArray
-    example_interfaces/msg/Int8
-    example_interfaces/msg/Int8MultiArray
-    example_interfaces/msg/MultiArrayDimension
-    example_interfaces/msg/MultiArrayLayout
-    example_interfaces/msg/String
-    example_interfaces/msg/UInt16
-    example_interfaces/msg/UInt16MultiArray
-    example_interfaces/msg/UInt32
-    example_interfaces/msg/UInt32MultiArray
-    example_interfaces/msg/UInt64
-    example_interfaces/msg/UInt64MultiArray
-    example_interfaces/msg/UInt8
-    example_interfaces/msg/UInt8MultiArray
-    example_interfaces/msg/WString
-    gazebo_msgs/msg/ContactState
-    gazebo_msgs/msg/ContactsState
-    gazebo_msgs/msg/EntityState
-    gazebo_msgs/msg/LinkState
-    gazebo_msgs/msg/LinkStates
-    gazebo_msgs/msg/ModelState
-    gazebo_msgs/msg/ModelStates
-    gazebo_msgs/msg/ODEJointProperties
-    gazebo_msgs/msg/ODEPhysics
-    gazebo_msgs/msg/PerformanceMetrics
-    gazebo_msgs/msg/SensorPerformanceMetric
-    gazebo_msgs/msg/WheelSlip
-    gazebo_msgs/msg/WorldState
-    geometry_msgs/msg/Accel
-    geometry_msgs/msg/AccelStamped
-    geometry_msgs/msg/AccelWithCovariance
-    geometry_msgs/msg/AccelWithCovarianceStamped
-    geometry_msgs/msg/Inertia
-    geometry_msgs/msg/InertiaStamped
-    geometry_msgs/msg/Point
-    geometry_msgs/msg/Point32
-    geometry_msgs/msg/PointStamped
-    geometry_msgs/msg/Polygon
-    geometry_msgs/msg/PolygonInstance
-    geometry_msgs/msg/PolygonInstanceStamped
-    geometry_msgs/msg/PolygonStamped
-    geometry_msgs/msg/Pose
-    geometry_msgs/msg/Pose2D
-    geometry_msgs/msg/PoseArray
-    geometry_msgs/msg/PoseStamped
-    geometry_msgs/msg/PoseWithCovariance
-    geometry_msgs/msg/PoseWithCovarianceStamped
-    geometry_msgs/msg/Quaternion
-    geometry_msgs/msg/QuaternionStamped
-    geometry_msgs/msg/Transform
-    geometry_msgs/msg/TransformStamped
-    geometry_msgs/msg/Twist
-    geometry_msgs/msg/TwistStamped
-    geometry_msgs/msg/TwistWithCovariance
-    geometry_msgs/msg/TwistWithCovarianceStamped
-    geometry_msgs/msg/Vector3
-    geometry_msgs/msg/Vector3Stamped
-    geometry_msgs/msg/VelocityStamped
-    geometry_msgs/msg/VelocityWithCovarianceStamped
-    geometry_msgs/msg/Wrench
-    geometry_msgs/msg/WrenchStamped
-    lifecycle_msgs/msg/State
-    lifecycle_msgs/msg/Transition
-    lifecycle_msgs/msg/TransitionDescription
-    lifecycle_msgs/msg/TransitionEvent
-    map_msgs/msg/OccupancyGridUpdate
-    map_msgs/msg/PointCloud2Update
-    map_msgs/msg/ProjectedMap
-    map_msgs/msg/ProjectedMapInfo
-    nav2_msgs/msg/BehaviorTreeLog
-    nav2_msgs/msg/BehaviorTreeStatusChange
-    nav2_msgs/msg/CollisionMonitorState
-    nav2_msgs/msg/Costmap
-    nav2_msgs/msg/CostmapFilterInfo
-    nav2_msgs/msg/CostmapMetaData
-    nav2_msgs/msg/EdgeCost
-    nav2_msgs/msg/Particle
-    nav2_msgs/msg/ParticleCloud
-    nav2_msgs/msg/Route
-    nav2_msgs/msg/RouteEdge
-    nav2_msgs/msg/RouteNode
-    nav2_msgs/msg/SpeedLimit
-    nav2_msgs/msg/VoxelGrid
-    nav_2d_msgs/msg/Path2D
-    nav_2d_msgs/msg/Pose2D32
-    nav_2d_msgs/msg/Pose2DStamped
-    nav_2d_msgs/msg/Twist2D
-    nav_2d_msgs/msg/Twist2D32
-    nav_2d_msgs/msg/Twist2DStamped
-    nav_msgs/msg/Goals
-    nav_msgs/msg/GridCells
-    nav_msgs/msg/MapMetaData
-    nav_msgs/msg/OccupancyGrid
-    nav_msgs/msg/Odometry
-    nav_msgs/msg/Path
-    pcl_msgs/msg/ModelCoefficients
-    pcl_msgs/msg/PointIndices
-    pcl_msgs/msg/PolygonMesh
-    pcl_msgs/msg/Vertices
-    pendulum_msgs/msg/JointCommand
-    pendulum_msgs/msg/JointState
-    pendulum_msgs/msg/RttestResults
-    rcl_interfaces/msg/FloatingPointRange
-    rcl_interfaces/msg/IntegerRange
-    rcl_interfaces/msg/ListParametersResult
-    rcl_interfaces/msg/Log
-    rcl_interfaces/msg/Parameter
-    rcl_interfaces/msg/ParameterDescriptor
-    rcl_interfaces/msg/ParameterEvent
-    rcl_interfaces/msg/ParameterEventDescriptors
-    rcl_interfaces/msg/ParameterType
-    rcl_interfaces/msg/ParameterValue
-    rcl_interfaces/msg/SetParametersResult
-    rmw_dds_common/msg/Gid
-    rmw_dds_common/msg/NodeEntitiesInfo
-    rmw_dds_common/msg/ParticipantEntitiesInfo
-    rosbag2_interfaces/msg/ReadSplitEvent
-    rosbag2_interfaces/msg/WriteSplitEvent
-    rosgraph_msgs/msg/Action
-    rosgraph_msgs/msg/Clock
-    rosgraph_msgs/msg/Graph
-    rosgraph_msgs/msg/InterfaceType
-    rosgraph_msgs/msg/Node
-    rosgraph_msgs/msg/QoSProfile
-    rosgraph_msgs/msg/Service
-    rosgraph_msgs/msg/Topic
-    rosgraph_msgs/msg/TypeHash
-    sensor_msgs/msg/BatteryState
-    sensor_msgs/msg/CameraInfo
-    sensor_msgs/msg/ChannelFloat32
-    sensor_msgs/msg/CompressedImage
-    sensor_msgs/msg/FluidPressure
-    sensor_msgs/msg/Illuminance
-    sensor_msgs/msg/Image
-    sensor_msgs/msg/Imu
-    sensor_msgs/msg/JointState
-    sensor_msgs/msg/Joy
-    sensor_msgs/msg/JoyFeedback
-    sensor_msgs/msg/JoyFeedbackArray
-    sensor_msgs/msg/LaserEcho
-    sensor_msgs/msg/LaserScan
-    sensor_msgs/msg/MagneticField
-    sensor_msgs/msg/MultiDOFJointState
-    sensor_msgs/msg/MultiEchoLaserScan
-    sensor_msgs/msg/NavSatFix
-    sensor_msgs/msg/NavSatStatus
-    sensor_msgs/msg/PointCloud
-    sensor_msgs/msg/PointCloud2
-    sensor_msgs/msg/PointField
-    sensor_msgs/msg/Range
-    sensor_msgs/msg/RegionOfInterest
-    sensor_msgs/msg/RelativeHumidity
-    sensor_msgs/msg/Temperature
-    sensor_msgs/msg/TimeReference
-    shape_msgs/msg/Mesh
-    shape_msgs/msg/MeshTriangle
-    shape_msgs/msg/Plane
-    shape_msgs/msg/SolidPrimitive
-    statistics_msgs/msg/MetricsMessage
-    statistics_msgs/msg/StatisticDataPoint
-    statistics_msgs/msg/StatisticDataType
-    std_msgs/msg/Bool
-    std_msgs/msg/Byte
-    std_msgs/msg/ByteMultiArray
-    std_msgs/msg/Char
-    std_msgs/msg/ColorRGBA
-    std_msgs/msg/Empty
-    std_msgs/msg/Float32
-    std_msgs/msg/Float32MultiArray
-    std_msgs/msg/Float64
-    std_msgs/msg/Float64MultiArray
-    std_msgs/msg/Header
-    std_msgs/msg/Int16
-    std_msgs/msg/Int16MultiArray
-    std_msgs/msg/Int32
-    std_msgs/msg/Int32MultiArray
-    std_msgs/msg/Int64
-    std_msgs/msg/Int64MultiArray
-    std_msgs/msg/Int8
-    std_msgs/msg/Int8MultiArray
-    std_msgs/msg/MultiArrayDimension
-    std_msgs/msg/MultiArrayLayout
-    std_msgs/msg/String
-    std_msgs/msg/UInt16
-    std_msgs/msg/UInt16MultiArray
-    std_msgs/msg/UInt32
-    std_msgs/msg/UInt32MultiArray
-    std_msgs/msg/UInt64
-    std_msgs/msg/UInt64MultiArray
-    std_msgs/msg/UInt8
-    std_msgs/msg/UInt8MultiArray
-    stereo_msgs/msg/DisparityImage
-    tf2_msgs/msg/TF2Error
-    tf2_msgs/msg/TFMessage
-    trajectory_msgs/msg/JointTrajectory
-    trajectory_msgs/msg/JointTrajectoryPoint
-    trajectory_msgs/msg/MultiDOFJointTrajectory
-    trajectory_msgs/msg/MultiDOFJointTrajectoryPoint
-    turtlesim/msg/Color
-    turtlesim/msg/Pose
-    udp_msgs/msg/UdpPacket
-    unique_identifier_msgs/msg/UUID
-    visualization_msgs/msg/ImageMarker
-    visualization_msgs/msg/InteractiveMarker
-    visualization_msgs/msg/InteractiveMarkerControl
-    visualization_msgs/msg/InteractiveMarkerFeedback
-    visualization_msgs/msg/InteractiveMarkerInit
-    visualization_msgs/msg/InteractiveMarkerPose
-    visualization_msgs/msg/InteractiveMarkerUpdate
-    visualization_msgs/msg/Marker
-    visualization_msgs/msg/MarkerArray
-    visualization_msgs/msg/MenuEntry
-    visualization_msgs/msg/MeshFile
-    visualization_msgs/msg/UVCoordinate
 Services:
     action_msgs/srv/CancelGoal
     cartographer_ros_msgs/srv/FinishTrajectory
     cartographer_ros_msgs/srv/GetTrajectoryStates
-    cartographer_ros_msgs/srv/ReadMetrics
-    cartographer_ros_msgs/srv/StartTrajectory
-    cartographer_ros_msgs/srv/SubmapQuery
-    cartographer_ros_msgs/srv/TrajectoryQuery
-    cartographer_ros_msgs/srv/WriteState
-    composition_interfaces/srv/ListNodes
-    composition_interfaces/srv/LoadNode
-    composition_interfaces/srv/UnloadNode
-    control_msgs/srv/QueryCalibrationState
-    control_msgs/srv/QueryTrajectoryState
-    controller_manager_msgs/srv/ConfigureController
-    controller_manager_msgs/srv/ListControllerTypes
-    controller_manager_msgs/srv/ListControllers
-    controller_manager_msgs/srv/ListHardwareComponents
-    controller_manager_msgs/srv/ListHardwareInterfaces
-    controller_manager_msgs/srv/LoadController
-    controller_manager_msgs/srv/ReloadControllerLibraries
-    controller_manager_msgs/srv/SetHardwareComponentState
-    controller_manager_msgs/srv/SwitchController
-    controller_manager_msgs/srv/UnloadController
-    diagnostic_msgs/srv/AddDiagnostics
-    diagnostic_msgs/srv/SelfTest
-    dwb_msgs/srv/DebugLocalPlan
-    dwb_msgs/srv/GenerateTrajectory
-    dwb_msgs/srv/GenerateTwists
-    dwb_msgs/srv/GetCriticScore
-    dwb_msgs/srv/ScoreTrajectory
-    example_interfaces/srv/AddTwoInts
-    example_interfaces/srv/SetBool
-    example_interfaces/srv/Trigger
-    gazebo_msgs/srv/ApplyBodyWrench
-    gazebo_msgs/srv/ApplyJointEffort
-    gazebo_msgs/srv/ApplyLinkWrench
-    gazebo_msgs/srv/BodyRequest
-    gazebo_msgs/srv/DeleteEntity
-    gazebo_msgs/srv/DeleteLight
-    gazebo_msgs/srv/DeleteModel
-    gazebo_msgs/srv/GetEntityState
-    gazebo_msgs/srv/GetJointProperties
-    gazebo_msgs/srv/GetLightProperties
-    gazebo_msgs/srv/GetLinkProperties
-    gazebo_msgs/srv/GetLinkState
-    gazebo_msgs/srv/GetModelList
-    gazebo_msgs/srv/GetModelProperties
-    gazebo_msgs/srv/GetModelState
-    gazebo_msgs/srv/GetPhysicsProperties
-    gazebo_msgs/srv/GetWorldProperties
-    gazebo_msgs/srv/JointRequest
-    gazebo_msgs/srv/LinkRequest
-    gazebo_msgs/srv/SetEntityState
-    gazebo_msgs/srv/SetJointProperties
-    gazebo_msgs/srv/SetJointTrajectory
-    gazebo_msgs/srv/SetLightProperties
-    gazebo_msgs/srv/SetLinkProperties
-    gazebo_msgs/srv/SetLinkState
-    gazebo_msgs/srv/SetModelConfiguration
-    gazebo_msgs/srv/SetModelState
-    gazebo_msgs/srv/SetPhysicsProperties
-    gazebo_msgs/srv/SpawnEntity
-    gazebo_msgs/srv/SpawnModel
-    lifecycle_msgs/srv/ChangeState
-    lifecycle_msgs/srv/GetAvailableStates
-    lifecycle_msgs/srv/GetAvailableTransitions
-    lifecycle_msgs/srv/GetState
-    logging_demo/srv/ConfigLogger
-    map_msgs/srv/GetMapROI
-    map_msgs/srv/GetPointMap
-    map_msgs/srv/GetPointMapROI
-    map_msgs/srv/ProjectedMapsInfo
-    map_msgs/srv/SaveMap
-    map_msgs/srv/SetMapProjections
-    nav2_msgs/srv/ClearCostmapAroundRobot
-    nav2_msgs/srv/ClearCostmapExceptRegion
-    nav2_msgs/srv/ClearEntireCostmap
-    nav2_msgs/srv/DynamicEdges
-    nav2_msgs/srv/GetCostmap
-    nav2_msgs/srv/IsPathValid
-    nav2_msgs/srv/LoadMap
-    nav2_msgs/srv/ManageLifecycleNodes
-    nav2_msgs/srv/SaveMap
-    nav2_msgs/srv/SetInitialPose
-    nav2_msgs/srv/SetRouteGraph
-    nav_msgs/srv/GetMap
-    nav_msgs/srv/GetPlan
-    nav_msgs/srv/LoadMap
-    nav_msgs/srv/SetMap
-    pcl_msgs/srv/UpdateFilename
-    rcl_interfaces/srv/DescribeParameters
-    rcl_interfaces/srv/GetParameterTypes
-    rcl_interfaces/srv/GetParameters
-    rcl_interfaces/srv/ListParameters
-    rcl_interfaces/srv/SetParameters
-    rcl_interfaces/srv/SetParametersAtomically
-    rosbag2_interfaces/srv/Burst
-    rosbag2_interfaces/srv/GetRate
-    rosbag2_interfaces/srv/IsPaused
-    rosbag2_interfaces/srv/Pause
-    rosbag2_interfaces/srv/PlayNext
-    rosbag2_interfaces/srv/Resume
-    rosbag2_interfaces/srv/Seek
-    rosbag2_interfaces/srv/SetRate
-    rosbag2_interfaces/srv/Snapshot
-    rosbag2_interfaces/srv/TogglePaused
-    sensor_msgs/srv/SetCameraInfo
-    slam_toolbox/srv/AddSubmap
-    slam_toolbox/srv/Clear
-    slam_toolbox/srv/ClearQueue
-    slam_toolbox/srv/DeserializePoseGraph
-    slam_toolbox/srv/LoopClosure
-    slam_toolbox/srv/MergeMaps
-    slam_toolbox/srv/Pause
-    slam_toolbox/srv/SaveMap
-    slam_toolbox/srv/SerializePoseGraph
-    slam_toolbox/srv/ToggleInteractive
-    std_srvs/srv/Empty
-    std_srvs/srv/SetBool
-    std_srvs/srv/Trigger
-    tf2_msgs/srv/FrameGraph
-    turtlesim/srv/Kill
-    turtlesim/srv/SetPen
-    turtlesim/srv/Spawn
-    turtlesim/srv/TeleportAbsolute
-    turtlesim/srv/TeleportRelative
-    udp_msgs/srv/UdpSend
-    udp_msgs/srv/UdpSocket
-    visualization_msgs/srv/GetInteractiveMarkers
-Actions:
-    action_tutorials_interfaces/action/Fibonacci
-    control_msgs/action/FollowJointTrajectory
-    control_msgs/action/GripperCommand
-    control_msgs/action/JointTrajectory
-    control_msgs/action/ParallelGripperCommand
-    control_msgs/action/PointHead
-    control_msgs/action/SingleJointPosition
-    example_interfaces/action/Fibonacci
-    nav2_msgs/action/AssistedTeleop
-    nav2_msgs/action/BackUp
-    nav2_msgs/action/ComputeAndTrackRoute
-    nav2_msgs/action/ComputePathThroughPoses
-    nav2_msgs/action/ComputePathToPose
-    nav2_msgs/action/ComputeRoute
-    nav2_msgs/action/DriveOnHeading
-    nav2_msgs/action/DummyBehavior
-    nav2_msgs/action/FollowPath
-    nav2_msgs/action/FollowWaypoints
-    nav2_msgs/action/NavigateThroughPoses
-    nav2_msgs/action/NavigateToPose
-    nav2_msgs/action/SmoothPath
-    nav2_msgs/action/Spin
-    nav2_msgs/action/Wait
-    tf2_msgs/action/LookupTransform
-    turtlesim/action/RotateAbsolute
 ```
 
 ## 8.2 接口形式
@@ -2398,4 +2523,463 @@ Actions:
 > `msg、srv、action`文件通过 ROS2 的`IDL`模块 产生了Python和C++头文件。有了头文件，就可以在程序里导入并使用这个消息模块。
 
 ## 8.3 编写
+
+**接口文件**
+
+- 创建功能包
+
+  ```bash
+  ros2 pkg create example_ros2_interfaces --build-type ament_cmake --dependencies rosidl_default_generators geometry_msgs
+  ```
+
+  - 注意功能包类型必须为：`ament_cmake`
+  - 依赖`rosidl_default_generators`必须添加，`geometry_msgs`视内容情况添加（这里有`geometry_msgs/Pose pose`所以要添加）。
+  - 话题接口放到`msg`文件夹下，以`.msg`结尾。服务接口放到`srv`文件夹下，以`srv`结尾。
+
+- 定义接口
+
+  - 服务接口`MoveRobot.srv`
+
+    ```
+    # 前进后退的距离
+    float32 distance
+    ---
+    # 当前的位置
+    float32 pose
+    ```
+
+  - 话题接口，采用基础类型 `RobotStatus.msg`
+
+    ```
+    uint32 STATUS_MOVEING = 1
+    uint32 STATUS_STOP = 1
+    uint32  status
+    float32 pose
+    ```
+
+  - 话题接口，混合包装类型 `RobotPose.msg`
+
+    ```shell
+    uint32 STATUS_MOVEING = 1
+    uint32 STATUS_STOP = 2
+    uint32  status
+    geometry_msgs/Pose pose
+    ```
+
+- 修改 `CMakeLists.txt`
+
+  ```cmake
+  find_package(rosidl_default_generators REQUIRED)
+  find_package(geometry_msgs REQUIRED)
+  # 添加下面的内容
+  rosidl_generate_interfaces(${PROJECT_NAME}
+    "msg/RobotPose.msg"
+    "msg/RobotStatus.msg"
+    "srv/MoveRobot.srv"
+    DEPENDENCIES geometry_msgs
+  )
+  ```
+
+- 修改`package.xml`
+
+  ```xml
+    <buildtool_depend>ament_cmake</buildtool_depend>
+  
+    <depend>rosidl_default_generators</depend>
+    <depend>geometry_msgs</depend>
+    
+    <member_of_group>rosidl_interface_packages</member_of_group> #添加这一行
+  
+    <test_depend>ament_lint_auto</test_depend>
+    <test_depend>ament_lint_common</test_depend>
+  
+  ```
+
+- 编译
+
+  ```bash
+  colcon build --packages-select example_ros2_interfaces
+  ```
+
+**C++调用**
+
+`control`
+
+```cpp
+#include "rclcpp/rclcpp.hpp"
+#include "example_ros2_interfaces/srv/move_robot.hpp"
+#include "example_ros2_interfaces/msg/robot_status.hpp"
+
+class ExampleInterfacesControl : public rclcpp::Node
+{
+public:
+  ExampleInterfacesControl(std::string name) : Node(name)
+  {
+    RCLCPP_INFO(this->get_logger(), "节点已启动：%s.", name.c_str());
+    /*创建move_robot客户端*/
+    client_ = this->create_client<example_ros2_interfaces::srv::MoveRobot>(
+        "move_robot");
+    /*订阅机器人状态话题*/
+    robot_status_subscribe_ = this->create_subscription<example_ros2_interfaces::msg::RobotStatus>("robot_status", 10, std::bind(&ExampleInterfacesControl::robot_status_callback_, this, std::placeholders::_1));
+  }
+
+  /**
+   * @brief 发送移动机器人请求函数
+   * 步骤：1.等待服务上线
+   *      2.构造发送请求
+   *
+   * @param distance
+   */
+  void move_robot(float distance)
+  {
+    RCLCPP_INFO(this->get_logger(), "请求让机器人移动%f", distance);
+
+    /*等待服务端上线*/
+    while (!client_->wait_for_service(std::chrono::seconds(1)))
+    {
+      // 等待时检测rclcpp的状态
+      if (!rclcpp::ok())
+      {
+        RCLCPP_ERROR(this->get_logger(), "等待服务的过程中被打断...");
+        return;
+      }
+      RCLCPP_INFO(this->get_logger(), "等待服务端上线中");
+    }
+
+    // 构造请求
+    auto request =
+        std::make_shared<example_ros2_interfaces::srv::MoveRobot::Request>();
+    request->distance = distance;
+
+    // 发送异步请求，然后等待返回，返回时调用回调函数
+    client_->async_send_request(
+        request, std::bind(&ExampleInterfacesControl::result_callback_, this,
+                           std::placeholders::_1));
+  };
+
+private:
+  // 声明客户端
+  rclcpp::Client<example_ros2_interfaces::srv::MoveRobot>::SharedPtr client_;
+  rclcpp::Subscription<example_ros2_interfaces::msg::RobotStatus>::SharedPtr robot_status_subscribe_;
+  /* 机器人移动结果回调函数 */
+  void result_callback_(
+      rclcpp::Client<example_ros2_interfaces::srv::MoveRobot>::SharedFuture
+          result_future)
+  {
+    auto response = result_future.get();
+    RCLCPP_INFO(this->get_logger(), "收到移动结果：%f", response->pose);
+  }
+
+  /**
+   * @brief 机器人状态话题接收回调函数
+   *
+   * @param msg
+   */
+  void robot_status_callback_(const example_ros2_interfaces::msg::RobotStatus::SharedPtr msg)
+  {
+    RCLCPP_INFO(this->get_logger(), "收到状态数据位置：%f 状态：%d", msg->pose, msg->status);
+  }
+};
+
+int main(int argc, char **argv)
+{
+  rclcpp::init(argc, argv);
+  auto node = std::make_shared<ExampleInterfacesControl>("example_interfaces_control_01");
+  /*这里调用了服务，让机器人向前移动5m*/
+  node->move_robot(5.0);
+  rclcpp::spin(node);
+  rclcpp::shutdown();
+  return 0;
+}
+
+```
+
+`robot`
+
+```cpp
+#include "example_ros2_interfaces/msg/robot_status.hpp"
+#include "example_ros2_interfaces/srv/move_robot.hpp"
+#include "rclcpp/rclcpp.hpp"
+
+class Robot
+{
+public:
+  Robot() = default;
+  ~Robot() = default;
+  /**
+   * @brief 移动指定的距离
+   *
+   * @param distance
+   * @return float
+   */
+  float move_distance(float distance)
+  {
+    status_ = example_ros2_interfaces::msg::RobotStatus::STATUS_MOVEING;
+    target_pose_ += distance;
+    // 当目标距离和当前距离大于0.01则持续向目标移动
+    while (fabs(target_pose_ - current_pose_) > 0.01)
+    {
+      // 每一步移动当前到目标距离的1/10
+      float step = distance / fabs(distance) * fabs(target_pose_ - current_pose_) * 0.1;
+      current_pose_ += step;
+      std::cout << "移动了：" << step << "当前位置：" << current_pose_ << std::endl;
+      // 当前线程休眠500ms
+      std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    }
+    status_ = example_ros2_interfaces::msg::RobotStatus::STATUS_STOP;
+    return current_pose_;
+  }
+  /**
+   * @brief Get the current pose
+   *
+   * @return float
+   */
+  float get_current_pose() { return current_pose_; }
+
+  /**
+   * @brief Get the status
+   *
+   * @return int
+   *  1 example_ros2_interfaces::msg::RobotStatus::STATUS_MOVEING
+   *  2 example_ros2_interfaces::msg::RobotStatus::STATUS_STOP
+   */
+  int get_status() { return status_; }
+
+private:
+  // 声明当前位置
+  float current_pose_ = 0.0;
+  // 目标距离
+  float target_pose_ = 0.0;
+  int status_ = example_ros2_interfaces::msg::RobotStatus::STATUS_STOP;
+};
+
+class ExampleInterfacesRobot : public rclcpp::Node
+{
+public:
+  ExampleInterfacesRobot(std::string name) : Node(name)
+  {
+    RCLCPP_INFO(this->get_logger(), "节点已启动：%s.", name.c_str());
+    /*创建move_robot服务*/
+    move_robot_server_ = this->create_service<example_ros2_interfaces::srv::MoveRobot>(
+        "move_robot", std::bind(&ExampleInterfacesRobot::handle_move_robot, this, std::placeholders::_1, std::placeholders::_2));
+    /*创建发布者*/
+    robot_status_publisher_ = this->create_publisher<example_ros2_interfaces::msg::RobotStatus>("robot_status", 10);
+    /*创建一个周期为500ms的定时器*/
+    timer_ = this->create_wall_timer(std::chrono::milliseconds(500), std::bind(&ExampleInterfacesRobot::timer_callback, this));
+  }
+
+private:
+  Robot robot;                                                                                     /*实例化机器人*/
+  rclcpp::TimerBase::SharedPtr timer_;                                                             /*定时器，用于定时发布机器人位置*/
+  rclcpp::Service<example_ros2_interfaces::srv::MoveRobot>::SharedPtr move_robot_server_;          /*移动机器人服务*/
+  rclcpp::Publisher<example_ros2_interfaces::msg::RobotStatus>::SharedPtr robot_status_publisher_; /*发布机器人位姿发布者*/
+
+  /**
+   * @brief 500ms 定时回调函数，
+   *
+   */
+  void timer_callback()
+  {
+    // 创建消息
+    example_ros2_interfaces::msg::RobotStatus message;
+    message.status = robot.get_status();
+    message.pose = robot.get_current_pose();
+    RCLCPP_INFO(this->get_logger(), "Publishing: %f", robot.get_current_pose());
+    // 发布消息
+    robot_status_publisher_->publish(message);
+  };
+
+  /**
+   * @brief 收到话题数据的回调函数
+   *
+   * @param request 请求共享指针，包含移动距离
+   * @param response 响应的共享指针，包含当前位置信息
+   */
+  void handle_move_robot(const std::shared_ptr<example_ros2_interfaces::srv::MoveRobot::Request> request,
+                         std::shared_ptr<example_ros2_interfaces::srv::MoveRobot::Response> response)
+  {
+    RCLCPP_INFO(this->get_logger(), "收到请求移动距离：%f，当前位置：%f", request->distance, robot.get_current_pose());
+    robot.move_distance(request->distance);
+    response->pose = robot.get_current_pose();
+  };
+};
+
+int main(int argc, char **argv)
+{
+  rclcpp::init(argc, argv);
+  auto node = std::make_shared<ExampleInterfacesRobot>("example_interfaces_robot_01");
+  rclcpp::spin(node);
+  rclcpp::shutdown();
+  return 0;
+}
+```
+
+`CMakeLists.txt`
+
+```cmake
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(example_ros2_interfaces REQUIRED)
+
+add_executable(example_interfaces_robot_01 src/example_interfaces_robot_01.cpp)
+target_include_directories(example_interfaces_robot_01 PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+target_compile_features(example_interfaces_robot_01 PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+ament_target_dependencies(
+  example_interfaces_robot_01
+  "rclcpp"
+  "example_ros2_interfaces"
+)
+
+install(TARGETS example_interfaces_robot_01
+  DESTINATION lib/${PROJECT_NAME})
+
+
+add_executable(example_interfaces_control_01 src/example_interfaces_control_01.cpp)
+target_include_directories(example_interfaces_control_01 PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+target_compile_features(example_interfaces_control_01 PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+ament_target_dependencies(
+  example_interfaces_control_01
+  "rclcpp"
+  "example_ros2_interfaces"
+)
+
+install(TARGETS example_interfaces_control_01
+  DESTINATION lib/${PROJECT_NAME})
+```
+
+**Python调用**
+
+**创建节点**
+
+```shell
+cd chapt3_ws/
+ros2 pkg create example_interfaces_rclpy --build-type ament_python --dependencies rclpy example_ros2_interfaces --destination-directory src --node-name example_interfaces_robot_02
+touch src/example_interfaces_rclpy/example_interfaces_rclpy/example_interfaces_control_02.py
+```
+
+**编写setup.py**
+
+```shell
+entry_points={
+        'console_scripts': [
+            'example_interfaces_control_02 = example_interfaces_rclpy.example_interfaces_control_02:main',
+            'example_interfaces_robot_02 = example_interfaces_rclpy.example_interfaces_robot_02:main'
+        ],
+    },
+```
+
+**control**
+
+```python
+#!/usr/bin/env python3
+import rclpy
+from rclpy.node import Node
+from example_ros2_interfaces.msg import RobotStatus
+from example_ros2_interfaces.srv import MoveRobot
+
+
+class ExampleInterfacesControl02(Node):
+    def __init__(self,name):
+        super().__init__(name)
+        self.get_logger().info("节点已启动：%s!" % name)
+        self.client_ = self.create_client(MoveRobot,"move_robot") 
+        self.robot_status_subscribe_ = self.create_subscription(RobotStatus,"robot_status",self.robot_status_callback,10)
+
+    def robot_status_callback(self,msg):
+        self.get_logger().info(f"收到状态数据位置：{msg.pose} 状态：{msg.status}")
+
+    def move_result_callback_(self, result_future):
+        response = result_future.result()
+        self.get_logger().info(f"收到返回结果：{response.pose}")
+
+    def move_robot(self, distance):
+        while rclpy.ok() and self.client_.wait_for_service(1)==False:
+            self.get_logger().info(f"等待服务端上线....")
+        request = MoveRobot.Request()
+        request.distance = distance
+        self.get_logger().info(f"请求服务让机器人移动{distance}")
+        self.client_.call_async(request).add_done_callback(self.move_result_callback_)
+
+
+def main(args=None):
+    rclpy.init(args=args) # 初始化rclpy
+    node = ExampleInterfacesControl02("example_interfaces_control_02")  # 新建一个节点
+    node.move_robot(5.0) #移动5米
+    rclpy.spin(node) # 保持节点运行，检测是否收到退出指令（Ctrl+C）
+    rclpy.shutdown() # 关闭rclpy
+
+
+```
+
+**robot**
+
+```python
+#!/usr/bin/env python3
+import rclpy
+from rclpy.node import Node
+from example_ros2_interfaces.srv import MoveRobot
+from example_ros2_interfaces.msg import RobotStatus
+import math
+from time import sleep
+
+class Robot():
+    def __init__(self) -> None:
+        self.current_pose_ = 0.0
+        self.target_pose_ = 0.0
+        self.status_ = RobotStatus.STATUS_STOP
+
+    def get_status(self):
+        return self.status_
+
+    def get_current_pose(self):
+        return self.current_pose_
+
+    def move_distance(self,distance):
+        self.status_ = RobotStatus.STATUS_MOVEING # 更新状态为移动、
+        self.target_pose_ += distance # 更新目标位置
+
+        while math.fabs(self.target_pose_ - self.current_pose_) > 0.01:
+            step = distance / math.fabs(distance) * math.fabs(self.target_pose_ - self.current_pose_) * 0.1 # 计算一步移动距离
+            self.current_pose_  += step # 移动一步
+            print(f"移动了：{step}当前位置：{self.current_pose_}")
+            sleep(0.5) #休息0.5s
+        self.status_ = RobotStatus.STATUS_STOP # 更新状态为停止
+        return self.current_pose_    
+
+class ExampleInterfacesRobot02(Node):
+    def __init__(self,name):
+        super().__init__(name)
+        self.get_logger().info("节点已启动：%s!" % name)
+        self.robot = Robot()
+        self.move_robot_server_ = self.create_service(MoveRobot,"move_robot", self.handle_move_robot) 
+        self.robot_status_publisher_ = self.create_publisher(RobotStatus,"robot_status", 10) 
+        self.publisher_timer_ = self.create_timer(0.5, self.publisher_timer_callback)
+    
+
+    def publisher_timer_callback(self):
+        """
+        定时器回调发布数据函数
+        """
+        msg = RobotStatus() #构造消息
+        msg.status = self.robot.get_status()
+        msg.pose = self.robot.get_current_pose()
+        self.robot_status_publisher_.publish(msg) # 发布消息
+        self.get_logger().info(f'发布了当前的状态：{msg.status} 位置：{msg.pose}')
+
+    def handle_move_robot(self,request, response):
+        self.robot.move_distance(request.distance)
+        response.pose = self.robot.get_current_pose()
+        return response
+        
+def main(args=None):
+    rclpy.init(args=args) # 初始化rclpy
+    node = ExampleInterfacesRobot02("example_interfaces_robot_02")  # 新建一个节点
+    rclpy.spin(node) # 保持节点运行，检测是否收到退出指令（Ctrl+C）
+    rclpy.shutdown() # 关闭rclpy
+
+```
 

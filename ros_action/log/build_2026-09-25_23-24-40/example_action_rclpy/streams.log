@@ -1,0 +1,44 @@
+[0.756s] Invoking command in '/home/yi/ros2/ROS2/ros_action/src/example_action_rclpy': AMENT_PREFIX_PATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces LD_LIBRARY_PATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/yi/ros2/ROS2/ros_action/build/example_action_rclpy/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/yi/ros2/ROS2/ros_action/install/example_action_rclpy/lib/python3.10/site-packages:/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/example_action_rclpy build --build-base /home/yi/ros2/ROS2/ros_action/build/example_action_rclpy/build install --record /home/yi/ros2/ROS2/ros_action/build/example_action_rclpy/install.log --install-scripts $base/lib/example_action_rclpy --single-version-externally-managed install_data
+[0.890s] running egg_info
+[0.890s] creating ../../build/example_action_rclpy/example_action_rclpy.egg-info
+[0.891s] writing ../../build/example_action_rclpy/example_action_rclpy.egg-info/PKG-INFO
+[0.891s] writing dependency_links to ../../build/example_action_rclpy/example_action_rclpy.egg-info/dependency_links.txt
+[0.891s] writing entry points to ../../build/example_action_rclpy/example_action_rclpy.egg-info/entry_points.txt
+[0.891s] writing requirements to ../../build/example_action_rclpy/example_action_rclpy.egg-info/requires.txt
+[0.891s] writing top-level names to ../../build/example_action_rclpy/example_action_rclpy.egg-info/top_level.txt
+[0.892s] writing manifest file '../../build/example_action_rclpy/example_action_rclpy.egg-info/SOURCES.txt'
+[0.893s] reading manifest file '../../build/example_action_rclpy/example_action_rclpy.egg-info/SOURCES.txt'
+[0.893s] writing manifest file '../../build/example_action_rclpy/example_action_rclpy.egg-info/SOURCES.txt'
+[0.893s] running build
+[0.894s] running build_py
+[0.894s] creating /home/yi/ros2/ROS2/ros_action/build/example_action_rclpy/build
+[0.894s] creating /home/yi/ros2/ROS2/ros_action/build/example_action_rclpy/build/lib
+[0.894s] creating /home/yi/ros2/ROS2/ros_action/build/example_action_rclpy/build/lib/example_action_rclpy
+[0.894s] copying example_action_rclpy/__init__.py -> /home/yi/ros2/ROS2/ros_action/build/example_action_rclpy/build/lib/example_action_rclpy
+[0.894s] copying example_action_rclpy/robot.py -> /home/yi/ros2/ROS2/ros_action/build/example_action_rclpy/build/lib/example_action_rclpy
+[0.894s] copying example_action_rclpy/action_control_02.py -> /home/yi/ros2/ROS2/ros_action/build/example_action_rclpy/build/lib/example_action_rclpy
+[0.894s] copying example_action_rclpy/action_robot_02.py -> /home/yi/ros2/ROS2/ros_action/build/example_action_rclpy/build/lib/example_action_rclpy
+[0.895s] running install
+[0.895s] running install_lib
+[0.896s] creating /home/yi/ros2/ROS2/ros_action/install/example_action_rclpy/lib/python3.10/site-packages/example_action_rclpy
+[0.896s] copying /home/yi/ros2/ROS2/ros_action/build/example_action_rclpy/build/lib/example_action_rclpy/__init__.py -> /home/yi/ros2/ROS2/ros_action/install/example_action_rclpy/lib/python3.10/site-packages/example_action_rclpy
+[0.896s] copying /home/yi/ros2/ROS2/ros_action/build/example_action_rclpy/build/lib/example_action_rclpy/robot.py -> /home/yi/ros2/ROS2/ros_action/install/example_action_rclpy/lib/python3.10/site-packages/example_action_rclpy
+[0.897s] copying /home/yi/ros2/ROS2/ros_action/build/example_action_rclpy/build/lib/example_action_rclpy/action_control_02.py -> /home/yi/ros2/ROS2/ros_action/install/example_action_rclpy/lib/python3.10/site-packages/example_action_rclpy
+[0.897s] copying /home/yi/ros2/ROS2/ros_action/build/example_action_rclpy/build/lib/example_action_rclpy/action_robot_02.py -> /home/yi/ros2/ROS2/ros_action/install/example_action_rclpy/lib/python3.10/site-packages/example_action_rclpy
+[0.897s] byte-compiling /home/yi/ros2/ROS2/ros_action/install/example_action_rclpy/lib/python3.10/site-packages/example_action_rclpy/__init__.py to __init__.cpython-310.pyc
+[0.898s] byte-compiling /home/yi/ros2/ROS2/ros_action/install/example_action_rclpy/lib/python3.10/site-packages/example_action_rclpy/robot.py to robot.cpython-310.pyc
+[0.898s] byte-compiling /home/yi/ros2/ROS2/ros_action/install/example_action_rclpy/lib/python3.10/site-packages/example_action_rclpy/action_control_02.py to action_control_02.cpython-310.pyc
+[0.898s] byte-compiling /home/yi/ros2/ROS2/ros_action/install/example_action_rclpy/lib/python3.10/site-packages/example_action_rclpy/action_robot_02.py to action_robot_02.cpython-310.pyc
+[0.899s] running install_data
+[0.899s] creating /home/yi/ros2/ROS2/ros_action/install/example_action_rclpy/share/ament_index
+[0.899s] creating /home/yi/ros2/ROS2/ros_action/install/example_action_rclpy/share/ament_index/resource_index
+[0.900s] creating /home/yi/ros2/ROS2/ros_action/install/example_action_rclpy/share/ament_index/resource_index/packages
+[0.900s] copying resource/example_action_rclpy -> /home/yi/ros2/ROS2/ros_action/install/example_action_rclpy/share/ament_index/resource_index/packages
+[0.900s] copying package.xml -> /home/yi/ros2/ROS2/ros_action/install/example_action_rclpy/share/example_action_rclpy
+[0.900s] running install_egg_info
+[0.902s] Copying ../../build/example_action_rclpy/example_action_rclpy.egg-info to /home/yi/ros2/ROS2/ros_action/install/example_action_rclpy/lib/python3.10/site-packages/example_action_rclpy-0.0.0-py3.10.egg-info
+[0.902s] running install_scripts
+[0.916s] Installing action_control_02 script to /home/yi/ros2/ROS2/ros_action/install/example_action_rclpy/lib/example_action_rclpy
+[0.916s] Installing action_robot_02 script to /home/yi/ros2/ROS2/ros_action/install/example_action_rclpy/lib/example_action_rclpy
+[0.917s] writing list of installed files to '/home/yi/ros2/ROS2/ros_action/build/example_action_rclpy/install.log'
+[0.933s] Invoked command in '/home/yi/ros2/ROS2/ros_action/src/example_action_rclpy' returned '0': AMENT_PREFIX_PATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces LD_LIBRARY_PATH=/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/yi/ros2/ROS2/ros_action/build/example_action_rclpy/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/yi/ros2/ROS2/ros_action/install/example_action_rclpy/lib/python3.10/site-packages:/home/yi/ros2/ROS2/ros_action/install/robot_control_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/example_action_rclpy build --build-base /home/yi/ros2/ROS2/ros_action/build/example_action_rclpy/build install --record /home/yi/ros2/ROS2/ros_action/build/example_action_rclpy/install.log --install-scripts $base/lib/example_action_rclpy --single-version-externally-managed install_data
