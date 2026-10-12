@@ -2,20 +2,19 @@
 
 | Ubuntu版本	| 代号	| ROS 版本 | 代号	| 发布时间 | EOL (支持结束)	| 备注 |
 |------|----------|------|------|------|------|------|
-|18.04 LTS |Bionic| ROS 1	Melodic	| Morenia	| 2018.05| 2023.05|ROS 2 首个官方 LTS 版本| 
-| || ROS 2 Dashing	| Diademata	| 2019.05	|2021.05|ROS 1 重要的 LTS 版本之一| 
-| || ROS 2 Eloquent	| Elusor	| 2019.11|	2020.11|	ROS 2 短期支持版本| 
+|18.04 LTS |Bionic| ROS 1	Melodic	| Morenia	| 2018.05| 2023.05|ROS 2 首个官方 LTS 版本|
+| || ROS 2 Dashing	| Diademata	| 2019.05	|2021.05|ROS 1 重要的 LTS 版本之一|
+| || ROS 2 Eloquent	| Elusor	| 2019.11|	2020.11|	ROS 2 短期支持版本|
 |20.04 LTS |Focal| ROS 1 Noetic	|Ninjemys |	2020.05	|2025.05	|ROS 1 最终版本，官方推荐|
 | || **ROS 2 Foxy**|	Fitzroy	|2020.06|	2023.06|	ROS 2 首个3年LTS版本，应用广泛|
 | || ROS 2 Galactic|	Geochelone|	2021.05|	2022.12|	ROS 2 短期支持版本，优化了性能|
 |22.04 LTS|Jammy	|**ROS 2 Humble**	|Hawksbill|	2022.05|	2027.05|	ROS 2 首个5年LTS版本，主流选择|
 | || ROS 2 Iron	|Irwini |	2023.05|	2024.11	|ROS 2 短期支持版本，引入新API |
 |24.04 LTS	|Noble	|**ROS 2 Jazzy**|	Jalisco	|2024.05	|2029.05|	最新ROS 2 LTS版本，适配新系统|
-|24.04 LTS	|Noble|	ROS 2 Rolling|	Ridley|	持续更新|	持续支持|	滚动开发版，用于体验最新特性|
+|	||	ROS 2 Rolling|	Ridley|  |                |	滚动开发版，用于体验最新特性|
+|26.04 LTS	|Resolute Raccoon| **[ROS2 Lyrical](https://docs.ros.org/en/lyrical/)** | Luth | 2026.05 | 2031.05 | 支持WIN11 |
 
-- Lyrical - Ubuntu Resolute Raccoon (26.04)
-- Jazzy - Ubuntu Noble (24.04)
-- Humble - Ubuntu Jammy (22.04)
+> 一般根据ubuntu的版本选择对应的ROS2版本
 
 # 下载
 
@@ -840,22 +839,131 @@ public:
 
 ### 1.2.2 实时性
 
+ROS2 实时性是指系统确定性地在指定时间内完成任务的能��。与 ROS1 相比，ROS2 在实时性方面有了显著改进，主要得益于其基于 DDS 的架构和去中心化设计。
 
+**实时性等级分类**
+
+| 等级 | 特征 | 典型应用 |
+|------|------|----------|
+| 硬实时（Hard Real-time） | 确定性延迟，有严格的时间约束 | 安全关键系统，如自动驾驶 |
+| 软实时（Soft Real-time） | 统计意义上的实时，偶尔超时可接受 | 机器人感知、UI交互 |
+| 非实时（Non Real-time） | 无时间约束 | 日志记录、调试工具 |
+
+**ROS2 实时性改进**
+
+1. **去除 Master 节点**
+   - ROS1 的 Master 是单点故障，且增加通信延迟
+   - ROS2 采用 DDS 去中心化架构，无单点瓶颈
+
+2. **确定性通信**
+   - DDS 提供可配置的服务质量（QoS）策略
+   - `RELIABLE` 模式确保消息送达
+   - `BEST_EFFORT` 模式放弃重传，降低延迟
+
+3.节点生命周期管理**
+   - ROS2 支持节点生命周期（Lifecycle）
+   - 可控制节点状态转换，确保系统在确定状态下运行
+   - 适用于需要严格启动顺序的安全关键系统
+
+**实时性配置示例（C++）**
+
+```cpp
+// 配置发布者的 QoS 策略，实现实时性
+rclcpp::PublisherOptionsWithAllocator<std::allocator<void>> options;
+options.qos_overriding_options = rclcpp::QosOverridingOptions::with_default_policies();
+
+// 设置实时安全的 QoS 配置
+auto qos = rclcpp::QoS(rclcpp::KeepLast(10))
+    .reliable()           // 确保消息送达
+    .durability_volatile() // 不保留历史数据
+    .deadline(rclcpp::Duration(10, 0)); // 10ms内必须送达
+
+publisher_ = this->create_publisher<std_msgs::msg::String>("topic", qos, options);
+```
+
+**实时性测试工具**
+
+```bash
+# 使用 stress 测试系统负载
+sudo apt install stress
+stress --cpu 4 --io 2 --vm 1
+
+# 使用 cyclictest 测量实时性能
+sudo apt install rt-tests
+cyclictest -p 80 -t 5 -D 10
+```
+
+**影响实时性的因素**
+
+| 因素 | 说明 | 优化建议 |
+|------|------|----------|
+| 内存分配 | 动态分配导致不确定性 | 使用内存池、预分配 |
+| 系统调度 | Linux CFS 调度器不确定性 | 使用 PREEMPT_RT 补丁 |
+| 网络延迟 | UDP/TCP 传输延迟 | 使用共享内存通信 |
+| 垃圾回收 | 动态语言 GC 暂停 | 减少动态对象创建 |
+| 中断处理 | 硬件中断不可预测 | 使用实时线程 |
 
 ### 1.2.3 内存管理
 
-**1. 预分配内存池**：
+ROS2 应用程序的内存管理对于系统的实时性和稳定性至关重要。与 ROS1 类似，ROS2 也需要谨慎处理内存分配，但得益于其现代化的架构，提供了一些改进和新特性。
 
-```C++
+**ROS2 内存管理挑战**
+
+| 挑战 | 描述 | 影响 |
+|------|------|------|
+| 动态分配 | 运行时 new/delete 导致内存碎片 | 实时系统不确定延迟 |
+| 消息复制 | 大消息（如点云）多次拷贝 | CPU 占用高，延迟增加 |
+| 堆内存竞争 | 多线程访问堆导致锁竞争 | 性能下降 |
+| 内存泄漏 | 未释放的内存导致长期运行崩溃 | 系统稳定性 |
+
+**ROS2 内存分配机制**
+
+ROS2 默认使用动态分配，但在实时性要求高的场景下可以使用预分配策略：
+
+```cpp
+#include <rclcpp/rclcpp.hpp>
+#include <rclcpp/strategies/allocator_memory.hpp>
+
+// 使用堆栈分配器，避免动态分配
+using AllocatorType = std::allocator<void>;
+using AllocatorTraits = std::allocator_traits<AllocatorType>;
+
+// 为大消息预分配缓冲区
+class PreallocatedPublisher : public rclcpp::Node {
+public:
+    PreallocatedPublisher() : Node("preallocated_publisher") {
+        // 预分配消息缓冲区
+        preallocated_msg_ = std::make_shared<sensor_msgs::msg::PointCloud2>();
+        preallocated_msg_->data.reserve(1000000);  // 预分配1MB
+        
+        publisher_ = this->create_publisher<sensor_msgs::msg::PointCloud2>("points", 10);
+    }
+    
+private:
+    sensor_msgs::msg::PointCloud2::SharedPtr preallocated_msg_;
+    rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr publisher_;
+};
+```
+
+**1. 预分配内存池**
+
+在实时系统中，动态内存分配是延迟不确定性的主要来源。预分配内存池通过在系统启动时一次性分配所需内存，确保运行时的分配操作具有确定性时间复杂度。
+
+```cpp
 // 使用自定义分配器避免运行时分配
-template<typename T>
+template<typename T, size_t POOL_SIZE>
 class PoolAllocator {
   private:
     std::array<T, POOL_SIZE> pool_;
     std::bitset<POOL_SIZE> used_;
     
   public:
+    using value_type = T;
+    
     T* allocate(size_t n) {
+        if (n != 1) {
+            throw std::bad_alloc();
+        }
         // O(1) 时间复杂度的分配
         for(size_t i = 0; i < POOL_SIZE; ++i) {
             if(!used_[i]) {
@@ -863,14 +971,42 @@ class PoolAllocator {
                 return &pool_[i];
             }
         }
-        throw std::bad_alloc();
+        throw std::bad_alloc();  // 池已满
+    }
+    
+    void deallocate(T* ptr, size_t n) {
+        if (n != 1) return;
+        size_t index = std::distance(pool_.data(), ptr);
+        if (index < POOL_SIZE) {
+            used_[index] = false;
+        }
     }
 };
+
+// ROS2 中使用自定义分配器
+template<typename T>
+using MyPoolAllocator = PoolAllocator<T, 1000>;
+
+auto qos = rclcpp::QoS(rclcpp::KeepLast(10))
+    .allocator(std::make_unique<MyPoolAllocator<void>>());
+
+publisher_ = this->create_publisher<MyMessage>("topic", qos);
 ```
 
-**2. 零拷贝通信**：
+**内存池配置示例**
 
-ROS2 支持通过共享内存实现零拷贝：
+```yaml
+# config.yaml
+my_node:
+  ros__parameters:
+    use_memory_pool: true
+    pool_size: 100
+    message_pool_size: 50
+```
+
+**2. 零拷贝通信**
+
+ROS2 支持通过共享内存实现零拷贝，减少数据复制开销，提高通信效率。
 
 ```
 进程 A                     共享内存                    进程 B
@@ -880,17 +1016,413 @@ ROS2 支持通过共享内存实现零拷贝：
          无需复制，直接访问同一内存区域
 ```
 
+**ROS2 共享内存传输机制**
+
+ROS2 使用 DDS 的共享内存传输（SHM）实现零拷贝：
+
+```cpp
+// 启用共享内存传输
+// 在节点代码中配置
+auto context = rclcpp::Context::make_shared();
+auto options = rclcpp::NodeOptions()
+    .context(context);
+
+// 或者通过环境变量启用
+// export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+// export FASTRTPS_DEFAULT_PROFILES_FILE=/path/to/profile.xml
+```
+
+**Fast DDS 共享内存配置**
+
+```xml
+<?xml version="1.0"?>
+<dds>
+  <profiles xmlns="http://www.eprosima.com/XMLSchemas/fastRTPS_Profiles">
+    <transport_descriptors>
+      <transport_descriptor>
+        <transport_id>SharedMemoryTransport</transport_id>
+        <type>SHM</type>
+        <maxMessageSize>0</maxMessageSize>  <!-- 0表示自动 -->
+      </transport_descriptor>
+    </transport_descriptors>
+    
+    <participantLibraryName="shm_participant">
+      <domainParticipantLibraryName>shmParticipant</domainParticipantLibraryName>
+      <rtps>
+        <userTransports>
+          <transport_id>SharedMemoryTransport</transport_id>
+        </userTransports>
+      </rtps>
+    </participantLibraryName>
+  </profiles>
+</dds>
+```
+
+**消息内部分配器**
+
+ROS2 消息支持自定义内存分配器，用于特定场景优化：
+
+```cpp
+#include <sensor_msgs/msg/point_cloud2.hpp>
+#include <allocator_traits_allocator_propagation.hpp>
+
+// 创建支持自定义分配器的发布者
+auto allocator = std::make_shared<std::pmr::polymorphic_allocator<byte>>();
+rclcpp::PublisherOptionsWithAllocator<sensor_msgs::msg::PointCloud2::Allocator> options;
+options.allocator(allocator);
+
+publisher_ = this->create_publisher<sensor_msgs::msg::PointCloud2>(
+    "points", 
+    rclcpp::QoS(rclcpp::KeepLast(10)).allocator(allocator.get()),
+    options);
+```
+
+**3. 堆栈分配（避免堆分配）**
+
+对于小消息，尽量使用栈上分配，避免堆分配：
+
+```cpp
+// 栈上分配小消息
+void process_small_message() {
+    // 在栈上创建消息，避免动态分配
+    std_msgs::msg::String msg;
+    msg.data = "small payload";
+    publisher_->publish(msg);
+}  // msg 自动销毁，无堆分配
+```
+
+**4. 内存泄漏检测**
+
+```bash
+# 使用 Valgrind 检测内存泄漏
+valgrind --leak-check=full ros2 run package_name node_name
+
+# 使用 AddressSanitizer 编译
+colcon build --cmake-args -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-fsanitize=address"
+
+# 运行带有 ASAN 的节点
+ros2 run --prefix "asanwrapper" package_name node_name
+```
+
+**ROS2 内存管理最佳实践**
+
+| 实践 | 说明 | 适用场景 |
+|------|------|----------|
+| 预分配消息 | 避免运行时分配 | 实时系统 |
+| 共享内存 | 减少数据拷贝 | 大消息传输 |
+| 对象池 | 复用对象减少分配 | 高频消息 |
+| 栈分配 | 小消息用栈 | 低延迟回调 |
+| 避免动态字符串 | 使用固定大小数组 | 嵌入式系统 |
+
 ### 1.2.4 调度策略与优先级
 
+Linux 操作系统提供了多种调度策略，ROS2 节点运行在其之上，了解这些调度策略对于优化机器人系统的实时性能至关重要。
 
+**调度策略分类**
+
+| 策略 | 名称 | 优先级范围 | 适用场景 |
+|------|------|-----------|----------|
+| `SCHED_FIFO` | 先进先出 | 1-99 | 实时任务，无时间片概念 |
+| `SCHED_RR` | 时间片轮转 | 1-99 | 实时任务，相同优先级共享时间片 |
+| `SCHED_DEADLINE` | 截止时间优先 | 1-99 | 硬实时任务，混合任务调度 |
+| `SCHED_OTHER` | 完全公平调度器(CFS) | 0 | 普通任务，默认策略 |
+| `SCHED_BATCH` | 批处理调度 | 0 | CPU密集型，不注重响应性 |
+
+**优先级范围**
+- **实时优先级（1-99）**：值越大优先级越高，仅限 root 用户或 CAP_SYS_NICE 能力
+- **普通优先级（0）**：对应 `SCHED_OTHER`/`SCHED_BATCH`，由 CFS 调度器管理
+
+**ROS2 线程优先级配置**
+
+```cpp
+#include <rclcpp/rclcpp.hpp>
+#include <rclcpp/strategies/allocator_memory.hpp>
+#include <sched.h>
+
+// 设置线程优先级（需要 root 权限）
+void set_thread_priority(pthread_t thread, int priority) {
+    struct sched_param param;
+    param.sched_priority = priority;
+    
+    // 设置调度策略为 SCHED_FIFO
+    if (pthread_setschedparam(thread, SCHED_FIFO, &param) != 0) {
+        RCLCPP_WARN(rclcpp::get_logger("demo"), "Failed to set thread priority");
+    }
+}
+
+// 在 ROS2 回调中使用
+void my_callback() {
+    pthread_t current_thread = pthread_self();
+    set_thread_priority(current_thread, 50);  // 设置高优先级
+}
+```
+
+**ROS2 调度策略配置**
+
+```bash
+# 使用实时调度策略启动节点（需要 root 权限）
+sudo chrt -f 10 ros2 run package_name node_name
+
+# 查看进程调度策略
+chrt -p <pid>
+
+# 设置已有进程为 SCHED_RR
+sudo chrt -rr 50 -p <pid>
+```
+
+**回调组调度**
+
+ROS2 提供了回调组（Callback Groups）来管理回调的执行顺序：
+
+```cpp
+#include <rclcpp/callback_groups.hpp>
+
+class MyNode : public rclcpp::Node {
+public:
+    MyNode() : Node("my_node") {
+        // 创建互斥回调组
+        callback_group_ = this->create_callback_group(
+            rclcpp::CallbackGroupType::MutuallyExclusive);
+        
+        // 创建可重入回调组
+        reentrant_callback_group_ = this->create_callback_group(
+            rclcpp::CallbackGroupType::Reentrant);
+        
+        // 将订阅者添加到回调组
+        subscription_ = this->create_subscription<std_msgs::msg::String>(
+            "topic", 10,
+            [this](const std_msgs::msg::String::SharedPtr msg) {
+                // 处理消息
+            },
+            rclcpp::QoS(10),
+            nullptr,  // CallbacksGroup
+            reentrant_callback_group_);  // 回调组
+    }
+    
+private:
+    rclcpp::CallbackGroup::SharedPtr callback_group_;
+    rclcpp::CallbackGroup::SharedPtr reentrant_callback_group_;
+    rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription_;
+};
+```
+
+**多线程执行器**
+
+```cpp
+#include <rclcpp/executors.hpp>
+
+int main(int argc, char** argv) {
+    rclcpp::init(argc, argv);
+    
+    auto node = std::make_shared<MyNode>();
+    
+    // 创建多线程执行器
+    rclcpp::executors::MultiThreadedExecutor executor;
+    executor.add_node(node);
+    
+    // 指定线程数（默认 CPU 核心数）
+    executor.spin();
+    
+    rclcpp::shutdown();
+    return 0;
+}
+```
+
+**优先级反转问题与解决方案**
+
+优先级反转是指低优先级任务持有高优先级任务所需的资源，导致中优先级任务反而先执行的现象。
+
+```
+时间 →
+T1: 高优先级任务开始，等待资源
+T2: 低优先级任务获得资源，开始执行
+T3: 中优先级任务抢占低优先级任务
+T4: 中优先级任务执行完毕
+T5: 低优先级任务继续执行，释放资源
+T6: 高优先级任务获得资源，继续执行
+```
+
+**解决方案：优先级继承协议**
+
+```cpp
+#include <pthread.h>
+
+pthread_mutex_t shared_mutex;
+pthread_mutexattr_t attr;
+
+// 设置互斥量为优先级继承模式
+pthread_mutexattr_setprotocol(&attr, PTHREAD_PRIO_INHERIT);
+pthread_mutex_init(&shared_mutex, &attr);
+
+// 高优先级任务使用
+void high_priority_task() {
+    pthread_mutex_lock(&shared_mutex);
+    // 临界区操作
+    pthread_mutex_unlock(&shared_mutex);
+}
+```
 
 ### 1.2.5 时间抖动分析
 
+时间抖动（Jitter）是指预期触发时间与实际触发时间之间的偏差。在机器人系统中，精确的时间控制对于传感器融合、运动控制等应用至关重要。
+
+**抖动的来源**
+
+| 来源 | 说明 | 影响程度 |
+|------|------|----------|
+| 系统调度延迟 | 任务被调度器挂起的时间 | 高 |
+| 中断延迟 | 硬件中断处理时间 | 高 |
+| 内存分配 | 动态分配导致的暂停 | 中 |
+| 缓存未命中 | CPU 缓存失效 | 中 |
+| GC 暂停 | 垃圾回收导致的停顿 | 高（Python） |
+| 网络延迟 | 消息传输时间不确定 | 中 |
+
+**抖动测量方法**
+
+```cpp
+#include <rclcpp/rclcpp.hpp>
+#include <chrono>
+
+class JitterAnalyzer {
+public:
+    using Clock = std::chrono::steady_clock;
+    
+    JitterAnalyzer() : Node("jitter_analyzer") {
+        timer_ = this->create_wall_timer(
+            std::chrono::milliseconds(10),
+            [this]() { this->timer_callback(); });
+    }
+    
+    void timer_callback() {
+        auto now = Clock::now();
+        auto expected = expected_time_.load();
+        
+        if (expected != Clock::time_point::min()) {
+            auto jitter = std::chrono::duration_cast<std::chrono::microseconds>(
+                now - expected).count();
+            
+            RCLCPP_INFO(this->get_logger(), "Jitter: %ld us", jitter);
+            
+            // 记录统计
+            jitter_sum_ += jitter;
+            jitter_count_++;
+            jitter_max_ = std::max(jitter_max_, std::llabs(jitter));
+            jitter_min_ = std::min(jitter_min_, std::llabs(jitter));
+        }
+        
+        // 计算下一次预期触发时间
+        expected_time_.store(now + std::chrono::milliseconds(10));
+    }
+    
+    void print_statistics() {
+        if (jitter_count_ > 0) {
+            RCLCPP_INFO(this->get_logger(), 
+                "Jitter stats - Avg: %ld us, Max: %ld us, Min: %ld us",
+                jitter_sum_ / jitter_count_, jitter_max_, jitter_min_);
+        }
+    }
+    
+private:
+    rclcpp::TimerBase::SharedPtr timer_;
+    std::atomic<Clock::time_point> expected_time_{Clock::time_point::min()};
+    int64_t jitter_sum_ = 0;
+    int64_t jitter_count_ = 0;
+    int64_t jitter_max_ = 0;
+    int64_t jitter_min_ = LLONG_MAX;
+};
+```
+
+**使用 ROS2 内置时间测量**
+
+```bash
+# 使用 ros2 topic hz 查看话题发布频率的稳定性
+ros2 topic hz /topic_name
+
+# 使用 ros2 topic delay 查看话题延迟
+ros2 topic delay /topic_name
+
+# 使用 timer_info 查看定时器抖动
+# 在代码中通过 rcl_timer_t 获取 timer_info
+```
+
+**降低抖动的技术**
+
+**1. CPU 亲和性绑定**
+
+```bash
+# 将节点绑定到特定 CPU 核心
+taskset -c 2,3 ros2 run package_name node_name
+
+# 或在代码中设置
+#include <sched.h>
+
+void set_cpu_affinity(const std::vector<int>& cpus) {
+    cpu_set_t mask;
+    CPU_ZERO(&mask);
+    for (int cpu : cpus) {
+        CPU_SET(cpu, &mask);
+    }
+    
+    pthread_t current_thread = pthread_self();
+    sched_setaffinity(current_thread, sizeof(cpu_set_t), &mask);
+}
+```
+
+**2. 内存锁定**
+
+```bash
+# 锁定内存防止换页（需要 root）
+sudo ulimit -l unlimited
+sudo ros2 run package_name node_name
+```
+
+**3. 实时线程优先级**
+
+```bash
+# 使用实时策略运行
+sudo chrt -f 99 ros2 run package_name node_name
+```
+
+**抖动分析示例输出**
+
+```
+[Jitter Analyzer] Jitter: 150 us
+[Jitter Analyzer] Jitter: -80 us
+[Jitter Analyzer] Jitter: 200 us
+[Jitter Analyzer] Jitter: -50 us
+[Jitter Analyzer] Jitter: 120 us
+...
+[Jitter Analyzer] Jitter stats - Avg: 45 us, Max: 200 us, Min: 50 us
+```
+
+**抖动容限参考**
+
+| 应用场景 | 可接受抖动 | 说明 |
+|----------|------------|------|
+| 视觉里程计 | < 10 ms | 图像时间戳要求 |
+| IMU 融合 | < 1 ms | 高频传感器融合 |
+| 电机控制 | < 100 μs | 硬实时控制要求 |
+| 雷达处理 | < 5 ms | 点云处理 |
+| 语音交互 | < 50 ms | 人类感知阈值 |
+
+**诊断工具**
+
+```bash
+# 使用 time 命令查看进程时间统计
+/usr/bin/time -v ros2 run package_name node_name
+
+# 查看系统调度延迟
+sudo cyclictest -p 90 -t 1 -D 10 -m
+
+# 查看内核调度统计
+cat /proc/sched_debug
+```
 
 
 # 2 工作空间与包管理
 
 ## 2.1 工作空间结构
+
 ```text
 .(工作空间)
 ├── build
@@ -949,6 +1481,7 @@ colcon build
 
 
 # 3 Colcon
+
 ## 3.1 安装
 ```bash
 sudo apt-get install python3-colcon-common-extensions
@@ -991,7 +1524,9 @@ ros2 run examples minimal_talker
 ```
 
 
-## 3.3 使用RCLCPP编写功能包
+## 3.3 使用 RCLCPP 编写功能包
+
+### 3.3.1 创建功能包
 
 (1) 创建工作空间,并进入src目录
 ```bash
@@ -1044,7 +1579,9 @@ colcon build
 source setup.bash
 ros2 run examples_cpp node_01
 ```
-## 3.4 使用RCLPY编写功能包
+## 3.4 使用 RCLPY 编写功能包
+
+### 3.4.1 创建功能包
 
 (1) 创建功能包
 ```bash
@@ -1101,8 +1638,11 @@ def main(args=None):
     },
 ```
 
-# 4 面对对象方式编写ROS2节点
+# 4 面向对象方式编写 ROS2 节点
+
 ## 4.1 C++
+
+### 4.1.1 面向对象方式创建节点
 
 ```C++
 
@@ -1148,7 +1688,9 @@ install(TARGETS
 )
 ```
 
-## 4.2 Python 
+## 4.2 Python
+
+### 4.2.1 面向对象方式创建节点
 
 ```python
 #!/usr/bin/env python3
@@ -1189,7 +1731,7 @@ def main(args=None):
 
 同一域上的ROS2节点可以自由地相互发现并发送消息，而不同域上的ROS2节点则不能。所有ROS2节点默认使用域ID为0。为了避免在同一网络上运行ROS2的不同计算机组之间互相干扰，应为每组设置不同的域ID。
 
-## 5.1 Domain_ID --> UDP
+## 5.1 Domain_ID 与 UDP 端口
 DDS 的端口分配遵循 OMG DDSI-RTPS 规范，其默认端口号由以下公式计算得出：
 
 **多播端口（用于节点发现）**：
@@ -1266,13 +1808,15 @@ ros2 run your_package your_node
 
 ## 6.1 网络通信
 
+### 6.1.1 基础网络命令
+
 **UDP**
 
 例如，使用`ping`命令进行基于UDP的网络通信：
 
 ```bash
 ping 192.168.0.1
-fping -a -g 10.18.0.1 10.18.0.10 
+fping -a -g 10.18.0.1 10.18.0.10
 ```
 
 该命令将向IP地址为192.168.0.1的主机发送ICMP Echo请求，并等待接收相应的回复。
@@ -1282,52 +1826,408 @@ fping -a -g 10.18.0.1 10.18.0.10
 服务端：使用`nc`命令进行基于TCP的网络通信：
 
 ```bash
-nc -l 1234 // 监听一次
-nc -lk 1234  // 持续监听
+nc -l 1234 # 监听一次
+nc -lk 1234  # 持续监听
 ```
 
 该命令将在本地监听端口1234，并等待与之建立TCP连接的客户端。
 
-
-
 客户端：通过在另一个终端窗口中执行以下命令，可以建立与本地1234端口的TCP连接并在连接上发送消息：
 
 ```bash
-echo "Hello, TCP!" | nc 127.0.0.1 1234 // 发送一次
-nc 127.0.0.1 1234 // 持续发送
+echo "Hello, TCP!" | nc 127.0.0.1 1234 # 发送一次
+nc 127.0.0.1 1234 # 持续发送
+```
+
+### 6.1.2 ROS2 网络通信机制
+
+ROS2 基于 DDS（Data Distribution Service）实现网络通信，具有去中心化、松耦合、多播发现等特性。
+
+**ROS2 网络通信架构**
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                      ROS2 应用程序                           │
+├─────────────────────────────────────────────────────────────┤
+│                    RCL (ROS Client Library)                 │
+├─────────────────────────────────────────────────────────────┤
+│                    RMW (ROS Middleware)                     │
+├─────────────────────────────────────────────────────────────┤
+│                    DDS Implementation                       │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐         │
+│  │  Fast DDS   │  │  CycloneDDS │  │  ConnextDDS │         │
+│  └─────────────┘  └─────────────┘  └─────────────┘         │
+├─────────────────────────────────────────────────────────────┤
+│              Transport Layer (UDP/TCP/SHM)                  │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**ROS2 网络配置**
+
+```bash
+# 查看 ROS2 网络配置
+ros2 doctor
+
+# 检查网络插件
+ros2 pkg executables | grep rmw
+
+# 设置 DDS 实现
+export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+# 或
+export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+
+# 查看域 ID
+echo $ROS_DOMAIN_ID
+
+# 设置域 ID（默认 0）
+export ROS_DOMAIN_ID=42
+```
+
+**QoS 策略对网络通信的影响**
+
+| QoS 策略 | 说明 | 适用场景 |
+|----------|------|----------|
+| `RELIABLE` | 确保消息送达，重传丢失报文 | 关键控制指令 |
+| `BEST_EFFORT` | 不重传，丢弃丢失报文 | 传感器数据流 |
+| `KEEP_LAST(n)` | 保留最新 n 条消息 | 历史数据查询 |
+| `KEEP_ALL` | 保留所有历史消息 | 日志记录 |
+| `VOLATILE` | 不保留历史 | 实时数据 |
+| `TRANSIENT_LOCAL` | 新订阅者接收历史 | 配置分发 |
+
+**网络诊断命令**
+
+```bash
+# 查看节点间连接
+ros2 node list
+
+# 查看话题列表
+ros2 topic list
+
+# 查看服务列表
+ros2 service list
+
+# 查看发现服务器
+ros2 daemon status
+
+# 重启发现服务
+ros2 daemon stop && ros2 daemon start
+
+# 查看特定节点的信息
+ros2 node info /node_name
+
+# 查看话题带宽
+ros2 topic bw /topic_name
+
+# 查看话题延迟
+ros2 topic delay /topic_name
+```
+
+### 6.1.3 多机通信配置
+
+ROS2 多机通信通过网络发现机制实现自动组网，无需手动配置 Master。
+
+**基础多机配置**
+
+```bash
+# 机器 A
+export ROS_DOMAIN_ID=5
+export ROS_DISCOVERY_SERVER=192.168.1.100:11811
+
+# 机器 B
+export ROS_DOMAIN_ID=5
+export ROS_DISCOVERY_SERVER=192.168.1.100:11811
+
+# 启动发现服务器（仅需一台机器）
+ros2 run fastrtps_discovery_server fastrtps_discovery_server -i 0 -p 11811
+```
+
+**使用容器发现服务器（Container Discovery Server）**
+
+```bash
+# 在服务器上启动发现服务器
+ros2 run turtlesim talker
+
+# 在客户端配置发现服务器
+export ROS_DISCOVERY_SERVER=192.168.1.100:7400
+ros2 run turtlesim listener
+```
+
+**Fast DDS 配置文件**
+
+```xml
+<?xml version="1.0"?>
+<dds>
+  <profiles xmlns="http://www.eprosima.com/XMLSchemas/fastRTPS_Profiles">
+    <participant profile_name="server_profile">
+      <rtps>
+        <prefix>44.53.00.5f.45.50.52.4f.53.49.4d.41</prefix>
+        <defaultUnicastLocatorList>
+          <locator>
+            <udpv4 address="192.168.1.100" port="7412"/>
+          </locator>
+        </defaultUnicastLocatorList>
+        <participantID>0</participantID>
+      </rtps>
+    </participant>
+  </profiles>
+</dds>
+```
+
+**网络优化配置**
+
+```bash
+# 启用共享内存传输（同机器节点通信）
+export FASTRTPS_DEFAULT_PROFILES_FILE=/path/to/fastdds_config.xml
+
+# 调整 socket 缓冲区大小
+sudo sysctl -w net.core.rmem_max=26214400
+sudo sysctl -w net.core.wmem_max=26214400
+
+# 检查防火墙规则（确保 DDS 端口开放）
+sudo ufw status
+# DDS 默认端口：7410-7412 (域0), 7650-7652 (域1)
 ```
 
 ## 6.2 进程间通信
 
-**基于共享内存的进程间通信（IPC）方式**
+### 6.2.1 基于共享内存的 IPC
 
-基于共享内存的IPC方式通过共享内存区域在同一计算机系统内的不同进程之间进行通信。在Linux命令行中，可以使用`ipcs`和`ipcrm`命令来管理共享内存段。
+基于共享内存的 IPC 方式通过共享内存区域在同一计算机系统内的不同进程之间进行通信。在 Linux 命令行中，可以使用 `ipcs` 和 `ipcrm` 命令来管理共享内存段。
 
-通过`ipcs`命令查看当前系统中的共享内存段：
+**查看和管理共享内存**
 
 ```bash
+# 查看当前系统中的共享内存段
 ipcs -m
+
+# 查看信号量
+ipcs -s
+
+# 查看消息队列
+ipcs -q
+
+# 删除不再需要的共享内存段
+ipcrm -m <shmid>
 ```
 
-使用`ipcrm`命令删除不再需要的共享内存段：
+**ROS2 共享内存传输机制**
+
+ROS2 使用 Fast DDS 的共享内存传输（Shared Memory Transport）实现同机器上进程间的高效通信：
+
+```
+┌──────────────────────────────────────────────────────┐
+│                 Shared Memory (SHM)                  │
+│  ┌─────────┐  ┌─────────┐  ┌─────────┐              │
+│  │Segment 1│  │Segment 2│  │Segment 3│  ...         │
+│  └─────────┘  └─────────┘  └─────────┘              │
+└──────────────────────────────────────────────────────┘
+       ↑                  ↑                  ↑
+    Process A          Process B          Process C
+```
+
+**启用共享内存传输**
+
+```cpp
+// 代码中启用
+auto context = rclcpp::Context::make_shared();
+
+// 或通过环境变量
+// export RMW_FASTRTPS_USE_SHARED_MEMORY=true
+```
+
+**自定义共享内存段大小**
+
+```xml
+<?xml version="1.0"?>
+<dds>
+  <profiles xmlns="http://www.eprosima.com/XMLSchemas/fastRTPS_Profiles">
+    <transport_descriptors>
+      <transport_descriptor>
+        <transport_id>SharedMemoryTransport</transport_id>
+        <type>SHM</type>
+        <maxMessageSize>1048576</maxMessageSize>  <!-- 1MB -->
+        <maxChannelSize>52428800</maxChannelSize> <!-- 50MB -->
+      </transport_descriptor>
+    </transport_descriptors>
+  </profiles>
+</dds>
+```
+
+### 6.2.2 管道（Pipe）通信
+
+管道是 Linux 中常用的进程间通信机制，分为匿名管道和命名管道。
+
+**匿名管道**
 
 ```bash
-ipcrm -m <shmid>
+# 创建匿名管道
+ls -l | grep ros
+
+# 或在程序中使用
+#include <unistd.h>
+int pipe(int pipefd[2]);
+```
+
+**命名管道（FIFO）**
+
+```bash
+# 创建命名管道
+mkfifo /tmp/my_fifo
+
+# 在一个终端监听
+cat /tmp/my_fifo
+
+# 在另一个终端发送
+echo "Hello ROS" > /tmp/my_fifo
+```
+
+### 6.2.3 消息队列
+
+**System V 消息队列**
+
+```bash
+# 查看消息队列
+ipcs -q
+
+# 创建消息队列
+ipcmk -q
+
+# 删除消息队列
+ipcrm -q <msqid>
+```
+
+### 6.2.4 ROS2 进程内通信
+
+ROS2 优化了同进程内节点/回调间的通信效率。
+
+**进程内通信（Intra-process Communication）**
+
+```cpp
+#include <rclcpp/rclcpp.hpp>
+
+// 启用进程内通信
+rclcpp::init(argc, argv);
+auto node = rclcpp::Node::make_shared("my_node");
+
+// 进程内发布者配置
+auto publisher = node->create_publisher<std_msgs::msg::String>("topic", 10);
+
+// 进程内订阅
+auto subscription = node->create_subscription<std_msgs::msg::String>(
+    "topic", 10,
+    [](const std_msgs::msg::String::SharedPtr msg) {
+        RCLCPP_INFO(node->get_logger(), "Received: %s", msg->data.c_str());
+    });
+
+// ROS2 自动优化同进程内通信
+rclcpp::spin(node);
+```
+
+**进程内通信示意图**
+
+```
+同一进程内:
+  Publisher ──────► Subscription
+       (直接函数调用，无序列化/反序列化)
 ```
 
 ## 6.3 中间件
 
-### 6.3.1 [ZeroMQ](https://zeromq.org/)
+### 6.3.1 ROS2 DDS 中间件
 
-ZeroMQ非常的轻量，也就是小巧，占用资源少，看名字，Zero Message Queue，零消息队列。
+ROS2 支持多种 DDS 实现作为其中间件：
 
-ZeroMQ提供了各种（如进程内、进程间、TCP 和多播）消息传输的套接字.
+| DDS 实现 | 特点 | 适用场景 |
+|----------|------|----------|
+| Fast DDS | 开源，默认实现 | 通用场景 |
+| Cyclone DDS | 纯开源，优化性能 | 需要宽松协议的场景 |
+| Connext DDS | 商业版，功能完整 | 工业级应用 |
+| GurumDDS | 商业版，高性能 | 低延迟需求 |
 
-### 6.3.2 [PyZmq](https://pypi.org/project/pyzmq/)
+**切换 DDS 实现**
 
-pyzmq也提供了类似于订阅发布的方式来传递消息，还有更多的使用方法，比如客户端服务端这种。
+```bash
+# Fast DDS（默认）
+export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
 
-https://www.php.cn/faq/459626.html
+# Cyclone DDS
+export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+
+# Connext（需要安装）
+export RMW_IMPLEMENTATION=rmw_connext_cpp
+```
+
+### 6.3.2 ZeroMQ
+
+[ZeroMQ](https://zeromq.org/) 是一个轻量级的消息队列库，提供进程内、进程间、TCP 和多播等多种消息传输模式。
+
+```cpp
+// ZeroMQ 发布者
+#include <zmq.hpp>
+
+zmq::context_t context(1);
+zmq::socket_t publisher(context, zmq::socket_type::pub);
+publisher.bind("tcp://*:5555");
+
+std::string message = "Hello ROS";
+publisher.send(zmq::message_t(message.data(), message.size()));
+
+// ZeroMQ 订阅者
+zmq::socket_t subscriber(context, zmq::socket_type::sub);
+subscriber.connect("tcp://localhost:5555");
+subscriber.set(zmq::sockopt::subscribe, "");
+
+zmq::message_t received;
+subscriber.recv(received);
+std::string data(static_cast<char*>(received.data()), received.size());
+```
+
+**ZeroMQ 套接字类型**
+
+| 类型 | 说明 | 对应模式 |
+|------|------|----------|
+| `PUB/SUB` | 发布-订阅 | 一对多 |
+| `REQ/REP` | 请求-响应 | 同步对话 |
+| `PUSH/PULL` | 管道 | 负载均衡 |
+| `PAIR` | 双向握手 | 点对点 |
+
+### 6.3.3 PyZmq
+
+[PyZmq](https://pypi.org/project/pyzmq/) 是 ZeroMQ 的 Python 绑定。
+
+```python
+import zmq
+
+# 发布者
+context = zmq.Context()
+publisher = context.socket(zmq.PUB)
+publisher.bind("tcp://*:5555")
+
+while True:
+    message = "Sensor data"
+    publisher.send_string(message)
+
+# 订阅者
+subscriber = context.socket(zmq.SUB)
+subscriber.connect("tcp://localhost:5555")
+subscriber.setsockopt_string(zmq.SUBSCRIBE, "")
+
+while True:
+    message = subscriber.recv_string()
+    print(f"Received: {message}")
+```
+
+### 6.3.4 常用中间件对比
+
+| 特性 | ROS2/DDS | ZeroMQ | MQTT |
+|------|----------|--------|------|
+| 服务发现 | 内置 | 无 | Broker 依赖 |
+| QoS 支持 | 丰富 | 无 | 基础 |
+| 持久化 | 支持 | 无 | 支持 |
+| 自动重连 | 支持 | 无 | Broker 依赖 |
+| 内存效率 | 高 | 极高 | 中 |
+| 开发复杂度 | 中 | 低 | 低 |
+| 适用规模 | 中大型 | 小型 | IoT 场景 |
 
 
 
@@ -2983,3 +3883,927 @@ def main(args=None):
 
 ```
 
+# 9 数据录制与回放
+
+## 9.1 ros2 bag 基础命令
+
+### 9.1.1 录制话题
+
+```bash
+# 录制单个话题
+ros2 bag record -o bag_file_name /topic_name
+
+# 录制多个话题
+ros2 bag record -o bag_file_name /topic1 /topic2 /topic3
+
+# 录制所有话题
+ros2 bag record -a -o bag_file_name
+
+# 指定录制时长（秒）
+ros2 bag record -o bag_file_name /topic --duration 60
+
+# 限制文件大小（MB）
+ros2 bag record -o bag_file_name /topic --max-bag-size 100
+```
+
+### 9.1.2 查看 bag 信息
+
+```bash
+# 查看 bag 文件信息
+ros2 bag info bag_file.db3
+
+# 详细信息（包括消息数量、持续时间等）
+ros2 bag info bag_file.db3 -v
+
+# 导出 bag 信息为 YAML
+ros2 bag info bag_file.db3 --yaml > bag_info.yaml
+```
+
+### 9.1.3 回放数据
+
+```bash
+# 基本播放
+ros2 bag play bag_file.db3
+
+# 倍速播放（2倍速）
+ros2 bag play bag_file.db3 -r 2
+
+# 循环播放
+ros2 bag play bag_file.db3 -l
+
+# 播放单个话题
+ros2 bag play bag_file.db3 --topics /topic_name
+
+# 从指定时间开始播放
+ros2 bag play bag_file.db3 --start-offset 10.0
+
+# 暂停/恢复播放
+# 在播放过程中按空格键暂停，再按恢复
+```
+
+## 9.2 ros2 bag 高级用法
+
+### 9.2.1 条件录制
+
+```bash
+# 只录制消息数量
+ros2 bag record -o bag_file /topic --max-messages 1000
+
+# 录制时添加前缀（区分不同来源）
+ros2 bag record -o bag_file /topic --prefix "test_"
+
+# 压缩录制
+ros2 bag record -o bag_file /topic --compression-algo lz4
+```
+
+### 9.2.2 录制配置
+
+```bash
+# 使用 QoS 录制（默认使用发布者的 QoS）
+ros2 bag record /topic --qos-profile-overrides-path qos.yaml
+
+# 指定 ROS_DOMAIN_ID
+ros2 bag record -o bag_file /topic --ros-domain-id 42
+```
+
+### 9.2.3 bag 文件管理
+
+```bash
+# 压缩已有 bag 文件
+ros2 bag compress -i bag_file.db3 -o compressed_bag.db3 --compression-algo lz4
+
+# 解压 bag 文件
+ros2 bag decompress -i compressed_bag.db3 -o decompressed_bag.db3
+
+# 合并多个 bag 文件
+ros2 bag merge bag1.db3 bag2.db3 -o merged_bag.db3
+
+# 修复损坏的 bag 文件
+ros2 bag fix bag_file.db3 -o fixed_bag.db3
+```
+
+## 9.3 数据分析工具
+
+### 9.3.1 使用 Python 分析 bag
+
+```python
+import rclpy
+from rclpy.serialization import deserialize_message
+from rosidl_runtime_py import get_interface
+import sqlite3
+
+class BagAnalyzer:
+    def __init__(self, bag_path):
+        self.bag_path = bag_path
+        self.conn = sqlite3.connect(bag_path)
+        
+    def get_topics(self):
+        """获取 bag 中的所有话题"""
+        cursor = self.conn.cursor()
+        cursor.execute("SELECT DISTINCT topic_name FROM messages")
+        return [row[0] for row in cursor.fetchall()]
+    
+    def get_message_count(self, topic_name):
+        """获取指定话题的消息数量"""
+        cursor = self.conn.cursor()
+        cursor.execute(
+            "SELECT COUNT(*) FROM messages WHERE topic_name = ?",
+            (topic_name,)
+        )
+        return cursor.fetchone()[0]
+    
+    def get_messages(self, topic_name, limit=None):
+        """获取指定话题的所有消息"""
+        cursor = self.conn.cursor()
+        query = "SELECT timestamp, message FROM messages WHERE topic_name = ? ORDER BY timestamp"
+        if limit:
+            query += f" LIMIT {limit}"
+        cursor.execute(query, (topic_name,))
+        
+        messages = []
+        for row in cursor.fetchall():
+            timestamp, blob = row
+            messages.append((timestamp, blob))
+        return messages
+    
+    def close(self):
+        self.conn.close()
+
+# 使用示例
+analyzer = BagAnalyzer("bag_file.db3")
+print("Topics:", analyzer.get_topics())
+for topic in analyzer.get_topics():
+    print(f"  {topic}: {analyzer.get_message_count(topic)} messages")
+analyzer.close()
+```
+
+### 9.3.2 时间同步分析
+
+```bash
+# 使用 plotjuggler 分析数据
+sudo apt install ros-humble-plotjuggler-ros
+ros2 run plotjuggler plotjuggler
+
+# 或使用 ros2 bag to_csv 导出为 CSV
+ros2 bag to_csv bag_file.db3 --output-dir ./csv_data
+```
+
+## 9.4 常见使用场景
+
+| 场景 | 命令 | 说明 |
+|------|------|------|
+| 快速录制测试 | `ros2 bag record -a -o test` | 录制所有话题快速测试 |
+| 长期数据采集 | `ros2 bag record /topic --duration 3600` | 每小时一个文件 |
+| 带宽优化 | `ros2 bag record --compression-algo lz4` | 压缩存储 |
+| 数据分享 | `ros2 bag compress` | 压缩后分享 |
+| 调试回放 | `ros2 bag play -l --rate 0.5` | 慢速回放分析 |
+
+# 10 Gazebo 仿真
+
+## 10.1 Gazebo 基础
+
+### 10.1.1 启动 Gazebo
+
+```bash
+# 启动 Gazebo Classic
+gazebo
+
+# 启动 Gazebo 并加载世界文件
+gazebo /path/to/world/file.world
+
+# 启动 Gazebo Classic 并加载 ROS 2 Humble 自带的差速驱动演示世界文件
+gazebo /opt/ros/humble/share/gazebo_plugins/worlds/gazebo_ros_diff_drive_demo.world
+```
+
+**启动 Gazebo Classic，并加载 ROS 2 Humble 自带的差速驱动演示世界文件。**
+
+这个 `.world` 文件来自 `gazebo_plugins` 包，里面包含一个简单的两轮差速驱动机器人，并且已经配置好了 `gazebo_ros_diff_drive` 插件。该插件会：
+
+- **订阅** 话题 `/demo/cmd_demo`，消息类型 `geometry_msgs/msg/Twist`
+- **发布** 里程计话题，比如 `/demo/odom`
+- 可能还会发布 `/demo/scan` 等传感器数据（取决于 world 内容）
+
+### 10.1.2 使用 ROS2 命令控制
+
+**用 ROS 2 命令行工具，向话题 `/demo/cmd_demo` 持续发布一条速度指令，让订阅该话题的机器人/仿真模型以 0.2 m/s 的速度沿自身 x 轴前进，并且不旋转。**
+
+```bash
+ros2 topic pub /demo/cmd_demo geometry_msgs/msg/Twist "{linear: {x: 0.2,y: 0,z: 0},angular: {x: 0,y: 0,z: 0}}"
+```
+
+- `ros2 topic pub`：ROS 2 的话题发布命令
+- `/demo/cmd_demo`：话题名称，类似常见的 `/cmd_vel`
+- `geometry_msgs/msg/Twist`：消息类型，包含 `linear` 和 `angular`
+- `"{linear: {x: 0.2,y: 0,z: 0},angular: {x: 0,y: 0,z: 0}}"`：具体数据
+
+## 10.2 Gazebo 常用插件
+
+| 插件 | 话题 | 说明 |
+|------|------|------|
+| `gazebo_ros_diff_drive` | `/demo/cmd_vel`, `/demo/odom` | 差速驱动 |
+| `gazebo_ros_skid_steer_drive` | `/cmd_vel`, `/odom` | 履带驱动 |
+| `gazebo_ros_joint_state_publisher` | `/joint_states` | 关节状态 |
+| `gazebo_ros_camera` | `/image_raw` | 相机传感器 |
+| `gazebo_ros_laser` | `/scan` | 激光雷达 |
+| `gazebo_ros_force` | `/model_name/set_hardware_interface/joint_command` | 力控制 |
+
+## 10.3 创建自定义仿真
+
+### 10.3.1 URDF 模型
+
+```xml
+<?xml version="1.0"?>
+<robot name="my_robot">
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.5 0.3 0.1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.5 0.3 0.1"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="base_link">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+</robot>
+```
+
+### 10.3.2 xacro 模型
+
+```xml
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="my_robot">
+  <xacro:property name="pi" value="3.1415926535897931"/>
+  
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <cylinder radius="0.2" length="0.1"/>
+      </geometry>
+    </visual>
+  </link>
+  
+  <xacro:macro name="wheel" params="name *origin">
+    <link name="${name}_wheel">
+      <visual>
+        <geometry>
+          <cylinder radius="0.05" length="0.02"/>
+        </geometry>
+      </visual>
+    </link>
+    <joint name="${name}_wheel_joint" type="continuous">
+      <parent link="base_link"/>
+      <child link="${name}_wheel"/>
+      <xacro:insert_block name="origin"/>
+    </joint>
+  </xacro:macro>
+</robot>
+```
+
+### 10.3.3 Spawn 到 Gazebo
+
+```bash
+# 使用 ros2 launch 启动
+ros2 launch gazebo_ros gazebo.launch.py world_file:=/path/to/world
+
+# 手动 spawn 模型
+ros2 run gazebo_ros spawn_entity.py -topic /robot_description -entity my_robot
+```
+
+# 11 Launch 文件
+
+## 11.1 Launch 文件基础
+
+### 11.1.1 创建 Launch 文件
+
+ROS2 使用 Python 编写 Launch 文件，位于 `launch` 目录下：
+
+```python
+# launch/my.launch.py
+from launch import LaunchDescription
+from launch_ros.actions import Node
+
+def generate_launch_description():
+    return LaunchDescription([
+        Node(
+            package='demo_nodes_cpp',
+            executable='talker',
+            name='talker_node',
+            parameters=[{'use_sim_time': True}]
+        ),
+        Node(
+            package='demo_nodes_cpp',
+            executable='listener',
+            name='listener_node'
+        )
+    ])
+```
+
+### 11.1.2 启动 Launch 文件
+
+```bash
+# 启动 launch 文件
+ros2 launch <package_name> <launch_file.py>
+
+# 示例
+ros2 launch turtlesim talker_listener.launch.py
+
+# 查看 launch 文件参数
+ros2 launch <package_name> <launch_file.py> --show-args
+```
+
+## 11.2 常用元素
+
+### 11.2.1 参数传递
+
+```python
+from launch import LaunchDescription
+from launch_ros.actions import Node
+from launch.actions import DeclareLaunchArgument
+from launch.substitutions import LaunchConfiguration
+
+def generate_launch_description():
+    # 声明参数
+    use_sim_time_arg = DeclareLaunchArgument(
+        'use_sim_time',
+        default_value='false',
+        description='Use simulation clock time'
+    )
+    
+    return LaunchDescription([
+        use_sim_time_arg,
+        Node(
+            package='robot_state_publisher',
+            executable='robot_state_publisher',
+            parameters=[{
+                'use_sim_time': LaunchConfiguration('use_sim_time'),
+                'robot_description': ...
+            }]
+        )
+    ])
+```
+
+### 11.2.2 条件执行
+
+```python
+from launch import LaunchDescription
+from launch_ros.actions import Node
+from launch.actions import ExecuteProcess
+from launch.condition import IfCondition
+
+def generate_launch_description():
+    return LaunchDescription([
+        # 条件执行节点
+        Node(
+            package='rviz2',
+            executable='rviz2',
+            condition=IfCondition(LaunchConfiguration('enable_rviz'))
+        ),
+        
+        # 执行 shell 命令
+        ExecuteProcess(
+            cmd=['ros2', 'bag', 'play', 'bag_file.db3'],
+            condition=IfCondition(LaunchConfiguration('play_bag'))
+        )
+    ])
+```
+
+### 11.2.3 命名空间
+
+```python
+from launch_ros.actions import Node
+
+def generate_launch_description():
+    return LaunchDescription([
+        Node(
+            package='turtlesim',
+            executable='turtlesim_node',
+            namespace='turtle1'  # 节点将变为 /turtle1/turtlesim
+        )
+    ])
+```
+
+## 11.3 事件处理
+
+```python
+from launch import LaunchDescription
+from launch.actions import RegisterEventHandler, ExecuteProcess
+from launch.event_handlers import OnProcessStart, OnProcessExit
+
+def generate_launch_description():
+    return LaunchDescription([
+        RegisterEventHandler(
+            OnProcessStart(
+                target_action=talker,
+                on_start=[
+                    ExecuteProcess(cmd=['echo', 'Listener started!'], shell=True)
+                ]
+            )
+        ),
+        RegisterEventHandler(
+            OnProcessExit(
+                target_action=talker,
+                on_exit=[
+                    ExecuteProcess(cmd=['echo', 'Talker exited!'], shell=True)
+                ]
+            )
+        )
+    ])
+```
+
+## 11.4 完整示例
+
+```python
+#!/usr/bin/env python3
+from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument, ExecuteProcess, RegisterEventHandler
+from launch.event_handlers import OnProcessStart, OnExecution
+from launch_ros.actions import Node
+from launch.substitutions import LaunchConfiguration
+
+def generate_launch_description():
+    # 声明参数
+    use_rviz = DeclareLaunchArgument('use_rviz', default_value='true')
+    use_sim_time = DeclareLaunchArgument('use_sim_time', default_value='false')
+    
+    # 机器人状态发布者
+    robot_state_publisher = Node(
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        parameters=[{
+            'use_sim_time': LaunchConfiguration('use_sim_time'),
+            'robot_description': '/path/to/robot.urdf'
+        }]
+    )
+    
+    # Gazebo
+    gazebo = ExecuteProcess(
+        cmd=['gazebo', '--verbose', '-s', 'libgazebo_ros_init.so', '/path/to/world.world']
+    )
+    
+    # Spawn 实体
+    spawn_entity = Node(
+        package='gazebo_ros',
+        executable='spawn_entity.py',
+        arguments=['-topic', 'robot_description', '-entity', 'my_robot']
+    )
+    
+    # RViz
+    rviz = Node(
+        package='rviz2',
+        executable='rviz2',
+        condition=IfCondition(LaunchConfiguration('use_rviz'))
+    )
+    
+    return LaunchDescription([
+        use_rviz,
+        use_sim_time,
+        RegisterEventHandler(
+            OnProcessStart(
+                target_action=gazebo,
+                on_start=[robot_state_publisher, spawn_entity]
+            )
+        ),
+        gazebo,
+        rviz
+    ])
+```
+
+# 12 节点生命周期
+
+## 12.1 生命周期概念
+
+ROS2 引入了节点生命周期管理，用于控制节点的启动和关闭顺序，确保系统在确定状态下运行。
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    节点生命周期状态机                         │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│   ┌──────────┐    configure()    ┌──────────────┐          │
+│   │ UNCONFI  │ ─────────────────►│   INACTIVE   │          │
+│   │   GURED  │                   │              │          │
+│   └──────────┘                   └──────┬───────┘          │
+│         ▲                                 │                  │
+│         │                                 │ activate()       │
+│         │ cleanup()                       ▼                  │
+│         │                          ┌──────────────┐         │
+│         │                          │   ACTIVE     │         │
+│         └──────────────────────────│              │         │
+│              deactivate()          └──────────────┘         │
+│                                     │                        │
+│                                     │     ┌─────────────────┤
+│                                     ▼     ▼                 │
+│                              ┌──────────┐ ┌──────────┐     │
+│                              │ ERROR    │ │ SHUTDOWN │     │
+│                              │          │ │ COMPLETE │     │
+│                              └──────────┘ └──────────┘     │
+└─────────────────────────────────────────────────────────────┘
+```
+
+## 12.2 生命周期状态
+
+| 状态 | 说明 | 可进行的转换 |
+|------|------|-------------|
+| `UNCONFIGURED` | 初始状态，未配置 | configure() |
+| `INACTIVE` | 已配置但未激活 | activate(), cleanup() |
+| `ACTIVE` | 运行中，可处理数据 | deactivate() |
+| `FINALIZED` | 已关闭，无法再使用 | - |
+
+## 12.3 生命周期节点实现
+
+### 12.3.1 C++ 实现
+
+```cpp
+#include <rclcpp/rclcpp.hpp>
+#include <rclcpp_lifecycle/lifecycle_node.hpp>
+#include <lifecycle_msgs/msg/transition.hpp>
+
+using LifecycleNode = rclcpp_lifecycle::LifecycleNode;
+
+class LifecycleDemoNode : public LifecycleNode {
+public:
+    LifecycleDemoNode()
+        : LifecycleNode("lifecycle_demo_node") {
+        RCLCPP_INFO(get_logger(), "Node created");
+    }
+    
+    // 状态转换回调
+    rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn
+    on_configure(const rclcpp_lifecycle::State&) {
+        RCLCPP_INFO(get_logger(), "Configuring...");
+        
+        // 创建发布者和订阅者
+        publisher_ = this->create_publisher<std_msgs::msg::String>("output", 10);
+        subscription_ = this->create_subscription<std_msgs::msg::String>(
+            "input", 10,
+            [this](const std_msgs::msg::String::SharedPtr msg) {
+                RCLCPP_INFO(get_logger(), "Received: %s", msg->data.c_str());
+            });
+        
+        RCLCPP_INFO(get_logger(), "Configured successfully");
+        return rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS;
+    }
+    
+    rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn
+    on_activate(const rclcpp_lifecycle::State&) {
+        RCLCPP_INFO(get_logger(), "Activating...");
+        publisher_->on_activate();
+        RCLCPP_INFO(get_logger(), "Activated successfully");
+        return rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS;
+    }
+    
+    rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn
+    on_deactivate(const rclcpp_lifecycle::State&) {
+        RCLCPP_INFO(get_logger(), "Deactivating...");
+        publisher_->on_deactivate();
+        RCLCPP_INFO(get_logger(), "Deactivated successfully");
+        return rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS;
+    }
+    
+    rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn
+    on_cleanup(const rclcpp_lifecycle::State&) {
+        RCLCPP_INFO(get_logger(), "Cleaning up...");
+        publisher_.reset();
+        subscription_.reset();
+        RCLCPP_INFO(get_logger(), "Cleaned up successfully");
+        return rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS;
+    }
+    
+    rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn
+    on_shutdown(const rclcpp_lifecycle::State&) {
+        RCLCPP_INFO(get_logger(), "Shutting down...");
+        RCLCPP_INFO(get_logger(), "Shutdown complete");
+        return rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS;
+    }
+
+private:
+    rclcpp_lifecycle::LifecyclePublisher<std_msgs::msg::String>::SharedPtr publisher_;
+    rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription_;
+};
+
+int main(int argc, char** argv) {
+    rclcpp::init(argc, argv);
+    auto node = std::make_shared<LifecycleDemoNode>();
+    rclcpp::spin(node->get_node_base_interface());
+    rclcpp::shutdown();
+    return 0;
+}
+```
+
+### 12.3.2 Python 实现
+
+```python
+#!/usr/bin/env python3
+import rclpy
+from rclpy.node import Node
+from rclpy.lifecycle import LifecycleNode, LifecyclePublisher
+from rclpy.lifecycle.node_interfaces import LifecycleNodeInterface
+from lifecycle_msgs.msg import Transition
+
+class LifecycleDemoNode(LifecycleNode):
+    def __init__(self):
+        super().__init__('lifecycle_demo_node')
+        self.publisher_ = None
+        self.subscription_ = None
+        
+    def on_configure(self, state):
+        self.get_logger().info('Configuring...')
+        
+        self.publisher_ = self.create_publisher(String, 'output', 10)
+        self.subscription_ = self.create_subscription(
+            String, 'input', self.callback, 10)
+        
+        self.get_logger().info('Configured successfully')
+        return LifecycleNodeInterface.callback_return.SUCCESS
+    
+    def on_activate(self, state):
+        self.get_logger().info('Activating...')
+        self.publisher_.on_activate()
+        self.get_logger().info('Activated successfully')
+        return LifecycleNodeInterface.callback_return.SUCCESS
+    
+    def on_deactivate(self, state):
+        self.get_logger().info('Deactivating...')
+        self.publisher_.on_deactivate()
+        self.get_logger().info('Deactivated successfully')
+        return LifecycleNodeInterface.callback_return.SUCCESS
+    
+    def on_cleanup(self, state):
+        self.get_logger().info('Cleaning up...')
+        self.publisher_.destroy_publisher()
+        self.subscription_.destroy_subscription()
+        self.get_logger().info('Cleaned up successfully')
+        return LifecycleNodeInterface.callback_return.SUCCESS
+    
+    def on_shutdown(self, state):
+        self.get_logger().info('Shutting down...')
+        self.get_logger().info('Shutdown complete')
+        return LifecycleNodeInterface.callback_return.SUCCESS
+    
+    def callback(self, msg):
+        self.get_logger().info(f'Received: {msg.data}')
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = LifecycleDemoNode()
+    rclpy.spin(node)
+    rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+```
+
+## 12.4 生命周期管理
+
+### 12.4.1 使用 CLI 管理
+
+```bash
+# 查看节点生命周期状态
+ros2 node lifecycle list /lifecycle_demo_node
+
+# 触发状态转换
+ros2 lifecycle set /lifecycle_demo_node configure
+ros2 lifecycle set /lifecycle_demo_node activate
+ros2 lifecycle set /lifecycle_demo_node deactivate
+ros2 lifecycle set /lifecycle_demo_node cleanup
+```
+
+### 12.4.2 Launch 文件中管理
+
+```python
+from launch import LaunchDescription
+from launch_ros.actions import LifecycleNode
+from launch_ros.events import lifecycle
+from launch.actions import EmitEvent
+
+def generate_launch_description():
+    lifecycle_node = LifecycleNode(
+        package='my_package',
+        executable='lifecycle_node',
+        name='lifecycle_demo',
+        output='screen'
+    )
+    
+    # 状态转换事件处理
+    event_handler = RegisterEventHandler(
+        OnNodeStart(
+            target_action=lifecycle_node,
+            on_start=[
+                EmitEvent(event=lifecycle.ChangeState(
+                    lifecycle_node=lifecycle_node,
+                    transition_id=lifecycle.Transition.SHMUTDOWN__CONFIGURING
+                ))
+            ]
+        )
+    )
+    
+    return LaunchDescription([event_handler, lifecycle_node])
+```
+
+# 13 调试工具
+
+## 13.1 常用调试命令
+
+### 13.1.1 节点调试
+
+```bash
+# 查看运行中的节点
+ros2 node list
+
+# 查看节点信息
+ros2 node info /node_name
+
+# 启动节点（带调试）
+ros2 run --prefix 'gdb -ex run --args' package_name executable_name
+
+# 启动节点（带性能分析）
+ros2 run --prefix 'valgrind --tool=callgrind' package_name executable_name
+```
+
+### 13.1.2 话题调试
+
+```bash
+# 列出所有话题
+ros2 topic list
+
+# 查看话题带宽
+ros2 topic bw /topic_name
+
+# 查看话题延迟
+ros2 topic delay /topic_name
+
+# 手动发布话题
+ros2 topic pub /topic_name std_msgs/msg/String "data: 'hello'" -1
+
+# 连续发布话题
+ros2 topic pub /topic_name std_msgs/msg/String "data: 'hello'" --rate 10
+```
+
+### 13.1.3 服务调试
+
+```bash
+# 调用服务
+ros2 service call /service_name service_type "request: {data: 1}"
+
+# 查找使用某接口的服务
+ros2 service find interface_type
+
+# 查看服务类型
+ros2 service type /service_name
+```
+
+### 13.1.4 参数调试
+
+```bash
+# 列出节点参数
+ros2 param list
+
+# 获取参数值
+ros2 param get /node_name parameter_name
+
+# 设置参数值
+ros2 param set /node_name parameter_name value
+
+# 导出参数
+ros2 param dump /node_name > params.yaml
+
+# 加载参数
+ros2 param load /node_name params.yaml
+```
+
+## 13.2 rqt 工具
+
+```bash
+# 启动 rqt
+rqt
+
+# 常用 rqt 插件
+rqt_graph          # 计算图可视化
+rqt_console        # 日志查看
+rqt_logger_level   # 设置日志级别
+rqt_reconfigure    # 动态参数配置
+rqt_plot           # 数据绘图
+rqt_bag            # bag 可视化
+rqt_service_caller # 服务调用
+```
+
+## 13.3 日志调试
+
+### 13.3.1 日志级别
+
+```cpp
+// C++ 日志
+RCLCPP_DEBUG(node->get_logger(), "Debug message");
+RCLCPP_INFO(node->get_logger(), "Info message");
+RCLCPP_WARN(node->get_logger(), "Warning message");
+RCLCPP_ERROR(node->get_logger(), "Error message");
+RCLCPP_FATAL(node->get_logger(), "Fatal message");
+```
+
+```python
+# Python 日志
+node.get_logger().debug("Debug message")
+node.get_logger().info("Info message")
+node.get_logger().warn("Warning message")
+node.get_logger().error("Error message")
+node.get_logger().fatal("Fatal message")
+```
+
+### 13.3.2 设置日志级别
+
+```bash
+# 全局设置
+export RCUTILS_CONSOLE_OUTPUT_FORMAT="[%s] [%s] %s"
+
+# 运行时设置
+ros2 run rqt_console rqt_console
+
+# 代码中设置
+rclcpp::Logger logger = node->get_logger();
+logger.set_level(rclcpp::Logger::Level::Debug);
+```
+
+## 13.4 性能分析
+
+### 13.4.1 使用 perf
+
+```bash
+# 记录性能数据
+sudo perf record -g -p <pid> -- sleep 10
+
+# 查看报告
+sudo perf report
+
+# 记录函数调用
+sudo perf record -e cpu-clock -p <pid> -- sleep 10
+sudo perf report
+```
+
+### 13.4.2 使用 gprof
+
+```bash
+# 编译时启用性能分析
+colcon build --cmake-args -DCMAKE_CXX_FLAGS="-pg -g"
+colcon build --cmake-args -DCMAKE_C_FLAGS="-pg -g"
+
+# 运行程序后生成 gmon.out
+gprof <executable> gmon.out > analysis.txt
+```
+
+## 13.5 常见问题排查
+
+| 问题 | 排查方法 |
+|------|----------|
+| 节点无法发现 | 检查 ROS_DOMAIN_ID、Firewall、DDS 配置 |
+| 话题无数据 | 检查 QoS 兼容性、拓扑关系 |
+| 延迟高 | 使用 `ros2 topic delay` 检测、网络优化 |
+| 内存泄漏 | 使用 Valgrind/ASAN 检测 |
+| CPU 占用高 | 使用 perf/top 分析热点 |
+| 消息丢失 | 检查 QoS 设置、队列大小 |
+
+```bash
+gazebo /opt/ros/humble/share/gazebo_plugins/worlds/gazebo_ros_diff_drive_demo.world
+```
+
+**启动 Gazebo Classic，并加载 ROS 2 Humble 自带的差速驱动演示世界文件。**
+
+这个 `.world` 文件来自 `gazebo_plugins` 包，里面包含一个简单的两轮差速驱动机器人，并且已经配置好了 `gazebo_ros_diff_drive` 插件。该插件会：
+
+- **订阅** 话题 `/demo/cmd_demo`，消息类型 `geometry_msgs/msg/Twist`
+
+- **发布** 里程计话题，比如 `/demo/odom`
+
+- 可能还会发布 `/demo/scan` 等传感器数据（取决于 world 内容）
+
+  
+
+
+
+**用 ROS 2 命令行工具，向话题 `/demo/cmd_demo` 持续发布一条速度指令，让订阅该话题的机器人/仿真模型以 0.2 m/s 的速度沿自身 x 轴前进，并且不旋转。**
+
+逐段拆解：
+
+```
+ros2 topic pub /demo/cmd_demo geometry_msgs/msg/Twist "{linear: {x: 0.2,y: 0,z: 0},angular: {x: 0,y: 0,z: 0}}"
+```
+
+- `ros2 topic pub`：ROS 2 的话题发布命令。
+- `/demo/cmd_demo`：话题名称。名字本身可以随便取，这里相当于一个速度指令话题，类似常见的 `/cmd_vel`。
+- `geometry_msgs/msg/Twist`：消息类型。`Twist` 包含两部分：
+  - `linear`：线速度，单位 m/s
+  - `angular`：角速度，单位 rad/s
+- `"{linear: {x: 0.2,y: 0,z: 0},angular: {x: 0,y: 0,z: 0}}"`：具体数据：
+  - 线速度：`x = 0.2`，`y = 0`，`z = 0`
+  - 角速度：`x = 0`，`y = 0`，`z = 0`
+
+所以效果是：
+
+- 机器人沿自身前方，也就是 x 轴，以 `0.2 m/s` 前进；
+- 不左右平移，不上下移动；
+- 不翻滚，不俯仰，不转向。
