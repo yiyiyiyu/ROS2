@@ -1,0 +1,22 @@
+[0.013s] Invoking command in '/home/yi/ros2/ROS2/ros_parameter/build/launch_param': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclpy:/opt/ros/humble /usr/bin/cmake --build /home/yi/ros2/ROS2/ros_parameter/build/launch_param -- -j24 -l24
+[0.050s] Invoked command in '/home/yi/ros2/ROS2/ros_parameter/build/launch_param' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclpy:/opt/ros/humble /usr/bin/cmake --build /home/yi/ros2/ROS2/ros_parameter/build/launch_param -- -j24 -l24
+[0.057s] Invoking command in '/home/yi/ros2/ROS2/ros_parameter/build/launch_param': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclpy:/opt/ros/humble /usr/bin/cmake --install /home/yi/ros2/ROS2/ros_parameter/build/launch_param
+[0.062s] -- Install configuration: ""
+[0.063s] -- Up-to-date: /home/yi/ros2/ROS2/ros_parameter/install/launch_param/share/launch_param/launch
+[0.063s] -- Installing: /home/yi/ros2/ROS2/ros_parameter/install/launch_param/share/launch_param/launch/param.launch.py
+[0.063s] -- Up-to-date: /home/yi/ros2/ROS2/ros_parameter/install/launch_param/share/ament_index/resource_index/package_run_dependencies/launch_param
+[0.063s] -- Up-to-date: /home/yi/ros2/ROS2/ros_parameter/install/launch_param/share/ament_index/resource_index/parent_prefix_path/launch_param
+[0.063s] -- Up-to-date: /home/yi/ros2/ROS2/ros_parameter/install/launch_param/share/launch_param/environment/ament_prefix_path.sh
+[0.063s] -- Up-to-date: /home/yi/ros2/ROS2/ros_parameter/install/launch_param/share/launch_param/environment/ament_prefix_path.dsv
+[0.063s] -- Up-to-date: /home/yi/ros2/ROS2/ros_parameter/install/launch_param/share/launch_param/environment/path.sh
+[0.064s] -- Up-to-date: /home/yi/ros2/ROS2/ros_parameter/install/launch_param/share/launch_param/environment/path.dsv
+[0.064s] -- Up-to-date: /home/yi/ros2/ROS2/ros_parameter/install/launch_param/share/launch_param/local_setup.bash
+[0.064s] -- Up-to-date: /home/yi/ros2/ROS2/ros_parameter/install/launch_param/share/launch_param/local_setup.sh
+[0.064s] -- Up-to-date: /home/yi/ros2/ROS2/ros_parameter/install/launch_param/share/launch_param/local_setup.zsh
+[0.064s] -- Up-to-date: /home/yi/ros2/ROS2/ros_parameter/install/launch_param/share/launch_param/local_setup.dsv
+[0.064s] -- Up-to-date: /home/yi/ros2/ROS2/ros_parameter/install/launch_param/share/launch_param/package.dsv
+[0.064s] -- Up-to-date: /home/yi/ros2/ROS2/ros_parameter/install/launch_param/share/ament_index/resource_index/packages/launch_param
+[0.064s] -- Up-to-date: /home/yi/ros2/ROS2/ros_parameter/install/launch_param/share/launch_param/cmake/launch_paramConfig.cmake
+[0.064s] -- Up-to-date: /home/yi/ros2/ROS2/ros_parameter/install/launch_param/share/launch_param/cmake/launch_paramConfig-version.cmake
+[0.064s] -- Up-to-date: /home/yi/ros2/ROS2/ros_parameter/install/launch_param/share/launch_param/package.xml
+[0.065s] Invoked command in '/home/yi/ros2/ROS2/ros_parameter/build/launch_param' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/yi/ros2/ROS2/ros_parameter/install/example_parameters_rclpy:/opt/ros/humble /usr/bin/cmake --install /home/yi/ros2/ROS2/ros_parameter/build/launch_param
