@@ -1,0 +1,4 @@
+source;share/launch_param/local_setup.bash
+source;share/launch_param/local_setup.dsv
+source;share/launch_param/local_setup.sh
+source;share/launch_param/local_setup.zsh
